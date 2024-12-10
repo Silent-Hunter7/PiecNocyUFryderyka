@@ -11,28 +11,24 @@
         <div id="obrazek" class="wysokosc"></div>
         <div id="drzwiLewo" class="wysokosc"></div>
         <div id="drzwiPrawo" class="wysokosc"></div>
+        <div id="wiatrak" class="wysokosc"></div>
         
-        <div id="przyciskiLewo" class="przyciskiDiv">
-            <button id="drzwiPrzyciskLewo" class="drzwi" onclick="ObslugaDrzwi(0)">
-                Drzwi
-            </button>
-            <button id="swiatloLewo" class="swiatlo" onclick="ObslugaSwiatla(0)">
-                Światło
-            </button>
+        <div id="przyciskiLewo">
+            <button id="drzwiPrzyciskLewo" class="drzwiPrzycisk" onclick="ObslugaDrzwi(0)"></button>
+            <button id="swiatloPrzyciskLewo" class="swiatloPrzycisk" onclick="ObslugaSwiatla(0)"></button>
         </div>
-        <div id="przyciskiPrawo" class="przyciskiDiv">
-            <button id="drzwiPrzyciskPrawo" class="drzwi" onclick="ObslugaDrzwi(1)">
-                Drzwi
-            </button>
-            <button id="swiatloPrawo" class="swiatlo" onclick="ObslugaSwiatla(1)">
-                Światło
-            </button>
+        
+        <div id="przyciskiPrawo">
+            <button id="drzwiPrzyciskPrawo" class="drzwiPrzycisk" onclick="ObslugaDrzwi(1)"></button>
+            <button id="swiatloPrzyciskPrawo" class="swiatloPrzycisk" onclick="ObslugaSwiatla(1)"></button>
         </div>
+
         <div id="panelKamer" class="wysokosc">
             <div id="panelImg" class="wysokosc"></div>
             <div id="widokKamera" class="wysokosc"></div>
             <div id="wylaczone" class="wysokosc"></div>
             <div id="mapa" class="wysokosc"></div>
+            <div id="nagrywanie"></div>
             <button onclick="KameraZmien(0)" class="przyciskKMR" id="przyciskKam0"></button>
             <button onclick="KameraZmien(1)" class="przyciskKMR" id="przyciskKam1"></button>
             <button onclick="KameraZmien(2)" class="przyciskKMR" id="przyciskKam2"></button>
@@ -48,6 +44,8 @@
         <button id="kameryPrzycisk" onmouseenter="KameraOtworz()"></button>
         <p id="czas">12 AM</p>
         <p id="bateria">100%</p>
+        <div id="zuzycie"></div>
+        <div id="procent"></div>
         <div id="jumpscare" class="wysokosc"></div>
     </main>
     <script src="skrypt.js"></script>

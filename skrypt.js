@@ -46,8 +46,13 @@ const main = document.querySelector('main');
 const panel = document.getElementById('panelKamer');
 const wylaczone = document.getElementById('wylaczone');
 const kamery = document.getElementById('widokKamera');
+const przyciskiLewo = document.getElementById('przyciskiLewo');
+const przyciskiPrawo = document.getElementById('przyciskiPrawo');
 const drzwiLewo = document.getElementById('drzwiLewo');
 const drzwiPrawo = document.getElementById('drzwiPrawo');
+const nagrywanie = document.getElementById('nagrywanie');
+let wiatrakAnimacja = 0;
+const wiatrak = document.getElementById('wiatrak');
 
 document.addEventListener("DOMContentLoaded", rozmiar);
 window.addEventListener("resize", rozmiar);
@@ -75,19 +80,25 @@ setInterval(function(){SzansaRuchu(0)}, 3000);
 setInterval(function(){SzansaRuchu(1)}, 4800);
 setInterval(function(){SzansaRuchu(2)}, 5200);
 setInterval(function(){SzansaRuchu(3)}, 5100);
+setInterval(function(){
+    wiatrakAnimacja++;
+    if(wiatrakAnimacja > 2){
+        wiatrakAnimacja = 0;
+    }
+    wiatrak.style.backgroundImage = 'url("img/biuro/wiatrak/wiatrak'+wiatrakAnimacja+'.png")';
+}, 20);
 
 //co sekundę
 function CzasSekunda(){
-    if(graDziala){
-        let Bateria = document.getElementById("bateria");
-        czas+=1;
-        bateria-=zuzycie;
-        Bateria.innerHTML = Math.round(bateria/10)+"%";
-        if(czas%dlugoscGodzina==0) CzasGodzina();
-        if(bateria <= 0 && ciemnoscFaza == 0){
-            NoBateria(0);
-        }
+    let Bateria = document.getElementById("bateria");
+    czas+=1;
+    bateria-=zuzycie;
+    Bateria.innerHTML = Math.round(bateria/10)+"%";
+    if(czas%dlugoscGodzina==0) CzasGodzina();
+    if(bateria <= 0 && ciemnoscFaza == 0){
+        NoBateria(0);
     }
+    nagrywanie.style.opacity = nagrywanie.style.opacity == 1 ? 0 : 1;
 }
 
 function FoxyTimer(){
@@ -104,12 +115,21 @@ function FoxyTimer(){
 //fazy 0-prad   1-brakpradu 2-oczy 3-ciemnosc 4-smierc
 function NoBateria(){
     let jumpscare = document.getElementById("jumpscare");
-    jumpscare.style.display = "block";
+        document.getElementById('obrazek').style.backgroundImage = 'url("img/kamery/panelKamer.jpg")';
+        main.style.backgroundImage = 'url("img/kamery/panelKamer.jpg")';
+        jumpscare.style.display = "block";
+        wiatrak.style.display = "none";
+        przyciskiLewo.style.display = "none";
+        przyciskiPrawo.style.display = "none";
+        panel.style.display = "none";
+        czyKamery = false;
+        DrzwiAnimacja(0, false);
+        DrzwiAnimacja(1, false);
     if(ciemnoscFaza == 0){
         console.log("Zgaszenie światła");
         ciemnoscFaza = 1;
         ilosc = 0;
-        jumpscare.style.backgroundImage = 'url("img/biuro/noprad1.png")';
+        jumpscare.style.backgroundImage = 'url("img/biuro/noprad1.jpg")';
         setTimeout(function(){NoBateriaF1()}, 5000);
         graDziala = false;
     }
@@ -117,18 +137,18 @@ function NoBateria(){
         console.log("Oczy freddiego");
         ciemnoscFaza = 3;
         ilosc = 0;
-        jumpscare.style.backgroundImage = 'url("img/biuro/noprad2.png")';
+        jumpscare.style.backgroundImage = 'url("img/biuro/noprad2.jpg")';
         setTimeout(function(){NoBateriaF2()}, 5000);
     }
     if(ciemnoscFaza == 4){
         console.log("Ciemność");
         ciemnoscFaza = 5;
-        jumpscare.style.backgroundImage = 'url("img/biuro/noprad3.png")';
+        jumpscare.style.backgroundImage = 'url("img/biuro/noprad3.jpg")';
         setTimeout(function(){NoBateriaF3()}, 2000);
     }
     if(ciemnoscFaza == 6){
         ciemnoscFaza = 7;
-        Przegrana(0);
+        Przegrana(4);
     }
 }
 function NoBateriaF1(){
@@ -266,7 +286,6 @@ function RuchFreddy(){
                     gdzieFreddy=5;
                 }else Przegrana(0);
                 break;
-                
         }
         console.log("Fred "+gdzieFreddy);
     }
@@ -422,6 +441,9 @@ function RuchFoxy(){
                 gdzieFoxy=0;
             }else Przegrana(3);
             break;
+        default:
+            gdzieFoxy=0;
+            break;
     }
     console.log("Foxy "+gdzieFoxy);
     PokazKamAnim();
@@ -432,28 +454,46 @@ function Przegrana(kto){
     let jumpscare = document.getElementById("jumpscare");
     console.log("-----Przegrana");
     jumpscare.style.display = "block";
+    panel.style.display = "none";
+    graDziala = false;
     switch(kto){
         case 0:
-            jumpscare.style.backgroundImage = 'url("img/jumpscareFreddy.png")';
+            jumpscare.style.backgroundImage = 'url("img/jumpscare/freddy/0.jpg")';
+            setInterval(function(){
+                random = LosowyInt(0,28);
+                jumpscare.style.backgroundImage = 'url("img/jumpscare/freddy/'+random+'.jpg")';
+            }, 50);
             break;
         case 1:
-            jumpscare.style.backgroundImage = 'url("img/jumpscareBonnie.png")';
+            jumpscare.style.backgroundImage = 'url("img/jumpscare/bonnie/0.jpg")';
+            setInterval(function(){
+                random = LosowyInt(0,10);
+                jumpscare.style.backgroundImage = 'url("img/jumpscare/bonnie/'+random+'.jpg")';
+            }, 50);
             break;
         case 2:
-            jumpscare.style.backgroundImage = 'url("img/jumpscareChica.png")';
+            jumpscare.style.backgroundImage = 'url("img/jumpscare/chica/0.jpg")';
+            setInterval(function(){
+                random = LosowyInt(0,15);
+                jumpscare.style.backgroundImage = 'url("img/jumpscare/chica/'+random+'.jpg")';
+            }, 50);
             break;
         case 3:
-            jumpscare.style.backgroundImage = 'url("img/jumpscareFoxy.png")';
+            jumpscare.style.backgroundImage = 'url("img/jumpscare/foxy/0.jpg")';
+            setInterval(function(){
+                random = LosowyInt(0,16);
+                jumpscare.style.backgroundImage = 'url("img/jumpscare/foxy/'+random+'.jpg")';
+            }, 50);
+            break;
+        case 4:
+            jumpscare.style.backgroundImage = 'url("img/jumpscare/power/0.jpg")';
+            setInterval(function(){
+                random = LosowyInt(0,20);
+                jumpscare.style.backgroundImage = 'url("img/jumpscare/power/'+random+'.jpg")';
+            }, 50);
             break;
 
     }
-    graDziala = false;
-    setInterval(function(){
-        if(kto == 1){
-            random = LosowyInt(0,10);
-            jumpscare.style.backgroundImage = 'url("img/jumpscare/bonnie/'+random+'.png")';
-        }
-    }, 50);
 }
 function Wygrana(){
     alert("Wygrałeś");
@@ -461,83 +501,165 @@ function Wygrana(){
     graDziala = false;
 }
 
-
+let drzwiDostepne = [true, true];
 function ObslugaDrzwi(strona){
     if(graDziala){
         if(strona == 0){
-            if(stanDrzwiLewo == 0){
+            if(stanDrzwiLewo == 0 && drzwiDostepne[0]){
                 console.log("Zamknięcie Lewych Drzwi");
                 stanDrzwiLewo = 1;
-                drzwiLewo.style.opacity = 1;
+                DrzwiAnimacja(strona, true);
                 zuzycie++;
-            }else{
+            }else if(drzwiDostepne[0]){
                 console.log("Otworzenie Lewych Drzwi");
                 stanDrzwiLewo = 0;
-                drzwiLewo.style.opacity = 0;
+                DrzwiAnimacja(strona, false);
                 zuzycie--;
-            }
+            }else console.log("trwa animacja - przycisk nie zadziała");
         }else{
-            if(stanDrzwiPrawo == 0){
+            if(stanDrzwiPrawo == 0 && drzwiDostepne[1]){
                 console.log("Zamknięcie Prawych Drzwi");
                 stanDrzwiPrawo = 1;
-                drzwiPrawo.style.opacity = 1;
+                DrzwiAnimacja(strona, true);
                 zuzycie++;
-            }else{
+            }else if(drzwiDostepne[1]){
                 console.log("Otworzenie Prawych Drzwi");
                 stanDrzwiPrawo = 0;
-                drzwiPrawo.style.opacity = 0;
+                DrzwiAnimacja(strona, false);
                 zuzycie--;
+            }else console.log("trwa animacja - przycisk nie zadziała");
+        }
+        TeksturaPrzyciskow();
+    }
+}
+
+let klatka;
+function DrzwiAnimacja(strona, zamykanie){
+    if(graDziala){
+        if(strona == 0){
+            drzwiDostepne[0] = false;
+            if(zamykanie){
+                klatka = 0;
+                setTimeout(function(){nastepnaKlatkaDrzwi(strona,zamykanie)},10);
+            }else{
+                klatka = 14;
+                setTimeout(function(){nastepnaKlatkaDrzwi(strona,zamykanie)},10);
+            }
+        }else{
+            drzwiDostepne[1] = false;
+            if(zamykanie){
+                klatka = 0;
+                setTimeout(function(){nastepnaKlatkaDrzwi(strona,zamykanie)},10);
+            }else{
+                klatka = 14;
+                setTimeout(function(){nastepnaKlatkaDrzwi(strona,zamykanie)},10);
             }
         }
     }
 }
+function nastepnaKlatkaDrzwi(strona, zamykanie){
+    if(zamykanie){
+        if(klatka == 14){
+            drzwiDostepne[strona] = true;
+            return;
+        }
+        klatka++;
+    }else{
+        if(klatka == 0){
+            drzwiDostepne[strona] = true;
+            return;
+        }
+        klatka--;
+    }
+    if(strona == 0){
+        drzwiLewo.style.backgroundImage = 'url("img/biuro/drzwi/lewe/'+klatka+'.png")';
+        setTimeout(function(){nastepnaKlatkaDrzwi(strona,zamykanie)},10);   
+    }else{
+        drzwiPrawo.style.backgroundImage = 'url("img/biuro/drzwi/prawe/'+klatka+'.png")';
+        setTimeout(function(){nastepnaKlatkaDrzwi(strona,zamykanie)},10);
+    }
+}
+
+
 
 function ObslugaSwiatla(strona){
     if(graDziala){
         if(strona == 0){
-            if(stanSwiatloLewo == 0){
-                console.log("Zapalenie Lewego Światła");
-                stanSwiatloLewo = 1;
-                zuzycie++;
-                PokazPrawde(0, true);
-            }else{
-                console.log("Zgaszenie Lewego Światła");
-                stanSwiatloLewo = 0;
-                zuzycie--;
-                PokazPrawde(0, false);
+            if(stanSwiatloPrawo == 0){
+                if(stanSwiatloLewo == 0){
+                    console.log("Zapalenie Lewego Światła");
+                    stanSwiatloLewo = 1;
+                    zuzycie++;
+                    PokazPrawde(0, true);
+                }else{
+                    console.log("Zgaszenie Lewego Światła");
+                    stanSwiatloLewo = 0;
+                    zuzycie--;
+                    PokazPrawde(0, false);
+                }
             }
         }else{
-            if(stanSwiatloPrawo == 0){
-                console.log("Zapalenie Prawego Światła");
-                stanSwiatloPrawo = 1;
-                zuzycie++;
-                PokazPrawde(1, true);
-            }else{
-                console.log("Zgaszenie Prawego Światła");
-                stanSwiatloPrawo = 0;
-                zuzycie--;
-                PokazPrawde(1, false);
+            if(stanSwiatloLewo == 0){
+                if(stanSwiatloPrawo == 0){
+                    console.log("Zapalenie Prawego Światła");
+                    stanSwiatloPrawo = 1;
+                    zuzycie++;
+                    PokazPrawde(1, true);
+                }else{
+                    console.log("Zgaszenie Prawego Światła");
+                    stanSwiatloPrawo = 0;
+                    zuzycie--;
+                    PokazPrawde(1, false);
+                }
             }
         }
+        TeksturaPrzyciskow();
     }
 }
+function TeksturaPrzyciskow(){
+    if(graDziala){
+        let jaki = 'url("img/biuro/przyciski/lewe';
+        if(stanDrzwiLewo == 1){
+            if(stanSwiatloLewo == 1) jaki += "drzwiswiatlo";
+            else jaki += "drzwi";
+        }else{
+            if(stanSwiatloLewo == 1) jaki += "swiatlo";
+            else jaki += "nic";
+        }
+        jaki+= '.png")'
+        przyciskiLewo.style.backgroundImage = jaki;
+        jaki = 'url("img/biuro/przyciski/prawe';
+        if(stanDrzwiPrawo == 1){
+            if(stanSwiatloPrawo == 1) jaki += "drzwiswiatlo";
+            else jaki += "drzwi";
+        }else{
+            if(stanSwiatloPrawo == 1) jaki += "swiatlo";
+            else jaki += "nic";
+        }
+        jaki+= '.png")'
+        przyciskiPrawo.style.backgroundImage = jaki;
+    }
+}
+
+
+
 function PokazPrawde(strona, pokaz){
     if(graDziala){
         if(strona == 0){
             if(gdzieBonnie == 11 && pokaz){
-                main.style.backgroundImage = 'url("img/biuro/bonnie.png")';
+                main.style.backgroundImage = 'url("img/biuro/bonnie.jpg")';
             }else if(pokaz){
-                main.style.backgroundImage = 'url("img/biuro/leweswiatlo.png")';
+                main.style.backgroundImage = 'url("img/biuro/leweswiatlo.jpg")';
             }else{
-                main.style.backgroundImage = 'url("img/biuro/nikt.png")';
+                main.style.backgroundImage = 'url("img/biuro/nikt.jpg")';
             }
         }else{
             if(gdzieChica == 12 && pokaz){
-                main.style.backgroundImage = 'url("img/biuro/chica.png")';
+                main.style.backgroundImage = 'url("img/biuro/chica.jpg")';
             }else if(pokaz){
-                main.style.backgroundImage = 'url("img/biuro/praweswiatlo.png")';
+                main.style.backgroundImage = 'url("img/biuro/praweswiatlo.jpg")';
             }else{
-                main.style.backgroundImage = 'url("img/biuro/nikt.png")';
+                main.style.backgroundImage = 'url("img/biuro/nikt.jpg")';
             }
         }
     }
@@ -547,19 +669,19 @@ function ZmienPrawde(strona){
         console.log("zmien "+strona);
         if(strona == 0){
             if(gdzieBonnie == 11 && stanSwiatloLewo == 1){
-                main.style.backgroundImage = 'url("img/biuro/bonnie.png")';
+                main.style.backgroundImage = 'url("img/biuro/bonnie.jpg")';
             }else if(stanSwiatloLewo == 1){
-                main.style.backgroundImage = 'url("img/biuro/leweswiatlo.png")';
+                main.style.backgroundImage = 'url("img/biuro/leweswiatlo.jpg")';
             }else{
-                main.style.backgroundImage = 'url("img/biuro/nikt.png")';
+                main.style.backgroundImage = 'url("img/biuro/nikt.jpg")';
             }
         }else{
             if(gdzieChica == 12 && stanSwiatloPrawo == 1){
-                main.style.backgroundImage = 'url("img/biuro/chica.png")';
+                main.style.backgroundImage = 'url("img/biuro/chica.jpg")';
             }else if(stanSwiatloPrawo == 1){
-                main.style.backgroundImage = 'url("img/biuro/praweswiatlo.png")';
+                main.style.backgroundImage = 'url("img/biuro/praweswiatlo.jpg")';
             }else{
-                main.style.backgroundImage = 'url("img/biuro/nikt.png")';
+                main.style.backgroundImage = 'url("img/biuro/nikt.jpg")';
             }
         }
     }
@@ -681,9 +803,9 @@ function PokazKamAnim(){
                 break;
     
         }
-        sciezka += '.png")';
+        sciezka += '.jpg")';
     }else{
-        sciezka = 'url("img/static1.png")';
+        sciezka = 'url("img/static/static1.jpg")';
     }
     //console.log("pokazkamanim");
     kamery.style.backgroundImage = sciezka;

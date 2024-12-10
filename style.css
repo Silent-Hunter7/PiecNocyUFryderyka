@@ -9,102 +9,130 @@ body{
     align-items: center;
 }
 main{
-    background-image: url("img/biuro/nikt.png");
+    background-image: url("img/biuro/nikt.jpg");
     background-size: contain;
     position: relative;
 }
 #obrazek{
-    background-image: url("img/biuro/nikt.png");
+    background-image: url("img/biuro/tlo.jpg");
     background-size: contain;
     position: absolute;
     z-index: -1;
 }
+#wiatrak{
+    background-image: url("img/biuro/wiatrak/wiatrak0.png");
+    background-size: contain;
+    position: absolute;
+}
 /*Obie strony*/
-.przyciskiDiv{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+.drzwiPrzycisk{
+    position: absolute;
+    width: 60%;
+    height: 30%;
+    border: transparent;
+    background-color: transparent;
 }
-.drzwi{
-    margin-right: 10px;
-    margin-left: 10px;
-    width: 50px;
-    height: 50px;
-}
-.swiatlo{
-    margin-right: 10px;
-    margin-left: 10px;
-    width: 50px;
-    height: 50px;
+.swiatloPrzycisk{
+    position: absolute;
+    width: 60%;
+    height: 30%;
+    border: transparent;
+    background-color: transparent;
 }
 /*Lewa strona*/
 #drzwiLewo{
     position: absolute;
     top: 0;
     left: 0;
-    opacity: 0;
-    background-image: url("img/biuro/LewaDrzwi.png");
+    background-image: url("img/biuro/drzwi/lewe/0.png");
     background-size: contain;
 }
 #przyciskiLewo{
-    position: fixed;
-    top: 450px;
-    left: 350px;
-    height: 120px;
+    position: absolute;
+    top: 40%;
+    left: 16%;
+    width: 3.5%;
+    height: 17%;
+    background-image: url("img/biuro/przyciski/lewenic.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+#drzwiPrzyciskLewo{
+    top: 7%;
+    left: 25%;
+}
+#swiatloPrzyciskLewo{
+    top:53%;
+    left: 25%;
 }
 /*Prawa strona*/
 #drzwiPrawo{
     position: absolute;
     top: 0;
     right: 0;
-    opacity: 0;
-    background-image: url("img/biuro/PrawaDrzwi.png");
+    background-image: url("img/biuro/drzwi/prawe/0.png");
     background-size: cover;
 }
 #przyciskiPrawo{
-    position: fixed;
-    top: 450px;
-    right: 350px;
-    height: 120px;
+    position: absolute;
+    top: 40%;
+    right: 15.3%;
+    width: 3.5%;
+    height: 17%;
+    background-image: url("img/biuro/przyciski/prawenic.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+#drzwiPrzyciskPrawo{
+    top: 7%;
+    right: 25%;
+}
+#swiatloPrzyciskPrawo{
+    top:53%;
+    right: 25%;
 }
 /*Kamery*/
 #kameryPrzycisk{
     position: absolute;
-    bottom: -3%;
+    bottom: 0%;
     left: 20%;
     width: 47%;
-    height: 13.48vh;
-    background-image: url("img/przyciskKamery.png");
+    height: 10%;
+    background-image: url("img/kamery/przycisk.png");
     background-size: contain;
     background-color: transparent;
     background-repeat: no-repeat;
     border: 0;
 }
-#panelKamer{
-    top: 0;
+#panelKamer, #wylaczone{
     position: absolute;
     display: none;
 }
 #panelImg{
     position: absolute;
-    background-image: url("img/static1.png");
+    background-image: url("img/static/static1.jpg");
     background-size: contain;
 }
 #widokKamera{
     position: absolute;
-    background-image: url("img/kamery/0/wszyscy.png");
+    background-image: url("img/kamery/0/wszyscy.jpg");
     background-size: contain;
-}
-#wylaczone{
-    top: 0;
-    position: absolute;
-    display: none;
 }
 #mapa{
     position: absolute;
-    background-image: url("img/overlay.png");
+    background-image: url("img/kamery/overlay.png");
     background-size: contain;
+}
+#nagrywanie{
+    position: absolute;
+    width: 4%;
+    height: 10%;
+    top: 7%;
+    left: 5%;
+    background-image: url("img/kamery/nagrywanie.png");
+    opacity: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 .przyciskKMR{
     position: absolute;
@@ -201,7 +229,26 @@ main{
     font-size: 5em;
     color: white;
 }
-
+#zuzycie{
+    position: absolute;
+    width: 4%;
+    height: 10%;
+    bottom: 7%;
+    left: 5%;
+    background-image: url("img/interfejs/zuzycie1.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+#procent{
+    position: absolute;
+    width: 4%;
+    height: 10%;
+    bottom: 17%;
+    left: 5%;
+    background-image: url("img/interfejs/procent.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
 .wysokosc{
     width: 1920px;
     height: 1080px;
