@@ -231,7 +231,7 @@ function CzasGodzina(){
     let Zegar = document.getElementById("czas");
     console.log("-----Godzina")
     godzina++
-    Zegar.innerHTML = godzina + " AM";
+    Zegar.style.backgroundImage = 'url("img/interfejs/'+godzina+'am.png")';
     switch(godzina){
         case 2:
             aiBonnie++;
@@ -509,31 +509,65 @@ function Przegrana(kto){
     switch(kto){
         case 0:
             jumpscare.style.backgroundImage = 'url("img/gif/freddy.gif")';
-            setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';}, 1200)
+            setTimeout(function(){
+                jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';
+                setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
+                    setTimeout(function(){window.location.assign("index.html");},5000);
+                },3000);
+            }, 1200)
             break;
         case 1:
             jumpscare.style.backgroundImage = 'url("img/gif/bonnie.gif")';
-            setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';}, 850)
+            setTimeout(function(){
+                jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';
+                setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
+                    setTimeout(function(){window.location.assign("index.html");},5000);
+                },3000);
+            }, 850)
             break;
         case 2:
             jumpscare.style.backgroundImage = 'url("img/gif/chica.gif")';
-            setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';}, 850)
+            setTimeout(function(){
+                jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';
+                setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
+                    setTimeout(function(){window.location.assign("index.html");},5000);
+                },3000);
+            }, 850)
             break;
         case 3:
             jumpscare.style.backgroundImage = 'url("img/gif/foxy.gif")';
-            setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';}, 850)
+            setTimeout(function(){
+                jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';
+                setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
+                    setTimeout(function(){window.location.assign("index.html");},5000);
+                },3000);
+            }, 850)
             break;
         case 4:
             jumpscare.style.backgroundImage = 'url("img/gif/power.gif")';
-            setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';}, 850)
+            setTimeout(function(){
+                jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';
+                setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
+                    setTimeout(function(){window.location.assign("index.html");},5000);
+                },3000);
+            }, 850)
             break;
-
     }
 }
 function Wygrana(){
-    alert("Wygrałeś");
-    console.log("-----Wygrana");
+    console.log("-----Wygrałeś");
+    jumpscare.style.display = "block";
+    zapasowy.style.display = "block";
+    panel.style.display = "none";
     graDziala = false;
+    if(noc == 5){
+        jumpscare.style.backgroundImage = 'url("img/zakonczenia/wygrana5.jpg")';
+    }else if(noc == 6){
+        jumpscare.style.backgroundImage = 'url("img/zakonczenia/wygrana6.jpg")';
+    }else if(noc == 7){
+        jumpscare.style.backgroundImage = 'url("img/zakonczenia/wygrana7.jpg")';
+    }
+    setTimeout(function(){window.location.assign("index.html");},10000);
 }
 
 let drzwiDostepne = [true, true];

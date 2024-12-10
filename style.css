@@ -224,21 +224,21 @@ main{
 #czas{
     text-align: right;
     position: absolute;
-    width: 20%;
-    height: 10%;
-    right: 2%;
-    top: 0%;
-    font-size: 2.5vw;
-    color: white;
-    font-family: arial;
+    width: 7%;
+    height: 5%;
+    right: 3%;
+    top: 4.3%;
+    background-image: url("img/interfejs/12am.png");
+    background-size: contain;
+    background-repeat: no-repeat;
 }   
 #noc{
     text-align: right;
     position: absolute;
-    width: 15%;
-    height: 10%;
-    right: 2%;
-    top: 7.5%;
+    width: 5%;
+    height: 2.3%;
+    right: 3%;
+    top: 10.5%;
     background-image: url("img/interfejs/noc1.png");
     background-size: contain;
     background-repeat: no-repeat;
