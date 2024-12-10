@@ -1,0 +1,28 @@
+body{
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+main{
+    background-color: tomato;
+    background-image: url("Freddy.png");
+    background-size: 30px;
+    position: relative;
+}
+#nocInput{
+    display: none;
+}
+#customNight{
+    display: none;
+}
+.nazwa{
+    font-size: 2em;
+}
+.wysokosc{
+    width: 1920px;
+    height: 1080px;
+}

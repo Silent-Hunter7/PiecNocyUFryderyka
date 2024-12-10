@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>"fnaf"</title>
+</head>
+<body>
+    <main class="wysokosc">
+
+        <div id="drzwiLewo" class="wysokosc"></div>
+        <div id="drzwiPrawo" class="wysokosc"></div>
+        
+        <div id="przyciskiLewo" class="przyciskiDiv">
+            <button id="drzwiPrzyciskLewo" class="drzwi" onclick="ObslugaDrzwi(0)">
+                Drzwi
+            </button>
+            <button id="swiatloLewo" class="swiatlo" onclick="ObslugaSwiatla(0)">
+                Światło
+            </button>
+        </div>
+        <div id="przyciskiPrawo" class="przyciskiDiv">
+            <button id="drzwiPrzyciskPrawo" class="drzwi" onclick="ObslugaDrzwi(1)">
+                Drzwi
+            </button>
+            <button id="swiatloPrawo" class="swiatlo" onclick="ObslugaSwiatla(1)">
+                Światło
+            </button>
+        </div>
+        <div id="panelKamer" class="wysokosc">
+            <div id="panelImg" class="wysokosc"></div>
+            <div id="widokKamera" class="wysokosc"></div>
+            <div id="wylaczone" class="wysokosc"></div>
+            <div id="mapa" class="wysokosc"></div>
+            <button onclick="KameraZmien(0)" class="przyciskKMR" id="przyciskKam0"></button>
+            <button onclick="KameraZmien(1)" class="przyciskKMR" id="przyciskKam1"></button>
+            <button onclick="KameraZmien(2)" class="przyciskKMR" id="przyciskKam2"></button>
+            <button onclick="KameraZmien(3)" class="przyciskKMR" id="przyciskKam3"></button>
+            <button onclick="KameraZmien(4)" class="przyciskKMR" id="przyciskKam4"></button>
+            <button onclick="KameraZmien(5)" class="przyciskKMR" id="przyciskKam5"></button>
+            <button onclick="KameraZmien(6)" class="przyciskKMR" id="przyciskKam6"></button>
+            <button onclick="KameraZmien(7)" class="przyciskKMR" id="przyciskKam7"></button>
+            <button onclick="KameraZmien(8)" class="przyciskKMR" id="przyciskKam8"></button>
+            <button onclick="KameraZmien(9)" class="przyciskKMR" id="przyciskKam9"></button>
+            <button onclick="KameraZmien(10)" class="przyciskKMR" id="przyciskKam10"></button>
+        </div>
+        <button id="kameryPrzycisk" onmouseenter="KameraOtworz()"></button>
+        <p id="czas">12 AM</p>
+        <p id="bateria">100%</p>
+        <div id="jumpscare" class="wysokosc"></div>
+    </main>
+    <script src="skrypt.js"></script>
+</body>
+</html>

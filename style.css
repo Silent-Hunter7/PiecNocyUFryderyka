@@ -1,0 +1,203 @@
+/*Ogólne*/
+body{
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+main{
+    background-color: tomato;
+    background-image: url("img/biuro/nikt.png");
+    background-size: contain;
+    position: relative;
+}
+/*Obie strony*/
+.przyciskiDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.drzwi{
+    margin-right: 10px;
+    margin-left: 10px;
+    width: 50px;
+    height: 50px;
+}
+.swiatlo{
+    margin-right: 10px;
+    margin-left: 10px;
+    width: 50px;
+    height: 50px;
+}
+/*Lewa strona*/
+#drzwiLewo{
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    background-image: url("img/biuro/LewaDrzwi.png");
+    background-size: contain;
+}
+#przyciskiLewo{
+    position: fixed;
+    top: 450px;
+    left: 350px;
+    height: 120px;
+}
+/*Prawa strona*/
+#drzwiPrawo{
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    background-image: url("img/biuro/PrawaDrzwi.png");
+    background-size: cover;
+}
+#przyciskiPrawo{
+    position: fixed;
+    top: 450px;
+    right: 350px;
+    height: 120px;
+}
+/*Kamery*/
+#kameryPrzycisk{
+    position: absolute;
+    bottom: -3%;
+    left: 20%;
+    width: 47%;
+    height: 13.48vh;
+    background-image: url("img/przyciskKamery.png");
+    background-size: contain;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: 0;
+}
+#panelKamer{
+    top: 0;
+    position: absolute;
+    display: none;
+}
+#panelImg{
+    position: absolute;
+    background-image: url("img/panelKamer.jpg");
+    background-size: contain;
+}
+#widokKamera{
+    position: absolute;
+    background-image: url("img/kamery/0/wszyscy.png");
+    background-size: contain;
+}
+#wylaczone{
+    top: 0;
+    position: absolute;
+    display: none;
+}
+#mapa{
+    position: absolute;
+    background-image: url("img/overlay.png");
+    background-size: contain;
+}
+.przyciskKMR{
+    position: absolute;
+    width: 4.4%;
+    height: 5%;
+}
+#przyciskKam0{
+    bottom: 48%;
+    right: 21%;
+    background-image: url("img/kameraPrzyciski/kam0off.jpg");
+    background-size: contain;
+}
+#przyciskKam1{
+    bottom: 40.75%;
+    right: 22%;
+    background-image: url("img/kameraPrzyciski/kam1off.jpg");
+    background-size: contain;
+}
+#przyciskKam2{
+    bottom: 13.5%;
+    right: 21%;
+    background-image: url("img/kameraPrzyciski/kam2off.jpg");
+    background-size: contain;
+}
+#przyciskKam3{
+    bottom: 8%;
+    right: 21%;
+    background-image: url("img/kameraPrzyciski/kam3off.jpg");
+    background-size: contain;
+}
+#przyciskKam4{
+    bottom: 16%;
+    right: 27%;
+    background-image: url("img/kameraPrzyciski/kam4off.jpg");
+    background-size: contain;
+}
+#przyciskKam5{
+    bottom: 13.5%;
+    right: 12.7%;
+    background-image: url("img/kameraPrzyciski/kam5off.jpg");
+    background-size: contain;
+}
+#przyciskKam6{
+    bottom: 8%;
+    right: 12.7%;
+    background-image: url("img/kameraPrzyciski/kam6off.jpg");
+    background-size: contain;
+}
+#przyciskKam7{
+    bottom: 36.5%;
+    right: 31%;
+    background-image: url("img/kameraPrzyciski/kam7off.jpg");
+    background-size: contain;
+}
+#przyciskKam8{
+    bottom: 18%;
+    right: 6%;
+    background-image: url("img/kameraPrzyciski/kam8off.jpg");
+    background-size: contain;
+}
+#przyciskKam9{
+    bottom: 36.5%;
+    right: 5%;
+    background-image: url("img/kameraPrzyciski/kam9off.jpg");
+    background-size: contain;
+}
+#przyciskKam10{
+    bottom: 29%;
+    right: 25%;
+    background-image: url("img/kameraPrzyciski/kam10off.jpg");
+    background-size: contain;
+}   
+
+.niewidzialne{
+    opacity: 0;
+}
+#jumpscare{
+    display: none;
+    background-size: contain;
+    position: absolute;
+}
+
+#czas{
+    position: absolute;
+    right: 3%;
+    top: 2%;
+    font-size: 5em;
+    color: white;
+}
+#bateria{
+    position: absolute;
+    left: 3%;
+    bottom: 2%;
+    font-size: 5em;
+    color: white;
+}
+
+.wysokosc{
+    width: 1920px;
+    height: 1080px;
+}
