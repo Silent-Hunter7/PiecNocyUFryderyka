@@ -9,10 +9,15 @@ body{
     align-items: center;
 }
 main{
-    background-color: tomato;
     background-image: url("img/biuro/nikt.png");
     background-size: contain;
     position: relative;
+}
+#obrazek{
+    background-image: url("img/biuro/nikt.png");
+    background-size: contain;
+    position: absolute;
+    z-index: -1;
 }
 /*Obie strony*/
 .przyciskiDiv{
@@ -83,7 +88,7 @@ main{
 }
 #panelImg{
     position: absolute;
-    background-image: url("img/panelKamer.jpg");
+    background-image: url("img/static1.png");
     background-size: contain;
 }
 #widokKamera{

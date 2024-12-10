@@ -8,7 +8,6 @@ body{
     align-items: center;
 }
 main{
-    background-color: tomato;
     background-image: url("Freddy.png");
     background-size: 30px;
     position: relative;

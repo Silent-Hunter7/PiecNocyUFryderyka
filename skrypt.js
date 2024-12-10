@@ -1,5 +1,5 @@
 let graDziala = true;
-let noc = 1;
+let noc = 5;
 let czas = 0;
 let godzina = 0;
 let dlugoscGodzina = 90;
@@ -11,9 +11,9 @@ if(noc < 5){
 }else zuzycie+=(1/3);
 //"ai" od 0 do 20
 let aiFreddy = 3;
-let aiBonnie = 20;
-let aiChica = 3;
-let aiFoxy = 3;
+let aiBonnie = 5;
+let aiChica = 7;
+let aiFoxy = 5;
 //ich lokalizacja: 0 - scena, 11 - lewe drzwi, 12 - prawe drzwi
 let gdzieFreddy = 0;
 let gdzieBonnie = 0;
@@ -213,25 +213,18 @@ function SzansaRuchu(kto){
                 break;
             case 1:
                 if(random2){
-                    if(warBonnie==0)warBonnie==1;
-                    else warBonnie==0;
+                    warBonnie = warBonnie == 1 ? 0 : 1;
                     wylaczonaBonnie1 = gdzieBonnie;
                     wylaczonaBonnie2 = gdzieBonnie;
                     wlaczKamery(0);
                 }
                 if(random <= aiBonnie){
-                    console.log(random);
-                    console.log(aiBonnie);
-
-
-
                     RuchBonnie();
                 }
                 break;
             case 2:
                 if(random2){
-                    if(warChica==0)warChica==1;
-                    else warChica==0;
+                    warChica = warChica == 1 ? 0 : 1;
                     wylaczonaChica1 = gdzieChica;
                     wylaczonaChica2 = gdzieChica;
                     wlaczKamery(1);
@@ -278,7 +271,7 @@ function RuchFreddy(){
         console.log("Fred "+gdzieFreddy);
     }
 }
-let bonniePowrot = [0,1,7];
+let bonniePowrot = [1,7];
 function RuchBonnie(){
     wylaczonaBonnie1 = gdzieBonnie;
     switch(gdzieBonnie){ //0,1,2,3,4,7,11
@@ -328,7 +321,7 @@ function RuchBonnie(){
             break;
         case 11:
             if(stanDrzwiLewo == 1){
-                random = LosowyInt(0,2);
+                random = LosowyInt(0,1);
                 gdzieBonnie=bonniePowrot[random];
                 ZmienPrawde(0);
             }else Przegrana(1);
@@ -339,7 +332,7 @@ function RuchBonnie(){
     console.log("Boni "+gdzieBonnie);
     PokazKamAnim();
 }
-let chicaPowrot = [0,8,9];
+let chicaPowrot = [8,9];
 function RuchChica(){
     wylaczonaChica1 = gdzieChica;
     switch(gdzieChica){ //0,1,5,6,8,9,12
@@ -384,7 +377,7 @@ function RuchChica(){
             break;
         case 12:
             if(stanDrzwiPrawo == 1){
-                random = LosowyInt(0,2);
+                random = LosowyInt(0,1);
                 gdzieChica=chicaPowrot[random];
                 ZmienPrawde(1);
             }else Przegrana(2);
