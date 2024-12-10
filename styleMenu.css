@@ -6,22 +6,281 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    color: white;
 }
 main{
-    background-image: url("Freddy.png");
-    background-size: 30px;
+    background-image: url("img/menu/menu0.jpg");
+    background-size: cover;
     position: relative;
 }
-#nocInput{
-    display: none;
+#obrazek{
+    background-image: url("img/menu/menu0.jpg");
+    background-size: contain;
+    position: absolute;
+}
+#tytul{
+    position: fixed;
+    left: 3%;
+    top: 3%;
+    width: 30%;
+    height: 20%;
+    font-size: 200%;
+    font-family: arial;
+}
+#szum{
+    position: absolute;
+    background-image: url("img/gif/static.gif");
+    background-size: contain;
+    opacity: 0.4;
+}
+.wskazniki{
+    position: absolute;
+    left: 5%;
+    width: 13%;
+    height: 5%;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position:    left;
+    background-size: 20%;
+}
+.wskazniki:hover{
+    background-image: url('img/menu/strzalka.png');
+}
+#w1{
+    top: 35%;
+}
+#w2{
+    top: 42%;
+}
+#w3{
+    top: 49%;
+}
+#w4{
+    top: 56%;
+}
+#w5{
+    top: 63%;
+}
+#w6{
+    top: 70%;
+}
+.Noce{
+    width: 70%;
+    height: 100%;
+    background-color: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: left;
+    margin-left: 30%;
+    border: 0;
+}
+#Noc1{
+    background-image: url('img/menu/noc1.png');
+}
+#Noc2{
+    background-image: url('img/menu/noc2.png');
+}
+#Noc3{
+    background-image: url('img/menu/noc3.png');
+}
+#Noc4{
+    background-image: url('img/menu/noc4.png');
+}
+#Noc5{
+    background-image: url('img/menu/noc5.png');
+}
+#Noc6{
+    background-image: url('img/menu/noc6.png');
+}
+#w7{
+    top: 77%;
+    width: 30%;
+    background-size: 10%;
+}
+#dodatkoweButton{
+    margin-left: 12%;
+    background-image: url('img/menu/cn.png');
 }
 #customNight{
     display: none;
 }
-.nazwa{
-    font-size: 2em;
-}
 .wysokosc{
     width: 1920px;
     height: 1080px;
+}
+#dodatkowe{
+    position: absolute;
+    top: 0;
+    height: 70%;
+    display: none;
+    background-color: black;
+}
+#powrot{
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    width: 4%;
+    height: 4%;
+    background-image: url("img/menu/powrot.png");
+    background-size: cover;
+    background-color: transparent;
+    border: 0;
+}
+.img{
+    width: 80%;
+}
+#customize{
+    position: absolute;
+    top: 5%;
+    left: 35%;
+    width: 30%;
+    height: 10%;
+    background-image: url("img/menu/customize.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+
+
+.animatronik{
+    position: absolute;
+    width: 15%;
+    height: 70%;
+    top: 20%;
+}
+#freddy{
+    left: 10%;
+}
+#bonnie{
+    left: 31.666%;
+}
+#chica{
+    right: 31.666%; 
+}
+#foxy{
+    right: 10%;
+}
+
+
+
+.nazwa{
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 70%;
+    height: 15%;
+    top: 0;
+    left: 15%;
+}
+#freddy .nazwa{
+    background-image: url("img/menu/freddy.png");
+    background-position: center;
+}
+#bonnie .nazwa{
+    background-image: url("img/menu/bonnie.png");
+    background-position: center;
+}
+#chica .nazwa{
+    background-image: url("img/menu/chica.png");
+    background-position: center;
+}
+#foxy .nazwa{
+    background-image: url("img/menu/foxy.png");
+    background-position: center;
+}
+
+
+
+.img{
+    position: absolute;
+    width: 100%;
+    height: 38%;
+    top: 15%;
+}
+
+.ai{
+    position: absolute;
+    background-image: url("img/menu/intel.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 10%;
+    top: 60%;
+}
+
+.wybieranie{
+    position: absolute;
+    width: 100%;
+    height: 10%;
+    top: 70%;
+}
+
+
+.aim1{
+    position: absolute;
+    width: 30%;
+    height: 100%;
+    left: 0;
+    background-image: url("img/menu/lewo.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: 0;
+}
+.output1{
+    position: absolute;
+    width: 25%;
+    left: 24%;  
+    height: 100%;
+    background-image: url("img/menu/nic.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+.output2{
+    position: absolute;
+    width: 25%;
+    right: 24%;  
+    height: 100%;
+    background-image: url("img/menu/0.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.customInput{
+    display: none;
+}
+.aip1{
+    position: absolute;
+    width: 30%;
+    height: 100%;
+    right: 0;
+    background-image: url("img/menu/prawo.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-position: right;
+    border: 0;
+}
+#info{
+    position: absolute;
+    width: 60%;
+    height: 10%;
+    bottom: 7%;
+    left: 10%;
+    background-image: url("img/menu/difficulty.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+#start{
+    position: absolute;
+    width: 15%;
+    height: 10%;
+    bottom: 3%;
+    right: 3%;
+    background-image: url("img/menu/gotowy.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: 0;
 }

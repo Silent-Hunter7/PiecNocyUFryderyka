@@ -1,5 +1,26 @@
+//"ai" od 0 do 20
+let noc;
+let aiFreddy;
+let aiBonnie;
+let aiChica;
+let aiFoxy;
+if(sessionStorage.getItem('Noc')){
+    noc = sessionStorage.getItem('Noc');
+    aiFreddy = sessionStorage.getItem('FreddyAI');
+    aiBonnie = sessionStorage.getItem('BonnieAI');
+    aiChica = sessionStorage.getItem('ChicaAI');
+    aiFoxy = sessionStorage.getItem('FoxyAI');
+}else{
+    noc = 7;
+    aiFreddy = 20;
+    aiBonnie = 20;
+    aiChica = 20;
+    aiFoxy = 20;
+}
+console.log("Noc "+noc+", Fred "+aiFreddy+", Boni "+aiBonnie+", Chia "+aiChica+", Foxy "+aiFoxy);
+document.getElementById("noc").innerHTML = "Noc "+noc;
+
 let graDziala = true;
-let noc = 5;
 let czas = 0;
 let godzina = 0;
 let dlugoscGodzina = 90;
@@ -9,18 +30,14 @@ let nocneZuzycie = [10,6,5,4];
 if(noc < 5){
     zuzycie+=(1/nocneZuzycie[noc-1]);
 }else zuzycie+=(1/3);
-//"ai" od 0 do 20
-let aiFreddy = 3;
-let aiBonnie = 5;
-let aiChica = 7;
-let aiFoxy = 5;
+
 //ich lokalizacja: 0 - scena, 11 - lewe drzwi, 12 - prawe drzwi
 let gdzieFreddy = 0;
+let FredRollUdany = false;
 let gdzieBonnie = 0;
 let warBonnie = 0;
 let gdzieChica = 0;
 let warChica = 0;
-let freddyChceIsc = false;
 //kamera na którą patrzysz i czy patrzysz na kamerę
 let czyKamery = false;
 let kamera = 0;
@@ -41,6 +58,8 @@ let wylaczonaChica2 = -1;
 let gdzieFoxy = 0;
 let czyFoxyMoze = true;
 let foxyTimer = 150;
+let energiaFoxy = 10;
+let foxyJumpscareTimer;
 
 const main = document.querySelector('main');
 const panel = document.getElementById('panelKamer');
@@ -51,8 +70,8 @@ const przyciskiPrawo = document.getElementById('przyciskiPrawo');
 const drzwiLewo = document.getElementById('drzwiLewo');
 const drzwiPrawo = document.getElementById('drzwiPrawo');
 const nagrywanie = document.getElementById('nagrywanie');
-let wiatrakAnimacja = 0;
 const wiatrak = document.getElementById('wiatrak');
+const szum = document.getElementById('szum');
 
 document.addEventListener("DOMContentLoaded", rozmiar);
 window.addEventListener("resize", rozmiar);
@@ -74,19 +93,12 @@ function rozmiar(){
     });
 }
 
-setInterval(function(){FoxyTimer()}, 200);
+setInterval(function(){FoxyFreddyTimer()}, 100);
 setInterval(function(){CzasSekunda()}, 1000);
 setInterval(function(){SzansaRuchu(0)}, 3000);
 setInterval(function(){SzansaRuchu(1)}, 4800);
 setInterval(function(){SzansaRuchu(2)}, 5200);
 setInterval(function(){SzansaRuchu(3)}, 5100);
-setInterval(function(){
-    wiatrakAnimacja++;
-    if(wiatrakAnimacja > 2){
-        wiatrakAnimacja = 0;
-    }
-    wiatrak.style.backgroundImage = 'url("img/biuro/wiatrak/wiatrak'+wiatrakAnimacja+'.png")';
-}, 20);
 
 //co sekundę
 function CzasSekunda(){
@@ -101,15 +113,30 @@ function CzasSekunda(){
     nagrywanie.style.opacity = nagrywanie.style.opacity == 1 ? 0 : 1;
 }
 
-function FoxyTimer(){
-    foxyTimer-=2
+function FoxyFreddyTimer(){
+    foxyTimer-=1;
+    freddyCooldown-=1;
+    foxyJumpscareTimer-=1;
     if(czyKamery){
         czyFoxyMoze = false;
         foxyTimer = Math.random()*142 + 8;
+        freddyCooldown = (1000 - 100 * aiFreddy) / 60 * 10;
     }
     if(foxyTimer<=0){
         czyFoxyMoze = true;
     }
+    if(foxyJumpscareTimer <= 0 && gdzieFoxy == 3){
+        if(stanDrzwiLewo == 1){
+                random = LosowyInt(0,2);
+                bateria-=energiaFoxy;
+                energiaFoxy+=50;
+                gdzieFoxy=0;
+        }else Przegrana(3);
+    }
+    if(freddyCooldown <= 0 && FredRollUdany == true){
+        FreddyPoruszenie();
+    }
+    szum.style.opacity = Math.random()/10+0.2;
 }
 
 //fazy 0-prad   1-brakpradu 2-oczy 3-ciemnosc 4-smierc
@@ -262,11 +289,26 @@ function SzansaRuchu(kto){
     }
 }
 
+
+let freddyCooldown = 0;
 //Ruszanie animatroników
 function RuchFreddy(){
-    if(kamera != gdzieFreddy){
+    if(!czyKamery && gdzieFreddy != 6){
+        FredRollUdany = true;
+        freddyCooldown = (1000 - 100 * aiFreddy) / 60 * 10;
+    }
+    if(gdzieFreddy==6){
+        if(czyKamery && (kamera != gdzieFreddy)){
+            setTimeout(function(){FredRollUdany = true;})
+        }
+    }
+    console.log("Fred "+gdzieFreddy);
+}
+function FreddyPoruszenie(){
+    if(gdzieFreddy != 6 && freddyCooldown <= 0 && czyKamery == false && FredRollUdany == true){
         switch(gdzieFreddy){ //0,1,9,8,5,6
             case 0:
+                if(gdzieBonnie != 0 && gdzieChica != 0)
                 gdzieFreddy = 1;
                 break;
             case 1:
@@ -281,15 +323,14 @@ function RuchFreddy(){
             case 5:
                 gdzieFreddy = 6;
                 break;
-            case 6:
-                if(stanDrzwiPrawo == 1){
-                    gdzieFreddy=5;
-                }else Przegrana(0);
-                break;
         }
-        console.log("Fred "+gdzieFreddy);
+        FredRollUdany = false;
+    }
+    if(gdzieFreddy == 6 && FredRollUdany == true && czyKamery == true && kamera != 6 && stanDrzwiPrawo == 0){
+        Przegrana(0);
     }
 }
+
 let bonniePowrot = [1,7];
 function RuchBonnie(){
     wylaczonaBonnie1 = gdzieBonnie;
@@ -427,19 +468,16 @@ function wlaczKamery(kto){ //0bonnie 1chica
 function RuchFoxy(){
     switch(gdzieFoxy){ //0,1,5,6,8,9,12
         case 0: //kurtyna
-            gdzieFoxy = 1;
+            gdzieFoxy = 1; //wychyla się
             break;
         case 1: //wygląda   
-            gdzieFoxy = 2;
+            gdzieFoxy = 2; //wychodzi
             break;
         case 2: //stoi poza   
-            gdzieFoxy = 3;
+            foxyJumpscareTimer = 250;
+            gdzieFoxy = 3; //czeka 25 sekund
             break;
-        case 3: //biegnie -------------tu zmiana - jumpscare chwilę po ustawieniu na 3
-            if(stanDrzwiLewo == 1){
-                random = LosowyInt(0,2);
-                gdzieFoxy=0;
-            }else Przegrana(3);
+        case 3:
             break;
         default:
             gdzieFoxy=0;
@@ -449,6 +487,14 @@ function RuchFoxy(){
     PokazKamAnim();
 }
 
+function FoxyBieg(){
+    if(stanDrzwiLewo == 1){
+        random = LosowyInt(0,2);
+        bateria-=energiaFoxy;
+        energiaFoxy+=50;
+        gdzieFoxy=0;
+    }else Przegrana(3);
+}
 //przefrywanie i wygrywanie
 function Przegrana(kto){
     let jumpscare = document.getElementById("jumpscare");
@@ -458,11 +504,8 @@ function Przegrana(kto){
     graDziala = false;
     switch(kto){
         case 0:
-            jumpscare.style.backgroundImage = 'url("img/jumpscare/freddy/0.jpg")';
-            setInterval(function(){
-                random = LosowyInt(0,28);
-                jumpscare.style.backgroundImage = 'url("img/jumpscare/freddy/'+random+'.jpg")';
-            }, 50);
+            jumpscare.style.backgroundImage = 'url("img/gif/freddy.gif")';
+            setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';}, 1200)
             break;
         case 1:
             jumpscare.style.backgroundImage = 'url("img/jumpscare/bonnie/0.jpg")';
@@ -479,18 +522,12 @@ function Przegrana(kto){
             }, 50);
             break;
         case 3:
-            jumpscare.style.backgroundImage = 'url("img/jumpscare/foxy/0.jpg")';
-            setInterval(function(){
-                random = LosowyInt(0,16);
-                jumpscare.style.backgroundImage = 'url("img/jumpscare/foxy/'+random+'.jpg")';
-            }, 50);
+            jumpscare.style.backgroundImage = 'url("img/gif/foxy.gif")';
+            setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';}, 850)
             break;
         case 4:
-            jumpscare.style.backgroundImage = 'url("img/jumpscare/power/0.jpg")';
-            setInterval(function(){
-                random = LosowyInt(0,20);
-                jumpscare.style.backgroundImage = 'url("img/jumpscare/power/'+random+'.jpg")';
-            }, 50);
+            jumpscare.style.backgroundImage = 'url("img/gif/power.gif")';
+            setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';}, 850)
             break;
 
     }
@@ -514,7 +551,6 @@ function ObslugaDrzwi(strona){
                 console.log("Otworzenie Lewych Drzwi");
                 stanDrzwiLewo = 0;
                 DrzwiAnimacja(strona, false);
-                zuzycie--;
             }else console.log("trwa animacja - przycisk nie zadziała");
         }else{
             if(stanDrzwiPrawo == 0 && drzwiDostepne[1]){
@@ -526,10 +562,10 @@ function ObslugaDrzwi(strona){
                 console.log("Otworzenie Prawych Drzwi");
                 stanDrzwiPrawo = 0;
                 DrzwiAnimacja(strona, false);
-                zuzycie--;
             }else console.log("trwa animacja - przycisk nie zadziała");
         }
         TeksturaPrzyciskow();
+        ZuzycieObrazek();
     }
 }
 
@@ -567,6 +603,8 @@ function nastepnaKlatkaDrzwi(strona, zamykanie){
     }else{
         if(klatka == 0){
             drzwiDostepne[strona] = true;
+            zuzycie--;
+            ZuzycieObrazek();
             return;
         }
         klatka--;
@@ -614,6 +652,7 @@ function ObslugaSwiatla(strona){
             }
         }
         TeksturaPrzyciskow();
+        ZuzycieObrazek();
     }
 }
 function TeksturaPrzyciskow(){
@@ -691,14 +730,18 @@ function KameraOtworz(){
     if(graDziala){
         if(czyKamery){
             czyKamery = false;
+            zuzycie--;
             panel.style.display = "none";
         }else{
             czyKamery = true;
+            zuzycie++;
             panel.style.display = "block";
             KameraZmien(kamera);
             czyFoxyMoze = false;
             foxyTimer = Math.random()*142 + 8;
+            freddyCooldown = (1000 - 100*aiFreddy) / 60 * 10;
         }
+        ZuzycieObrazek();
     }
 }
 function KameraZmien(ktora){
@@ -787,7 +830,7 @@ function PokazKamAnim(){
                 }
                 break;
             case 8:
-                sciezka += 'kuchnia';
+                sciezka += 'audio';
                 break;
             case 9:
                 if(gdzieChica==9){
@@ -805,7 +848,7 @@ function PokazKamAnim(){
         }
         sciezka += '.jpg")';
     }else{
-        sciezka = 'url("img/static/static1.jpg")';
+        sciezka = 'url("img/gif/static.gif")';
     }
     //console.log("pokazkamanim");
     kamery.style.backgroundImage = sciezka;
@@ -813,6 +856,10 @@ function PokazKamAnim(){
     //console.log(panel.style.backgroundImage);
 }
 
+function ZuzycieObrazek(){
+    let zuzycieObrazek = document.getElementById('zuzycie');
+    zuzycieObrazek.style.backgroundImage = 'url("img/interfejs/zuzycie'+Math.ceil(zuzycie)+'.png")';
+}
 
 
 function SzansaBool(szansa){

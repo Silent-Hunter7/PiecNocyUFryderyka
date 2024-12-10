@@ -20,7 +20,7 @@ main{
     z-index: -1;
 }
 #wiatrak{
-    background-image: url("img/biuro/wiatrak/wiatrak0.png");
+    background-image: url("img/gif/wiatrak.gif");
     background-size: contain;
     position: absolute;
 }
@@ -108,9 +108,15 @@ main{
     position: absolute;
     display: none;
 }
+#szum{
+    position: absolute;
+    background-image: url("img/gif/static.gif");
+    background-size: contain;
+    opacity: 0.2;
+}
 #panelImg{
     position: absolute;
-    background-image: url("img/static/static1.jpg");
+    background-image: url("img/gif/static.gif");
     background-size: contain;
 }
 #widokKamera{
@@ -216,22 +222,39 @@ main{
 }
 
 #czas{
+    text-align: right;
     position: absolute;
-    right: 3%;
-    top: 2%;
-    font-size: 5em;
+    width: 20%;
+    height: 10%;
+    right: 2%;
+    top: 0%;
+    font-size: 2.5vw;
     color: white;
+    font-family: arial;
+}   
+#noc{
+    text-align: right;
+    position: absolute;
+    width: 15%;
+    height: 10%;
+    right: 2%;
+    top: 7.5%;
+    font-size: 1.5vw;
+    color: white;
+    font-family: arial;
 }
 #bateria{
     position: absolute;
+    width: 15%;
+    height: 10%;
     left: 3%;
-    bottom: 2%;
-    font-size: 5em;
+    bottom: 9%;
+    font-size: 3vw;
     color: white;
 }
 #zuzycie{
     position: absolute;
-    width: 4%;
+    width: 15%;
     height: 10%;
     bottom: 7%;
     left: 5%;
@@ -240,8 +263,9 @@ main{
     background-repeat: no-repeat;
 }
 #procent{
+    display: none;
     position: absolute;
-    width: 4%;
+    width: 15%;
     height: 10%;
     bottom: 17%;
     left: 5%;

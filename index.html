@@ -8,47 +8,90 @@
 </head>
 <body>
     <main class="wysokosc">
-    <p>Pieć Koszmarych Nocy</p>
-        <button id="Noc1" class="Noce" onclick="UstawNoc(1)">Noc 1</button>
-        <button id="Noc2" class="Noce" onclick="UstawNoc(2)">Noc 2</button>
-        <button id="Noc3" class="Noce" onclick="UstawNoc(3)">Noc 3</button>
-        <button id="Noc4" class="Noce" onclick="UstawNoc(4)">Noc 4</button>
-        <button id="Noc5" class="Noce" onclick="UstawNoc(5)">Noc 5</button>
-        <button id="dodatkowe" class="Noce" onclick="Dodatkowe()"></button>
-        <div id="dodatkowe"  class="wysokosc">
-            <button id="Noc6" class="Noce" onclick="UstawNoc(6)">Noc 6</button>
-            <div id="freddy">
-                <p class="nazwa">Freddy</p>
-                <img class="img" src="img/Freddy.png">
-                <p class="ai">Poziom inteligencji</p>
-                <button class="ai-1" onclick="CustomChange(0,-1)"></button>
-                <input name="FreddyAI" type="number" min="0" max="20" class="customInput">
-                <button class="ai+1" onclick="CustomChange(0,1)"></button>
+    <div id="obrazek" class="wysokosc"></div>
+    <div class="wysokosc" id="szum"></div>
+    <h1 id="tytul">Pięć Nocy u Fryderyka</h1>
+        <div class="wskazniki" id="w1">
+            <button id="Noc1" class="Noce" onclick="UstawNoc(1)"></button>
+        </div>
+        
+        <div class="wskazniki" id="w2">
+            <button id="Noc2" class="Noce" onclick="UstawNoc(2)"></button>
+        </div>
+        
+        <div class="wskazniki" id="w3">
+            <button id="Noc3" class="Noce" onclick="UstawNoc(3)"></button>
+        </div>
+        
+        <div class="wskazniki" id="w4">
+            <button id="Noc4" class="Noce" onclick="UstawNoc(4)"></button>
+        </div>
+        
+        <div class="wskazniki" id="w5">
+            <button id="Noc5" class="Noce" onclick="UstawNoc(5)"></button>
+        </div>
+        
+        <div class="wskazniki" id="w6">
+            <button id="Noc6" class="Noce" onclick="UstawNoc(6)"></button>
+        </div>
+        
+        <div class="wskazniki" id="w7">
+            <button id="dodatkoweButton" class="Noce" onclick="Dodatkowe(true)"></button>
+        </div>
+        
+        <div id="dodatkowe" class="wysokosc">
+            <button id="powrot" onclick="Dodatkowe(false)">back</button>
+            <div id="customize"></div>
+            <div id="freddy" class="animatronik">
+                <div class="nazwa"></div>
+                <img class="img" src="img/menu/cnfreddy.jpg">
+                <div class="ai" id="aiFreddy"></div>
+                <div class="wybieranie">
+                    <button class="aim1" onclick="CustomChange(0,-1)"></button>
+                    <div class="output1" id="outFreddy1"></div>
+                    <div class="output2" id="outFreddy2"></div>
+                    <input id="FreddyAI" type="number" min="0" value="0" max="20" class="customInput">
+                    <button class="aip1" onclick="CustomChange(0,1)"></button>
+                </div>
             </div>
-            <div id="bonnie">
-                <p class="nazwa">Bonnie</p>
-                <img class="img" src="img/Bonnie.png">
-                <p class="ai">Poziom inteligencji</p>
-                <button class="ai-1" onclick="CustomChange(1,-1)"></button>
-                <input name="FreddyAI" type="number" min="0" max="20" class="customInput">
-                <button class="ai+1" onclick="CustomChange(1,1)"></button>
+            <div id="bonnie" class="animatronik">
+                <div class="nazwa"></div>
+                <img class="img" src="img/menu/cnbonnie.jpg">
+                <div class="ai" id="aiBonniey"></div>
+                <div class="wybieranie">
+                    <button class="aim1" onclick="CustomChange(1,-1)"></button>
+                    <div class="output1" id="outBonnie1"></div>
+                    <div class="output2" id="outBonnie2"></div>
+                    <input id="BonnieAI" type="number" min="0" value="0" max="20" class="customInput">
+                    <button class="aip1" onclick="CustomChange(1,1)"></button>
+                </div>
             </div>
-            <div id="chica">
-                <p class="nazwa">Chica</p>
-                <img class="img" src="img/Chica.png">
-                <p class="ai">Poziom inteligencji</p>
-                <button class="ai-1" onclick="CustomChange(2,-1)"></button>
-                <input name="FreddyAI" type="number" min="0" max="20" class="customInput">
-                <button class="ai+1" onclick="CustomChange(2,1)"></button>
+            <div id="chica" class="animatronik">
+                <div class="nazwa"></div>
+                <img class="img" src="img/menu/cnchica.jpg">
+                <div class="ai" id="aiChica"></div>
+                <div class="wybieranie">
+                    <button class="aim1" onclick="CustomChange(2,-1)"></button>
+                    <div class="output1" id="outChica1"></div>
+                    <div class="output2" id="outChica2"></div>
+                    <input id="ChicaAI" type="number" min="0" value="0" max="20" class="customInput">
+                    <button class="aip1" onclick="CustomChange(2,1)"></button>
+                </div>
             </div>
-            <div id="foxy">
-                <p class="nazwa">Foxy</p>
-                <img class="img" src="img/Foxy.png">
-                <p class="ai">Poziom inteligencji</p>
-                <button class="ai-1" onclick="CustomChange(3,-1)"></button>
-                <input name="FreddyAI" type="number" min="0" max="20" class="customInput">
-                <button class="ai+1" onclick="CustomChange(3,1)"></button>
+            <div id="foxy" class="animatronik">
+                <div class="nazwa"></div>
+                <img class="img" src="img/menu/cnfoxy.jpg">
+                <div class="ai" id="aiFoxy"></div>
+                <div class="wybieranie">
+                    <button class="aim1" onclick="CustomChange(3,-1)"></button>
+                    <div class="output1" id="outFoxy1"></div>
+                    <div class="output2" id="outFoxy2"></div>
+                    <input id="FoxyAI" type="number" min="0" value="0" max="20" class="customInput">
+                    <button class="aip1" onclick="CustomChange(3,1)"></button>
+                </div>
             </div>
+            <div id="info"></div>
+            <button id="start" onclick="CustomStart()"></button>
         </div>
     </main>
     <script src="skryptMenu.js"></script>
