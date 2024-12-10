@@ -24,6 +24,7 @@ function rozmiar(){
     });
 }
 
+
 setInterval(function(){
     szum.style.opacity = Math.random()/5+0.4
     if (Math.random() < 0.03) {
@@ -143,4 +144,7 @@ function CustomStart(){
     sessionStorage.setItem('FoxyAI', FoxyAI);
     sessionStorage.setItem('Noc', 7);
     window.location.assign("gra.html");
+}
+function Reklama(){
+    window.location.assign("https://tymekh.github.io/Szm3gle-Recipes/");
 }

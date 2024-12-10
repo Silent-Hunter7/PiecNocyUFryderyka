@@ -18,19 +18,18 @@ if(sessionStorage.getItem('Noc')){
     aiFoxy = 20;
 }
 console.log("Noc "+noc+", Fred "+aiFreddy+", Boni "+aiBonnie+", Chia "+aiChica+", Foxy "+aiFoxy);
-document.getElementById("noc").innerHTML = "Noc "+noc;
+document.getElementById("noc").style.backgroundImage = 'url("img/interfejs/noc'+noc+'.png")';
 
 let graDziala = true;
 let czas = 0;
 let godzina = 0;
 let dlugoscGodzina = 90;
-let bateria = 1000;
+let bateria = 999;
 let zuzycie = 0;
 let nocneZuzycie = [10,6,5,4];
 if(noc < 5){
     zuzycie+=(1/nocneZuzycie[noc-1]);
 }else zuzycie+=(1/3);
-
 //ich lokalizacja: 0 - scena, 11 - lewe drzwi, 12 - prawe drzwi
 let gdzieFreddy = 0;
 let FredRollUdany = false;
@@ -72,6 +71,11 @@ const drzwiPrawo = document.getElementById('drzwiPrawo');
 const nagrywanie = document.getElementById('nagrywanie');
 const wiatrak = document.getElementById('wiatrak');
 const szum = document.getElementById('szum');
+const bateria1 = document.getElementById('bateria1');
+const bateria2 = document.getElementById('bateria2');
+const jumpscare = document.getElementById("jumpscare");
+const zapasowy = document.getElementById("zapasowy");
+
 
 document.addEventListener("DOMContentLoaded", rozmiar);
 window.addEventListener("resize", rozmiar);
@@ -102,10 +106,10 @@ setInterval(function(){SzansaRuchu(3)}, 5100);
 
 //co sekundę
 function CzasSekunda(){
-    let Bateria = document.getElementById("bateria");
     czas+=1;
     bateria-=zuzycie;
-    Bateria.innerHTML = Math.round(bateria/10)+"%";
+    bateria1.style.backgroundImage = 'url("img/interfejs/'+Math.floor((bateria/10)/10)+'.png")';
+    bateria2.style.backgroundImage = 'url("img/interfejs/'+Math.floor((bateria/10)%10)+'.png")';
     if(czas%dlugoscGodzina==0) CzasGodzina();
     if(bateria <= 0 && ciemnoscFaza == 0){
         NoBateria(0);
@@ -120,12 +124,12 @@ function FoxyFreddyTimer(){
     if(czyKamery){
         czyFoxyMoze = false;
         foxyTimer = Math.random()*142 + 8;
-        freddyCooldown = (1000 - 100 * aiFreddy) / 60 * 10;
+        //freddyCooldown = (1000 - 100 * aiFreddy) / 60 * 10;
     }
     if(foxyTimer<=0){
         czyFoxyMoze = true;
     }
-    if(foxyJumpscareTimer <= 0 && gdzieFoxy == 3){
+    if(foxyJumpscareTimer <= 0 && gdzieFoxy == 3 && graDziala){
         if(stanDrzwiLewo == 1){
                 random = LosowyInt(0,2);
                 bateria-=energiaFoxy;
@@ -133,7 +137,7 @@ function FoxyFreddyTimer(){
                 gdzieFoxy=0;
         }else Przegrana(3);
     }
-    if(freddyCooldown <= 0 && FredRollUdany == true){
+    if(freddyCooldown <= 0 && FredRollUdany == true && graDziala){
         FreddyPoruszenie();
     }
     szum.style.opacity = Math.random()/10+0.2;
@@ -141,17 +145,17 @@ function FoxyFreddyTimer(){
 
 //fazy 0-prad   1-brakpradu 2-oczy 3-ciemnosc 4-smierc
 function NoBateria(){
-    let jumpscare = document.getElementById("jumpscare");
-        document.getElementById('obrazek').style.backgroundImage = 'url("img/kamery/panelKamer.jpg")';
-        main.style.backgroundImage = 'url("img/kamery/panelKamer.jpg")';
-        jumpscare.style.display = "block";
-        wiatrak.style.display = "none";
-        przyciskiLewo.style.display = "none";
-        przyciskiPrawo.style.display = "none";
-        panel.style.display = "none";
-        czyKamery = false;
-        DrzwiAnimacja(0, false);
-        DrzwiAnimacja(1, false);
+    document.getElementById('obrazek').style.backgroundImage = 'url("img/kamery/panelKamer.jpg")';
+    main.style.backgroundImage = 'url("img/kamery/panelKamer.jpg")';
+    jumpscare.style.display = "block";
+
+    wiatrak.style.display = "none";
+    przyciskiLewo.style.display = "none";
+    przyciskiPrawo.style.display = "none";
+    panel.style.display = "none";
+    czyKamery = false;
+    DrzwiAnimacja(0, false);
+    DrzwiAnimacja(1, false);
     if(ciemnoscFaza == 0){
         console.log("Zgaszenie światła");
         ciemnoscFaza = 1;
@@ -235,12 +239,12 @@ function CzasGodzina(){
         case 3:
             aiBonnie++;
             aiChica++
-            //aiFoxy++
+            aiFoxy++
             break;
         case 4:
             aiBonnie++;
             aiChica++
-            //aiFoxy++
+            aiFoxy++
             break;
         case 6:
             Wygrana();
@@ -497,9 +501,9 @@ function FoxyBieg(){
 }
 //przefrywanie i wygrywanie
 function Przegrana(kto){
-    let jumpscare = document.getElementById("jumpscare");
     console.log("-----Przegrana");
     jumpscare.style.display = "block";
+    zapasowy.style.display = "block";
     panel.style.display = "none";
     graDziala = false;
     switch(kto){
@@ -508,18 +512,12 @@ function Przegrana(kto){
             setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';}, 1200)
             break;
         case 1:
-            jumpscare.style.backgroundImage = 'url("img/jumpscare/bonnie/0.jpg")';
-            setInterval(function(){
-                random = LosowyInt(0,10);
-                jumpscare.style.backgroundImage = 'url("img/jumpscare/bonnie/'+random+'.jpg")';
-            }, 50);
+            jumpscare.style.backgroundImage = 'url("img/gif/bonnie.gif")';
+            setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';}, 850)
             break;
         case 2:
-            jumpscare.style.backgroundImage = 'url("img/jumpscare/chica/0.jpg")';
-            setInterval(function(){
-                random = LosowyInt(0,15);
-                jumpscare.style.backgroundImage = 'url("img/jumpscare/chica/'+random+'.jpg")';
-            }, 50);
+            jumpscare.style.backgroundImage = 'url("img/gif/chica.gif")';
+            setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';}, 850)
             break;
         case 3:
             jumpscare.style.backgroundImage = 'url("img/gif/foxy.gif")';
@@ -739,7 +737,6 @@ function KameraOtworz(){
             KameraZmien(kamera);
             czyFoxyMoze = false;
             foxyTimer = Math.random()*142 + 8;
-            freddyCooldown = (1000 - 100*aiFreddy) / 60 * 10;
         }
         ZuzycieObrazek();
     }

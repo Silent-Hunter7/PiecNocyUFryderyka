@@ -19,13 +19,14 @@ main{
     position: absolute;
 }
 #tytul{
-    position: fixed;
-    left: 3%;
-    top: 3%;
+    position: absolute;
+    left: 8%;
+    top: 10%;
     width: 30%;
     height: 20%;
-    font-size: 200%;
-    font-family: arial;
+    background-image: url("img/menu/tytul.png");
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 #szum{
     position: absolute;
@@ -140,6 +141,10 @@ main{
     background-repeat: no-repeat;
 }
 
+#reklama{
+    position: absolute;
+
+}
 
 
 .animatronik{
@@ -283,4 +288,15 @@ main{
     background-repeat: no-repeat;
     background-color: transparent;
     border: 0;
+}
+#reklama{
+    position: absolute;
+    width: 40%;
+    height: 12%;
+    bottom: 0%;
+    left: 30%;
+    background-color: aqua;
+    color: black;
+    font-size: 1em;
+    text-align: center;
 }
