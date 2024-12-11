@@ -146,5 +146,5 @@ function CustomStart(){
     window.location.assign("gra.html");
 }
 function Reklama(){
-    window.location.assign("https://tymekh.github.io/Szm3gle-Recipes/");
+    window.open("https://tymekh.github.io/Szm3gle-Recipes/", "_blank");
 }

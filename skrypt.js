@@ -20,7 +20,20 @@ if(sessionStorage.getItem('Noc')){
 console.log("Noc "+noc+", Fred "+aiFreddy+", Boni "+aiBonnie+", Chia "+aiChica+", Foxy "+aiFoxy);
 document.getElementById("noc").style.backgroundImage = 'url("img/interfejs/noc'+noc+'.png")';
 
-let graDziala = true;
+const jumpscare = document.getElementById("jumpscare");
+const zapasowy = document.getElementById("zapasowy");
+
+jumpscare.style.display = "block";
+zapasowy.style.display = "block";
+jumpscare.style.backgroundImage = 'url("img/zakonczenia/noc'+noc+'.png")';
+let graDziala = false;
+setTimeout(function(){
+    jumpscare.style.backgroundImage = '';
+    jumpscare.style.display = "none";
+    zapasowy.style.display = "none";
+    graDziala = true;
+}, 3000);
+
 let czas = 0;
 let godzina = 0;
 let dlugoscGodzina = 90;
@@ -59,6 +72,7 @@ let czyFoxyMoze = true;
 let foxyTimer = 150;
 let energiaFoxy = 10;
 let foxyJumpscareTimer;
+let foxybiegnie = false;
 
 const main = document.querySelector('main');
 const panel = document.getElementById('panelKamer');
@@ -73,8 +87,7 @@ const wiatrak = document.getElementById('wiatrak');
 const szum = document.getElementById('szum');
 const bateria1 = document.getElementById('bateria1');
 const bateria2 = document.getElementById('bateria2');
-const jumpscare = document.getElementById("jumpscare");
-const zapasowy = document.getElementById("zapasowy");
+
 
 
 document.addEventListener("DOMContentLoaded", rozmiar);
@@ -135,7 +148,11 @@ function FoxyFreddyTimer(){
                 bateria-=energiaFoxy;
                 energiaFoxy+=50;
                 gdzieFoxy=0;
-        }else Przegrana(3);
+        }else{
+            Przegrana(3);
+            gdzieFoxy=0;
+        }
+
     }
     if(freddyCooldown <= 0 && FredRollUdany == true && graDziala){
         FreddyPoruszenie();
@@ -492,12 +509,21 @@ function RuchFoxy(){
 }
 
 function FoxyBieg(){
-    if(stanDrzwiLewo == 1){
-        random = LosowyInt(0,2);
-        bateria-=energiaFoxy;
-        energiaFoxy+=50;
-        gdzieFoxy=0;
-    }else Przegrana(3);
+    console.log("bieganie start")
+    if(kamera == 2 && gdzieFoxy == 3 && foxyJumpscareTimer > 0 && czyKamery){
+        kamery.style.backgroundImage = 'url("img/gif/foxySprint.gif")';
+        console.log("bieganie działa");
+        foxyJumpscareTimer = 999999;
+        setTimeout(function(){
+            if(stanDrzwiLewo == 1){
+                bateria-=energiaFoxy;
+                energiaFoxy+=50;
+                gdzieFoxy=0;
+                foxybiegnie = false
+                PokazKamAnim();
+            }else Przegrana(3); 
+        }, 3000 - aiFoxy*50);
+    }
 }
 //przefrywanie i wygrywanie
 function Przegrana(kto){
@@ -514,7 +540,7 @@ function Przegrana(kto){
                 setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
                     setTimeout(function(){window.location.assign("index.html");},5000);
                 },3000);
-            }, 1200)
+            }, 1200);
             break;
         case 1:
             jumpscare.style.backgroundImage = 'url("img/gif/bonnie.gif")';
@@ -523,7 +549,7 @@ function Przegrana(kto){
                 setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
                     setTimeout(function(){window.location.assign("index.html");},5000);
                 },3000);
-            }, 850)
+            }, 850);
             break;
         case 2:
             jumpscare.style.backgroundImage = 'url("img/gif/chica.gif")';
@@ -532,7 +558,7 @@ function Przegrana(kto){
                 setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
                     setTimeout(function(){window.location.assign("index.html");},5000);
                 },3000);
-            }, 850)
+            }, 850);
             break;
         case 3:
             jumpscare.style.backgroundImage = 'url("img/gif/foxy.gif")';
@@ -541,7 +567,7 @@ function Przegrana(kto){
                 setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
                     setTimeout(function(){window.location.assign("index.html");},5000);
                 },3000);
-            }, 850)
+            }, 850);
             break;
         case 4:
             jumpscare.style.backgroundImage = 'url("img/gif/power.gif")';
@@ -550,7 +576,7 @@ function Przegrana(kto){
                 setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
                     setTimeout(function(){window.location.assign("index.html");},5000);
                 },3000);
-            }, 850)
+            }, 850);
             break;
     }
 }
@@ -560,14 +586,29 @@ function Wygrana(){
     zapasowy.style.display = "block";
     panel.style.display = "none";
     graDziala = false;
-    if(noc == 5){
-        jumpscare.style.backgroundImage = 'url("img/zakonczenia/wygrana5.jpg")';
-    }else if(noc == 6){
-        jumpscare.style.backgroundImage = 'url("img/zakonczenia/wygrana6.jpg")';
-    }else if(noc == 7){
-        jumpscare.style.backgroundImage = 'url("img/zakonczenia/wygrana7.jpg")';
-    }
-    setTimeout(function(){window.location.assign("index.html");},10000);
+    jumpscare.style.backgroundImage = 'url("img/gif/szosta.gif")';
+    console.log("-----szosta");
+    setTimeout(function(){
+        console.log("-----czarno");
+        jumpscare.style.display = "none";
+        setTimeout(function(){
+            console.log("-----list");
+            jumpscare.style.display = "block";
+            if(noc == 5){
+                jumpscare.style.backgroundImage = 'url("img/zakonczenia/wygrana5.jpg")';
+                setTimeout(function(){window.location.assign("index.html");},7500);
+            }else if(noc == 6){
+                jumpscare.style.backgroundImage = 'url("img/zakonczenia/wygrana6.jpg")';
+                setTimeout(function(){window.location.assign("index.html");},7500);
+            }else if(noc == 7){
+                jumpscare.style.backgroundImage = 'url("img/zakonczenia/wygrana7.jpg")';
+                setTimeout(function(){window.location.assign("index.html");},7500);
+            }else{
+                jumpscare.style.display = "none";
+                window.location.assign("index.html");
+            }
+        }, 2000);
+    }, 2500);
 }
 
 let drzwiDostepne = [true, true];
@@ -792,92 +833,98 @@ function PokazKamAnim(){
         switch(kamera){
             case 0:
                 if(gdzieBonnie==0 && gdzieChica == 0){
-                    sciezka += 'wszyscy';
+                    sciezka += 'wszyscy.jpg';
                 }else if(gdzieBonnie==0){
-                    sciezka += 'freddybonnie';
+                    sciezka += 'freddybonnie.jpg';
                 }else if(gdzieChica==0){
-                    sciezka += 'freddychica';
+                    sciezka += 'freddychica.jpg';
                 }else if(gdzieFreddy==0){
-                    sciezka += 'freddy';
+                    sciezka += 'freddy.jpg';
                 }else{
-                    sciezka += 'nikt';
+                    sciezka += 'nikt.jpg';
                 }
                 break;
             case 1:
                 if(gdzieChica==1){
-                    sciezka += 'chica'+warChica;
+                    sciezka += 'chica.jpg'+warChica;
                 }else if(gdzieBonnie==1){
-                    sciezka += 'bonnie'+warBonnie;
+                    sciezka += 'bonnie.jpg'+warBonnie;
                 }else if(gdzieFreddy==1){
-                    sciezka += 'freddy';
+                    sciezka += 'freddy.jpg';
                 }else{
-                    sciezka += 'nikt';
+                    sciezka += 'nikt.jpg';
                 }
                 break;
             case 2:
-                if(gdzieBonnie==2){
-                    sciezka += 'bonnie';
+                if(foxybiegnie == false){
+                if(gdzieFoxy == 3 && foxyJumpscareTimer > 0 && czyKamery){
+                    sciezka += 'foxySprint.gif';
+                    console.log("wykryty, zaczyna bieg")
+                    FoxyBieg();
+                    foxybiegnie = true;
+                }else if(gdzieBonnie==2){
+                    sciezka += 'bonnie.jpg';
                 }else{
-                    sciezka += 'nikt';
-                }
+                    sciezka += 'nikt.jpg';
+                }}
                 break;
             case 3:
                 if(gdzieBonnie==3){
-                    sciezka += 'bonnie'+warBonnie;
+                    sciezka += 'bonnie.jpg'+warBonnie;
                 }else{
-                    sciezka += 'nikt';
+                    sciezka += 'nikt.jpg';
                 }
                 break;
             case 4:
                 if(gdzieBonnie==4){
-                    sciezka += 'bonnie';
+                    sciezka += 'bonnie.jpg';
                 }else{
-                    sciezka += 'nikt';
+                    sciezka += 'nikt.jpg';
                 }
                 break;
             case 5:
                 if(gdzieChica==5){
-                    sciezka += 'chica'+warChica;
+                    sciezka += 'chica.jpg'+warChica;
                 }else if(gdzieFreddy==5){
-                    sciezka += 'freddy';
+                    sciezka += 'freddy.jpg';
                 }else{
-                    sciezka += 'nikt';
+                    sciezka += 'nikt.jpg';
                 }
                 break;
             case 6:
                 if(gdzieChica==6){
                     sciezka += 'chica'+warChica;
                 }else if(gdzieFreddy==6){
-                    sciezka += 'freddy';
+                    sciezka += 'freddy.jpg';
                 }else{
-                    sciezka += 'nikt';
+                    sciezka += 'nikt.jpg';
                 }
                 break;
             case 7:
                 if(gdzieBonnie==7){
-                    sciezka += 'bonnie';
+                    sciezka += 'bonnie.jpg';
                 }else{
-                    sciezka += 'nikt';
+                    sciezka += 'nikt.jpg';
                 }
                 break;
             case 8:
-                sciezka += 'audio';
+                sciezka += 'audio.jpg';
                 break;
             case 9:
                 if(gdzieChica==9){
                     sciezka += 'chica'+warChica;
                 }else if(gdzieFreddy==9){
-                    sciezka += 'freddy';
+                    sciezka += 'freddy.jpg';
                 }else{
-                    sciezka += 'nikt';
+                    sciezka += 'nikt.jpg';
                 }
                 break;
             case 10:
-                sciezka += ''+gdzieFoxy;
+                sciezka += ''+gdzieFoxy+'.jpg';
                 break;
     
         }
-        sciezka += '.jpg")';
+        sciezka += '")';
     }else{
         sciezka = 'url("img/gif/static.gif")';
     }
