@@ -295,8 +295,20 @@ main{
     height: 12%;
     bottom: 0%;
     left: 30%;
-    background-color: aqua;
-    color: black;
-    font-size: 1em;
-    text-align: center;
+    background-image: url("img/menu/reklamajedzenie.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+#zamkniecie{
+    position: absolute;
+    width: 1%;
+    height: 10%;
+    top: 5%;
+    right: 1%;
+    background-image: url("img/menu/zamknij.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    background-position: right;
 }

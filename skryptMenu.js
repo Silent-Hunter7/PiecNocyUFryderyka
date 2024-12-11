@@ -145,6 +145,18 @@ function CustomStart(){
     sessionStorage.setItem('Noc', 7);
     window.location.assign("gra.html");
 }
+let czyreklama = true;
+function Zamknij(){
+    czyreklama = false;
+    let Reklama = document.getElementById("reklama");
+    Reklama.style.display = "none";
+    setTimeout(function(){
+        Reklama.style.display = "block";
+        czyreklama = true;
+    },15000+(Math.random()*15000));
+}
 function Reklama(){
-    window.open("https://tymekh.github.io/Szm3gle-Recipes/", "_blank");
+    if(czyreklama){
+        window.open("https://tymekh.github.io/Szm3gle-Recipes/", "_blank");
+    }
 }
