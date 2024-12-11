@@ -64,8 +64,10 @@ let random;
 let random2;
 let wylaczonaBonnie1 = -1;
 let wylaczonaBonnie2 = -1;
+let wylaczonaBonnie3 = -1;
 let wylaczonaChica1 = -1;
 let wylaczonaChica2 = -1;
+let wylaczonaChica3 = -1;
 //Foxy
 let gdzieFoxy = 0;
 let czyFoxyMoze = true;
@@ -141,17 +143,18 @@ function FoxyFreddyTimer(){
     }
     if(foxyTimer<=0){
         czyFoxyMoze = true;
+    }else{
+        czyFoxyMoze = false;
     }
     if(foxyJumpscareTimer <= 0 && gdzieFoxy == 3 && graDziala){
         if(stanDrzwiLewo == 1){
-                random = LosowyInt(0,2);
-                bateria-=energiaFoxy;
-                energiaFoxy+=50;
-                gdzieFoxy=0;
-        }else{
-            Przegrana(3);
+            console.log("foxy puka :)");
+            bateria-=energiaFoxy;
+            energiaFoxy+=50;
             gdzieFoxy=0;
-        }
+            foxybiegnie = false
+            PokazKamAnim();
+        }else Przegrana(3); 
 
     }
     if(freddyCooldown <= 0 && FredRollUdany == true && graDziala){
@@ -282,9 +285,9 @@ function SzansaRuchu(kto){
             case 1:
                 if(random2){
                     warBonnie = warBonnie == 1 ? 0 : 1;
-                    wylaczonaBonnie1 = gdzieBonnie;
-                    wylaczonaBonnie2 = gdzieBonnie;
-                    wlaczKamery(0);
+                    wylaczonaBonnie3;
+                    wylaczonaBonnie3;
+                    wlaczKamery(2);
                 }
                 if(random <= aiBonnie){
                     RuchBonnie();
@@ -293,9 +296,8 @@ function SzansaRuchu(kto){
             case 2:
                 if(random2){
                     warChica = warChica == 1 ? 0 : 1;
-                    wylaczonaChica1 = gdzieChica;
-                    wylaczonaChica2 = gdzieChica;
-                    wlaczKamery(1);
+                    wylaczonaChica3 = gdzieChica;
+                    wlaczKamery(3);
                 }
                 if(random <= aiChica){
                     RuchChica();
@@ -472,16 +474,38 @@ function RuchChica(){
 
 function wlaczKamery(kto){ //0bonnie 1chica
     if(kto == 0){
+        console.log("wlaczenie kamer chica ruch");
         setInterval(function(){
             wylaczonaBonnie1 = -1;
             wylaczonaBonnie2 = -1;
-            PokazKamAnim();
+            if(foxybiegnie == false || (foxybiegnie == true && kamera != 2)){
+                PokazKamAnim();
+            }
         }, 1000);
-    }else{
+    }else if(kto == 1){
+        console.log("wlaczenie kamer bonnie ruch");
         setInterval(function(){
             wylaczonaChica1 = -1;
             wylaczonaChica2 = -1;
-            PokazKamAnim();
+            if(foxybiegnie == false || (foxybiegnie == true && kamera != 2)){
+                PokazKamAnim();
+            }
+        }, 1000);
+    }else if(kto == 2){
+        console.log("wlaczenie kamer bonnie wariant");
+        setInterval(function(){
+            wylaczonaBonnie3 = -1;
+            if(foxybiegnie == false || (foxybiegnie == true && kamera != 2)){
+                PokazKamAnim();
+            }
+        }, 1000);
+    }else if(kto == 3){
+        console.log("wlaczenie kamer bonnie wariant");
+        setInterval(function(){
+            wylaczonaChica3 = -1;
+            if(foxybiegnie == false || (foxybiegnie == true && kamera != 2)){
+                PokazKamAnim();
+            }
         }, 1000);
     }
 }
@@ -511,18 +535,19 @@ function RuchFoxy(){
 function FoxyBieg(){
     console.log("bieganie start")
     if(kamera == 2 && gdzieFoxy == 3 && foxyJumpscareTimer > 0 && czyKamery){
-        kamery.style.backgroundImage = 'url("img/gif/foxySprint.gif")';
+        //kamery.style.backgroundImage = 'url("img/gif/foxySprint.gif")';
         console.log("bieganie działa");
         foxyJumpscareTimer = 999999;
         setTimeout(function(){
             if(stanDrzwiLewo == 1){
+                console.log("foxy puka :)");
                 bateria-=energiaFoxy;
                 energiaFoxy+=50;
                 gdzieFoxy=0;
                 foxybiegnie = false
                 PokazKamAnim();
             }else Przegrana(3); 
-        }, 3000 - aiFoxy*50);
+        }, 3000 - aiFoxy*30);
     }
 }
 //przefrywanie i wygrywanie
@@ -698,12 +723,12 @@ function ObslugaSwiatla(strona){
         if(strona == 0){
             if(stanSwiatloPrawo == 0){
                 if(stanSwiatloLewo == 0){
-                    console.log("Zapalenie Lewego Światła");
+                    //console.log("Zapalenie Lewego Światła");
                     stanSwiatloLewo = 1;
                     zuzycie++;
                     PokazPrawde(0, true);
                 }else{
-                    console.log("Zgaszenie Lewego Światła");
+                    //console.log("Zgaszenie Lewego Światła");
                     stanSwiatloLewo = 0;
                     zuzycie--;
                     PokazPrawde(0, false);
@@ -712,12 +737,12 @@ function ObslugaSwiatla(strona){
         }else{
             if(stanSwiatloLewo == 0){
                 if(stanSwiatloPrawo == 0){
-                    console.log("Zapalenie Prawego Światła");
+                    //console.log("Zapalenie Prawego Światła");
                     stanSwiatloPrawo = 1;
                     zuzycie++;
                     PokazPrawde(1, true);
                 }else{
-                    console.log("Zgaszenie Prawego Światła");
+                    //console.log("Zgaszenie Prawego Światła");
                     stanSwiatloPrawo = 0;
                     zuzycie--;
                     PokazPrawde(1, false);
@@ -805,6 +830,7 @@ function KameraOtworz(){
             czyKamery = false;
             zuzycie--;
             panel.style.display = "none";
+            foxyTimer = Math.random()*142 + 8;
         }else{
             czyKamery = true;
             zuzycie++;
@@ -829,7 +855,7 @@ function KameraZmien(ktora){
 //'url("img/kamery/'+ktora+'/'+co+'nikt.png")'
 function PokazKamAnim(){
     let sciezka = 'url("img/kamery/'+kamera+'/';
-    if(kamera != wylaczonaBonnie1 && kamera != wylaczonaBonnie2 && kamera != wylaczonaChica1 && kamera != wylaczonaChica2){
+    if(kamera != wylaczonaBonnie1 && kamera != wylaczonaBonnie2 && kamera != wylaczonaChica1 && kamera != wylaczonaChica2 && kamera != wylaczonaBonnie3 && kamera != wylaczonaChica3){
         switch(kamera){
             case 0:
                 if(gdzieBonnie==0 && gdzieChica == 0){
@@ -846,9 +872,9 @@ function PokazKamAnim(){
                 break;
             case 1:
                 if(gdzieChica==1){
-                    sciezka += 'chica.jpg'+warChica;
+                    sciezka += 'chica'+warChica+'.jpg';
                 }else if(gdzieBonnie==1){
-                    sciezka += 'bonnie.jpg'+warBonnie;
+                    sciezka += 'bonnie'+warBonnie+'.jpg';
                 }else if(gdzieFreddy==1){
                     sciezka += 'freddy.jpg';
                 }else{
@@ -870,7 +896,7 @@ function PokazKamAnim(){
                 break;
             case 3:
                 if(gdzieBonnie==3){
-                    sciezka += 'bonnie.jpg'+warBonnie;
+                    sciezka += 'bonnie'+warBonnie+'.jpg';
                 }else{
                     sciezka += 'nikt.jpg';
                 }
@@ -884,7 +910,7 @@ function PokazKamAnim(){
                 break;
             case 5:
                 if(gdzieChica==5){
-                    sciezka += 'chica.jpg'+warChica;
+                    sciezka += 'chica'+warChica+'.jpg';
                 }else if(gdzieFreddy==5){
                     sciezka += 'freddy.jpg';
                 }else{
@@ -893,7 +919,7 @@ function PokazKamAnim(){
                 break;
             case 6:
                 if(gdzieChica==6){
-                    sciezka += 'chica'+warChica;
+                    sciezka += 'chica'+warChica+'.jpg';
                 }else if(gdzieFreddy==6){
                     sciezka += 'freddy.jpg';
                 }else{
@@ -912,7 +938,7 @@ function PokazKamAnim(){
                 break;
             case 9:
                 if(gdzieChica==9){
-                    sciezka += 'chica'+warChica;
+                    sciezka += 'chica'+warChica+'.jpg';
                 }else if(gdzieFreddy==9){
                     sciezka += 'freddy.jpg';
                 }else{
@@ -926,7 +952,12 @@ function PokazKamAnim(){
         }
         sciezka += '")';
     }else{
-        sciezka = 'url("img/gif/static.gif")';
+        if(kamera == 2 && foxybiegnie == true){
+
+        }else{
+            console.log("wylaczona kamera");
+            sciezka = 'url("img/gif/static.gif")';
+        }
     }
     //console.log("pokazkamanim");
     kamery.style.backgroundImage = sciezka;
