@@ -298,6 +298,7 @@ main{
     background-image: url("img/menu/reklamajedzenie.png");
     background-size: contain;
     background-repeat: no-repeat;
+    cursor: pointer;
 }
 #zamkniecie{
     position: absolute;
@@ -311,4 +312,11 @@ main{
     background-color: transparent;
     border: none;
     background-position: right;
+}
+#goldenfreddy{
+    display: none;
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url("img/menu/zlotyfryderyk.jpg");
 }

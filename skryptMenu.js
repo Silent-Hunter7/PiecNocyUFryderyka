@@ -3,6 +3,7 @@ let wybieranie = false;
 const obrazek = document.getElementById('obrazek');
 const szum = document.getElementById('szum');
 let random;
+let easteregg = 0;
 
 document.addEventListener("DOMContentLoaded", rozmiar);
 window.addEventListener("resize", rozmiar);
@@ -24,10 +25,16 @@ function rozmiar(){
     });
 }
 
+if(Math.random()<0.01){
+    easteregg = 1;
+    obrazek.style.backgroundImage = 'url("img/easterEgg/MenuBern.jpg")';
+    document.getElementById('tytul').style.backgroundImage = 'url("img/easterEgg/TytulBern.png")';
+}
+
 
 setInterval(function(){
     szum.style.opacity = Math.random()/5+0.4
-    if (Math.random() < 0.03) {
+    if (Math.random() < 0.03 && easteregg == 0) {
         zmienObrazek();
     }
 }, 100);
@@ -138,12 +145,22 @@ function CustomStart(){
     let BonnieAI = document.getElementById('BonnieAI').value;
     let ChicaAI = document.getElementById('ChicaAI').value;
     let FoxyAI = document.getElementById('FoxyAI').value;
-    sessionStorage.setItem('FreddyAI', FreddyAI);
-    sessionStorage.setItem('BonnieAI', BonnieAI);
-    sessionStorage.setItem('ChicaAI', ChicaAI);
-    sessionStorage.setItem('FoxyAI', FoxyAI);
-    sessionStorage.setItem('Noc', 7);
-    window.location.assign("gra.html");
+    if(FreddyAI == 1 && BonnieAI == 9 && ChicaAI == 8 && FoxyAI == 7){
+        easteregg = 1;
+        console.log("1987");
+        document.getElementById("goldenfreddy").style.display = "block";
+        setTimeout(function(){
+            window.location.assign("index.html");
+        }, 1000);
+    }else{
+        console.log("bez easter egga");
+        sessionStorage.setItem('FreddyAI', FreddyAI);
+        sessionStorage.setItem('BonnieAI', BonnieAI);
+        sessionStorage.setItem('ChicaAI', ChicaAI);
+        sessionStorage.setItem('FoxyAI', FoxyAI);
+        sessionStorage.setItem('Noc', 7);
+        window.location.assign("gra.html");
+    }
 }
 let czyreklama = true;
 function Zamknij(){

@@ -68,6 +68,7 @@ let wylaczonaBonnie3 = -1;
 let wylaczonaChica1 = -1;
 let wylaczonaChica2 = -1;
 let wylaczonaChica3 = -1;
+let nowosci = 0;
 //Foxy
 let gdzieFoxy = 0;
 let czyFoxyMoze = true;
@@ -833,6 +834,15 @@ function KameraOtworz(){
             foxyTimer = Math.random()*142 + 8;
         }else{
             czyKamery = true;
+            if(kamera = 6){
+                if(Math.random()<0.03){
+                    nowosci = LosowyInt(1,4);
+                    console.log("nowosci "+nowosci);
+                }else{
+                    nowosci = 0;
+                    console.log("bez nowosci");
+                }
+            }
             zuzycie++;
             panel.style.display = "block";
             KameraZmien(kamera);
@@ -846,6 +856,13 @@ function KameraZmien(ktora){
     if(graDziala){
         let PrzyciskKam = document.getElementById("przyciskKam"+kamera);
         PrzyciskKam.style.backgroundImage = 'url("img/kameraPrzyciski/kam'+kamera+'off.jpg")';
+        if(kamera != ktora){
+            if(Math.random()<0.1){
+                nowosci = LosowyInt(1,4);
+            }else{
+                nowosci = 0;
+            }
+        }
         kamera = ktora;
         PrzyciskKam = document.getElementById("przyciskKam"+kamera);
         PrzyciskKam.style.backgroundImage = 'url("img/kameraPrzyciski/kam'+ktora+'on.jpg")';
@@ -923,7 +940,13 @@ function PokazKamAnim(){
                 }else if(gdzieFreddy==6){
                     sciezka += 'freddy.jpg';
                 }else{
-                    sciezka += 'nikt.jpg';
+                    if(nowosci > 0){
+                        console.log("nowosci ");
+                        sciezka += 'nowosci'+nowosci+'.jpg';
+                    }else{
+                        console.log("bez nowosci");
+                        sciezka += 'nikt.jpg';
+                    }
                 }
                 break;
             case 7:
