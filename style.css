@@ -327,3 +327,32 @@ main{
     width: 1920px;
     height: 1080px;
 }
+
+#gluchy{
+    width: 10%;
+    height: 10%;
+    position: absolute;
+    top: 3%;
+    left: 3%;
+    background-image: url("img/interfejs/gluchy.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+#nosek{
+    width: 1%;
+    height: 1.2%;
+    position: absolute;
+    top: 32.4%;
+    left: 42.2%;
+}
+#ralph{
+    position: absolute;
+    width: 6.5%;
+    height: 3%;
+    top: 5%;
+    left: 5%;
+    background-image: url("img/interfejs/muteRalph.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: none;
+}

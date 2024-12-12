@@ -173,11 +173,12 @@ function CustomStart(){
     let ChicaAI = document.getElementById('ChicaAI').value;
     let FoxyAI = document.getElementById('FoxyAI').value;
     if(FreddyAI == 1 && BonnieAI == 9 && ChicaAI == 8 && FoxyAI == 7){
+        new Audio('audio/ITSME.wav').play();
         easteregg = 1;
         console.log("1987");
         document.getElementById("goldenfreddy").style.display = "block";
         setTimeout(function(){
-            window.location.assign("index.html");
+            window.location.replace("about:blank");
         }, 1000);
     }else{
         console.log("bez easter egga");
@@ -205,4 +206,7 @@ function Reklama(){
     if(czyreklama){
         window.open("https://tymekh.github.io/Szm3gle-Recipes/", "_blank");
     }
+}
+function gluchy(){
+    document.getElementById("gluchy").style.display = "none";
 }

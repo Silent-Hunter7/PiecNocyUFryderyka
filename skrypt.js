@@ -226,6 +226,9 @@ let energiaFoxy = 10;
 let foxyJumpscareTimer;
 let foxybiegnie = false;
 
+let strasznySound = [false, false];
+let czyJumpscared = false;
+
 let intervalLinie;
 let coolLinie = 100;
 let kameryAnimacja = false;
@@ -271,16 +274,18 @@ function rozmiar(){
 function CzasSekunda(){
     //console.log("sekunda, bateria "+bateria+", zuzycie "+zuzycie);
     //console.log("sekunda, czas "+czas+", godzina "+godzina);
-    czas+=1;
-    bateria-=zuzycie;
-    bateria1.style.backgroundImage = 'url("img/interfejs/'+Math.floor((bateria/10)/10)+'.png")';
-    bateria2.style.backgroundImage = 'url("img/interfejs/'+Math.floor((bateria/10)%10)+'.png")';
-    if(czas%dlugoscGodzina==0) CzasGodzina();
-    if(bateria <= 0 && ciemnoscFaza == 0){
-        NoBateria(0);
+    if(!czyJumpscared){
+        czas+=1;
+        bateria-=zuzycie;
+        bateria1.style.backgroundImage = 'url("img/interfejs/'+Math.floor((bateria/10)/10)+'.png")';
+        bateria2.style.backgroundImage = 'url("img/interfejs/'+Math.floor((bateria/10)%10)+'.png")';
+        if(czas%dlugoscGodzina==0) CzasGodzina();
+        if(bateria <= 0 && ciemnoscFaza == 0){
+            NoBateria(0);
+        }
+        nagrywanie.style.opacity = nagrywanie.style.opacity == 1 ? 0 : 1;
+        rozmiar();
     }
-    nagrywanie.style.opacity = nagrywanie.style.opacity == 1 ? 0 : 1;
-    rozmiar();
 }
 
 function FoxyFreddyTimer(){
@@ -316,6 +321,7 @@ function FoxyFreddyTimer(){
 
 //fazy 0-prad   1-brakpradu 2-oczy 3-ciemnosc 4-smierc
 function NoBateria(){
+    document.getElementById("AUDnoise").pause();
     document.getElementById('obrazek').style.backgroundImage = 'url("img/kamery/panelKamer.jpg")';
     main.style.backgroundImage = 'url("img/kamery/panelKamer.jpg")';
     jumpscare.style.display = "block";
@@ -328,6 +334,7 @@ function NoBateria(){
     DrzwiAnimacja(0, false);
     DrzwiAnimacja(1, false);
     if(ciemnoscFaza == 0){
+        new Audio('audio/PowerOutage.wav').play();
         console.log("Zgaszenie światła");
         ciemnoscFaza = 1;
         ilosc = 0;
@@ -336,6 +343,7 @@ function NoBateria(){
         graDziala = false;
     }
     if(ciemnoscFaza == 2){
+        document.getElementById("AUDmarch").play();
         console.log("Oczy freddiego");
         ciemnoscFaza = 3;
         ilosc = 0;
@@ -343,6 +351,7 @@ function NoBateria(){
         setTimeout(function(){NoBateriaF2()}, 5000);
     }
     if(ciemnoscFaza == 4){
+        document.getElementById("AUDmarch").pause();
         console.log("Ciemność");
         ciemnoscFaza = 5;
         jumpscare.style.backgroundImage = 'url("img/biuro/noprad3.jpg")';
@@ -477,10 +486,11 @@ function RuchFreddy(){
             setTimeout(function(){FredRollUdany = true;})
         }
     }
-    console.log("Fred "+gdzieFreddy);
+    //console.log("Fred "+gdzieFreddy);
 }
 function FreddyPoruszenie(){
     if(gdzieFreddy != 6 && freddyCooldown <= 0 && czyKamery == false && FredRollUdany == true){
+        new Audio('audio/FreddysLaugh'+LosowyInt(1,3)+'.wav').play();
         switch(gdzieFreddy){ //0,1,9,8,5,6
             case 0:
                 if(gdzieBonnie != 0 && gdzieChica != 0)
@@ -508,6 +518,7 @@ function FreddyPoruszenie(){
 
 let bonniePowrot = [1,7];
 function RuchBonnie(){
+    strasznySound[0] = false;
     wylaczonaBonnie1 = gdzieBonnie;
     switch(gdzieBonnie){ //0,1,2,3,4,7,11
         case 0:
@@ -564,11 +575,12 @@ function RuchBonnie(){
     }
     wylaczonaBonnie2 = gdzieBonnie;
     wlaczKamery(0);
-    console.log("Boni "+gdzieBonnie);
+    //console.log("Boni "+gdzieBonnie);
     PokazKamAnim();
 }
 let chicaPowrot = [8,9];
 function RuchChica(){
+    strasznySound[1] = false;
     wylaczonaChica1 = gdzieChica;
     switch(gdzieChica){ //0,1,5,6,8,9,12
         case 0:
@@ -620,13 +632,13 @@ function RuchChica(){
     }
     wylaczonaChica2 = gdzieChica;
     wlaczKamery(1);
-    console.log("Chia "+gdzieChica);
+    //console.log("Chia "+gdzieChica);
     PokazKamAnim();
 }
 
 function wlaczKamery(kto){ //0bonnie 1chica
     if(kto == 0){
-        console.log("wlaczenie kamer chica ruch");
+        //console.log("wlaczenie kamer chica ruch");
         setInterval(function(){
             wylaczonaBonnie1 = -1;
             wylaczonaBonnie2 = -1;
@@ -635,7 +647,7 @@ function wlaczKamery(kto){ //0bonnie 1chica
             }
         }, 1000);
     }else if(kto == 1){
-        console.log("wlaczenie kamer bonnie ruch");
+        //console.log("wlaczenie kamer bonnie ruch");
         setInterval(function(){
             wylaczonaChica1 = -1;
             wylaczonaChica2 = -1;
@@ -644,7 +656,7 @@ function wlaczKamery(kto){ //0bonnie 1chica
             }
         }, 1000);
     }else if(kto == 2){
-        console.log("wlaczenie kamer bonnie wariant");
+        //console.log("wlaczenie kamer bonnie wariant");
         setInterval(function(){
             wylaczonaBonnie3 = -1;
             if(foxybiegnie == false || (foxybiegnie == true && kamera != 2)){
@@ -652,7 +664,7 @@ function wlaczKamery(kto){ //0bonnie 1chica
             }
         }, 1000);
     }else if(kto == 3){
-        console.log("wlaczenie kamer bonnie wariant");
+        //console.log("wlaczenie kamer bonnie wariant");
         setInterval(function(){
             wylaczonaChica3 = -1;
             if(foxybiegnie == false || (foxybiegnie == true && kamera != 2)){
@@ -680,18 +692,21 @@ function RuchFoxy(){
             gdzieFoxy=0;
             break;
     }
-    console.log("Foxy "+gdzieFoxy);
+    //console.log("Foxy "+gdzieFoxy);
     PokazKamAnim();
 }
 
+let foxyBieg = new Audio('audio/FoxyRunning.wav');
 function FoxyBieg(){
-    console.log("bieganie start")
+    //console.log("bieganie start")
     if(kamera == 2 && gdzieFoxy == 3 && foxyJumpscareTimer > 0 && czyKamery){
-        //kamery.style.backgroundImage = 'url("img/gif/foxySprint.gif")';
-        console.log("bieganie działa");
+        foxyBieg.load();
+        foxyBieg.play();
+        //console.log("bieganie działa");
         foxyJumpscareTimer = 999999;
         setTimeout(function(){
             if(stanDrzwiLewo == 1){
+                new Audio('audio/FoxysBanging.wav').play();
                 console.log("foxy puka :)");
                 bateria-=energiaFoxy;
                 energiaFoxy+=50;
@@ -704,6 +719,8 @@ function FoxyBieg(){
 }
 //przefrywanie i wygrywanie
 function Przegrana(kto){
+    document.getElementById("AUDjumpscare").play();
+    czyJumpscared = true;
     console.log("-----Przegrana");
     jumpscare.style.display = "block";
     zapasowy.style.display = "block";
@@ -713,6 +730,9 @@ function Przegrana(kto){
         case 0:
             jumpscare.style.backgroundImage = 'url("img/gif/freddy.gif")';
             setTimeout(function(){
+                document.getElementById("AUDnoise").pause();
+                document.getElementById("AUDjumpscare").pause();
+                document.getElementById("AUDdeadszum").play();
                 jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';
                 setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
                     setTimeout(function(){window.location.assign("index.html");},5000);
@@ -722,6 +742,9 @@ function Przegrana(kto){
         case 1:
             jumpscare.style.backgroundImage = 'url("img/gif/bonnie.gif")';
             setTimeout(function(){
+                document.getElementById("AUDnoise").pause();
+                document.getElementById("AUDjumpscare").pause();
+                document.getElementById("AUDdeadszum").play();
                 jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';
                 setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
                     setTimeout(function(){window.location.assign("index.html");},5000);
@@ -731,6 +754,9 @@ function Przegrana(kto){
         case 2:
             jumpscare.style.backgroundImage = 'url("img/gif/chica.gif")';
             setTimeout(function(){
+                document.getElementById("AUDnoise").pause();
+                document.getElementById("AUDjumpscare").pause();
+                document.getElementById("AUDdeadszum").play();
                 jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';
                 setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
                     setTimeout(function(){window.location.assign("index.html");},5000);
@@ -740,6 +766,9 @@ function Przegrana(kto){
         case 3:
             jumpscare.style.backgroundImage = 'url("img/gif/foxy.gif")';
             setTimeout(function(){
+                document.getElementById("AUDnoise").pause();
+                document.getElementById("AUDjumpscare").pause();
+                document.getElementById("AUDdeadszum").play();
                 jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';
                 setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
                     setTimeout(function(){window.location.assign("index.html");},5000);
@@ -749,6 +778,9 @@ function Przegrana(kto){
         case 4:
             jumpscare.style.backgroundImage = 'url("img/gif/power.gif")';
             setTimeout(function(){
+                document.getElementById("AUDnoise").pause();
+                document.getElementById("AUDjumpscare").pause();
+                document.getElementById("AUDdeadszum").play();
                 jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';
                 setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
                     setTimeout(function(){window.location.assign("index.html");},5000);
@@ -793,22 +825,26 @@ function ObslugaDrzwi(strona){
     if(graDziala){
         if(strona == 0){
             if(stanDrzwiLewo == 0 && drzwiDostepne[0]){
+                new Audio('audio/DoorCloseOpen.wav').play();
                 console.log("Zamknięcie Lewych Drzwi");
                 stanDrzwiLewo = 1;
                 DrzwiAnimacja(strona, true);
                 zuzycie++;
             }else if(drzwiDostepne[0]){
+                new Audio('audio/DoorCloseOpen.wav').play();
                 console.log("Otworzenie Lewych Drzwi");
                 stanDrzwiLewo = 0;
                 DrzwiAnimacja(strona, false);
             }else console.log("trwa animacja - przycisk nie zadziała");
         }else{
             if(stanDrzwiPrawo == 0 && drzwiDostepne[1]){
+                new Audio('audio/DoorCloseOpen.wav').play();
                 console.log("Zamknięcie Prawych Drzwi");
                 stanDrzwiPrawo = 1;
                 DrzwiAnimacja(strona, true);
                 zuzycie++;
             }else if(drzwiDostepne[1]){
+                new Audio('audio/DoorCloseOpen.wav').play();
                 console.log("Otworzenie Prawych Drzwi");
                 stanDrzwiPrawo = 0;
                 DrzwiAnimacja(strona, false);
@@ -872,33 +908,38 @@ function nastepnaKlatkaDrzwi(strona, zamykanie){
 
 function ObslugaSwiatla(strona){
     if(graDziala){
+        document.getElementById("AUDswiatlo").pause();
         if(strona == 0){
-            if(stanSwiatloPrawo == 0){
-                if(stanSwiatloLewo == 0){
-                    //console.log("Zapalenie Lewego Światła");
-                    stanSwiatloLewo = 1;
-                    zuzycie++;
-                    PokazPrawde(0, true);
-                }else{
-                    //console.log("Zgaszenie Lewego Światła");
-                    stanSwiatloLewo = 0;
-                    zuzycie--;
-                    PokazPrawde(0, false);
-                }
+            if(stanSwiatloPrawo == 1){
+                stanSwiatloPrawo = 0;
+                zuzycie--;
+            }
+            if(stanSwiatloLewo == 0){
+                //console.log("Zapalenie Lewego Światła");
+                stanSwiatloLewo = 1;
+                zuzycie++;
+                PokazPrawde(0, true);
+            }else{
+                //console.log("Zgaszenie Lewego Światła");
+                stanSwiatloLewo = 0;
+                zuzycie--;
+                PokazPrawde(0, false);
             }
         }else{
-            if(stanSwiatloLewo == 0){
-                if(stanSwiatloPrawo == 0){
-                    //console.log("Zapalenie Prawego Światła");
-                    stanSwiatloPrawo = 1;
-                    zuzycie++;
-                    PokazPrawde(1, true);
-                }else{
-                    //console.log("Zgaszenie Prawego Światła");
-                    stanSwiatloPrawo = 0;
-                    zuzycie--;
-                    PokazPrawde(1, false);
-                }
+            if(stanSwiatloLewo == 1){
+                stanSwiatloLewo = 0;
+                zuzycie--;
+            }
+            if(stanSwiatloPrawo == 0){
+                //console.log("Zapalenie Prawego Światła");
+                stanSwiatloPrawo = 1;
+                zuzycie++;
+                PokazPrawde(1, true);
+            }else{
+                //console.log("Zgaszenie Prawego Światła");
+                stanSwiatloPrawo = 0;
+                zuzycie--;
+                PokazPrawde(1, false);
             }
         }
         TeksturaPrzyciskow();
@@ -931,24 +972,37 @@ function TeksturaPrzyciskow(){
 }
 
 
-
 function PokazPrawde(strona, pokaz){
     if(graDziala){
         if(strona == 0){
             if(gdzieBonnie == 11 && pokaz){
                 main.style.backgroundImage = 'url("img/biuro/bonnie.jpg")';
+                document.getElementById("AUDswiatlo").play();
+                if(!strasznySound[0]){
+                    new Audio('audio/WindowScare.wav').play();
+                    strasznySound[0] = true;
+                }
             }else if(pokaz){
                 main.style.backgroundImage = 'url("img/biuro/leweswiatlo.jpg")';
+                document.getElementById("AUDswiatlo").play();
             }else{
                 main.style.backgroundImage = 'url("img/biuro/nikt.jpg")';
+                document.getElementById("AUDswiatlo").pause();
             }
         }else{
             if(gdzieChica == 12 && pokaz){
                 main.style.backgroundImage = 'url("img/biuro/chica.jpg")';
+                document.getElementById("AUDswiatlo").play();
+                if(!strasznySound[1]){
+                    new Audio('audio/WindowScare.wav').play();
+                    strasznySound[1] = true;
+                }
             }else if(pokaz){
                 main.style.backgroundImage = 'url("img/biuro/praweswiatlo.jpg")';
+                document.getElementById("AUDswiatlo").play();
             }else{
                 main.style.backgroundImage = 'url("img/biuro/nikt.jpg")';
+                document.getElementById("AUDswiatlo").pause();
             }
         }
     }
@@ -959,6 +1013,10 @@ function ZmienPrawde(){
         if(stanSwiatloLewo == 1){
             if(gdzieBonnie == 11 && stanSwiatloLewo == 1){
                 main.style.backgroundImage = 'url("img/biuro/bonnie.jpg")';
+                if(!strasznySound[0]){
+                    new Audio('audio/WindowScare.wav').play();
+                    strasznySound[0] = true;
+                }
             }else if(stanSwiatloLewo == 1){
                 main.style.backgroundImage = 'url("img/biuro/leweswiatlo.jpg")';
             }else{
@@ -967,6 +1025,10 @@ function ZmienPrawde(){
         }else if(stanSwiatloPrawo == 1){
             if(gdzieChica == 12 && stanSwiatloPrawo == 1){
                 main.style.backgroundImage = 'url("img/biuro/chica.jpg")';
+                if(!strasznySound[1]){
+                    new Audio('audio/WindowScare.wav').play();
+                    strasznySound[1] = true;
+                }
             }else if(stanSwiatloPrawo == 1){
                 main.style.backgroundImage = 'url("img/biuro/praweswiatlo.jpg")';
             }else{
@@ -991,6 +1053,9 @@ function KameraOtworz(){
     if(graDziala){
         if(kameryAnimacja == false){
             if(czyKamery){
+                document.getElementById("AUDpanelup").pause();
+                document.getElementById("AUDpaneldown").load();
+                document.getElementById("AUDpaneldown").play();
                 panelAnimacja.style.backgroundImage = 'url("img/gif/kameryDown.gif")';
                 panelAnimacja.style.display = "block";
                 panel.style.display = "none";
@@ -1007,6 +1072,9 @@ function KameraOtworz(){
                     }
                 }, 200);
             }else{
+                document.getElementById("AUDpaneldown").pause();
+                document.getElementById("AUDpanelup").load();
+                document.getElementById("AUDpanelup").play();
                 panelAnimacja.style.backgroundImage = 'url("img/gif/kameryUp.gif")';
                 panelAnimacja.style.display = "block";
                 kameryAnimacja = true;
@@ -1042,6 +1110,7 @@ function KameraZmien(ktora){
         let PrzyciskKam = document.getElementById("przyciskKam"+kamera);
         PrzyciskKam.style.backgroundImage = 'url("img/kameraPrzyciski/kam'+kamera+'off.jpg")';
         if(kamera != ktora){
+            new Audio('audio/CameraChange.wav').play();
             coolLinie = 200;
             if(Math.random()<0.1){
                 nowosci = LosowyInt(1,4);
@@ -1167,7 +1236,7 @@ function PokazKamAnim(){
         if(kamera == 2 && foxybiegnie == true){
 
         }else{
-            console.log("wylaczona kamera");
+            //console.log("wylaczona kamera");
             sciezka = 'url("img/gif/static.gif")';
         }
     }
@@ -1197,4 +1266,25 @@ function LosowyInt(odIlu, doIlu){
     }else{
         return 0;
     }
+}
+
+let Ralph = new Audio('audio/Ralph'+noc+'.wav');
+function gluchy(){
+    document.getElementById("gluchy").style.display = "none";
+    document.getElementById("AUDnoise").volume = 0.2;
+    document.getElementById("AUDnoise").play();
+    if(noc <= 5){
+        Ralph.play();
+        setTimeout(function(){
+            document.getElementById("ralph").style.display = "block";
+            Ralph.addEventListener('ended', muteRalph);
+        }, 100);
+    }
+}
+function muteRalph(){
+    Ralph.pause();
+    document.getElementById("ralph").style.display = "none";
+}
+function nosek(){
+    new Audio('audio/Honk.wav').play();
 }

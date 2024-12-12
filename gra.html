@@ -14,6 +14,8 @@
         <div id="drzwiPrawo" class="wysokosc"></div>
         <div id="wiatrak" class="wysokosc"></div>
         
+        <div id="nosek" onclick="nosek()"></div>
+
         <div id="przyciskiLewo">
             <button id="drzwiPrzyciskLewo" class="drzwiPrzycisk" onclick="ObslugaDrzwi(0)"></button>
             <button id="swiatloPrzyciskLewo" class="swiatloPrzycisk" onclick="ObslugaSwiatla(0)"></button>
@@ -57,10 +59,20 @@
 
         <div id="usage"></div>
         <div id="zuzycie"></div>
+        <div id="gluchy" onclick="gluchy()"></div>
+        <div id="ralph" onclick="muteRalph()"></div>
 
         <div id="zapasowy" class="wysokosc"></div>
         <div id="jumpscare" class="wysokosc"></div>
     </main>
     <script src="skrypt.js"></script>
+    <audio id="AUDnoise" src="audio/Office.wav" loop></audio>
+    <audio id="AUDswiatlo" src="audio/Light.wav" loop></audio>
+    <audio id="AUDpanelup" src="audio/MonitorPulledUp.wav"></audio>
+    <audio id="AUDpaneldown" src="audio/MonitorPulledDown.wav"></audio>
+    <audio id="AUDkam"></audio>
+    <audio id="AUDdeadszum" src="audio/GameOverStatic.wav"></audio>
+    <audio id="AUDmarch" src="audio/ToreadorMarch.wav"></audio>
+    <audio id="AUDjumpscare" src="audio/Jumpscare.wav"></audio>
 </body>
 </html>

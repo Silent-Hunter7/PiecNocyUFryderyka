@@ -342,16 +342,6 @@ main{
     background-image: url("img/menu/zlotyfryderyk.jpg");
     z-index: 5;
 }
-/*#original{
-    width: 25%;
-    height: 3%;
-    bottom: 1%; 
-    right: 1%;
-    position: absolute;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-image: url("img/menu/original.png");
-}*/
 #imgfred{
     background-image: url("img/menu/cnfreddy.jpg");
     background-size: contain;
@@ -369,6 +359,16 @@ main{
 }
 #imgfoxy{
     background-image: url("img/menu/cnfoxy.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+#gluchy{
+    position: absolute;
+    width: 5%;
+    height: 5%;
+    top: 5%;
+    left: 5%;
+    background-image: url("img/interfejs/gluchy.png");
     background-size: contain;
     background-repeat: no-repeat;
 }
