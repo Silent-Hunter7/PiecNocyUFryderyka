@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styleMenu.css">
     <title>Pięć Nocy u Fryderyka</title>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">    
 </head>
 <body>
     <main class="wysokosc">
@@ -38,14 +38,14 @@
             <button id="zamkniecie" onclick="Zamknij()"></button>
         </div>
         
-        <div id="original"></div>
+        <!--<div id="original"></div>-->
 
         <div id="dodatkowe" class="wysokosc">
             <button id="powrot" onclick="Dodatkowe(false)"></button>
             <div id="customize"></div>
             <div id="freddy" class="animatronik">
                 <div class="nazwa"></div>
-                <img class="img" src="img/menu/cnfreddy.jpg">
+                <div class="img" id="imgfred"></div>
                 <div class="ai" id="aiFreddy"></div>
                 <div class="wybieranie">
                     <button class="aim1" onclick="CustomChange(0,-1)"></button>
@@ -57,7 +57,7 @@
             </div>
             <div id="bonnie" class="animatronik">
                 <div class="nazwa"></div>
-                <img class="img" src="img/menu/cnbonnie.jpg">
+                <div class="img" id="imgboni"></div>
                 <div class="ai" id="aiBonniey"></div>
                 <div class="wybieranie">
                     <button class="aim1" onclick="CustomChange(1,-1)"></button>
@@ -69,7 +69,7 @@
             </div>
             <div id="chica" class="animatronik">
                 <div class="nazwa"></div>
-                <img class="img" src="img/menu/cnchica.jpg">
+                <div class="img" id="imgchia"></div>
                 <div class="ai" id="aiChica"></div>
                 <div class="wybieranie">
                     <button class="aim1" onclick="CustomChange(2,-1)"></button>
@@ -81,7 +81,7 @@
             </div>
             <div id="foxy" class="animatronik">
                 <div class="nazwa"></div>
-                <img class="img" src="img/menu/cnfoxy.jpg">
+                <div class="img" id="imgfoxy"></div>
                 <div class="ai" id="aiFoxy"></div>
                 <div class="wybieranie">
                     <button class="aim1" onclick="CustomChange(3,-1)"></button>

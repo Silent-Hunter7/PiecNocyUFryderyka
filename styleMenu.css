@@ -133,6 +133,7 @@ main{
     height: 70%;
     display: none;
     background-color: black;
+    z-index: 2;
 }
 #powrot{
     position: absolute;
@@ -141,7 +142,8 @@ main{
     width: 4%;
     height: 4%;
     background-image: url("img/menu/powrot.png");
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
     background-color: transparent;
     border: 0;
 }
@@ -330,6 +332,7 @@ main{
     background-color: transparent;
     border: none;
     background-position: right;
+    cursor: pointer;
 }
 #goldenfreddy{
     display: none;
@@ -337,8 +340,9 @@ main{
     background-size: contain;
     background-repeat: no-repeat;
     background-image: url("img/menu/zlotyfryderyk.jpg");
+    z-index: 5;
 }
-#original{
+/*#original{
     width: 25%;
     height: 3%;
     bottom: 1%; 
@@ -347,4 +351,24 @@ main{
     background-size: contain;
     background-repeat: no-repeat;
     background-image: url("img/menu/original.png");
+}*/
+#imgfred{
+    background-image: url("img/menu/cnfreddy.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+#imgboni{
+    background-image: url("img/menu/cnbonnie.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+#imgchia{
+    background-image: url("img/menu/cnchica.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+#imgfoxy{
+    background-image: url("img/menu/cnfoxy.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
 }

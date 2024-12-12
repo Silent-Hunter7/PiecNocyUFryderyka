@@ -1,3 +1,143 @@
+const images = [
+    "img/zakonczenia/noc1.png",
+    "img/zakonczenia/noc2.png",
+    "img/zakonczenia/noc3.png",
+    "img/zakonczenia/noc4.png",
+    "img/zakonczenia/noc5.png",
+    "img/zakonczenia/noc6.png",
+    "img/zakonczenia/noc7.png",
+
+    "img/zakonczenia/przegrana.jpg",
+    "img/zakonczenia/wygrana5.jpg",
+    "img/zakonczenia/wygrana6.jpg",
+    "img/zakonczenia/wygrana7.jpg",
+
+    "img/kamery/0/nikt.jpg",
+    "img/kamery/0/wszyscy.jpg",
+    "img/kamery/0/freddychica.jpg",
+    "img/kamery/0/freddybonnie.jpg",
+    "img/kamery/0/freddy.jpg",
+
+    "img/kamery/1/nikt.jpg",
+    "img/kamery/1/bonnie0.jpg",
+    "img/kamery/1/bonnie1.jpg",
+    "img/kamery/1/chica0.jpg",
+    "img/kamery/1/chica1.jpg",
+    "img/kamery/1/freddy.jpg",
+
+    "img/kamery/2/nikt.jpg",
+    "img/kamery/2/bonnie.jpg",
+
+    "img/kamery/3/nikt.jpg",
+    "img/kamery/3/bonnie0.jpg",
+    "img/kamery/3/bonnie1.jpg",
+
+    "img/kamery/4/nikt.jpg",
+    "img/kamery/4/bonnie.jpg",
+
+    "img/kamery/5/nikt.jpg",
+    "img/kamery/5/chica0.jpg",
+    "img/kamery/5/chica1.jpg",
+    "img/kamery/5/freddy.jpg",
+
+    "img/kamery/6/nikt.jpg",
+    "img/kamery/6/chica0.jpg",
+    "img/kamery/6/chica1.jpg",
+    "img/kamery/6/freddy.jpg",
+
+    "img/kamery/7/nikt.jpg",
+    "img/kamery/7/bonnie.jpg",
+
+    "img/kamery/8/audio.jpg",
+
+    "img/kamery/9/nikt.jpg",
+    "img/kamery/9/chica0.jpg",
+    "img/kamery/9/chica1.jpg",
+    "img/kamery/9/freddy.jpg",
+
+    "img/kamery/10/0.jpg",
+    "img/kamery/10/1.jpg",
+    "img/kamery/10/2.jpg",
+    "img/kamery/10/3.jpg",
+
+
+    "img/gif/bonnie.gif",
+    "img/gif/chica.gif",
+    "img/kamery/2/foxySprint.gif",
+    "img/gif/foxy.gif",
+    "img/gif/freddy.gif",
+    "img/gif/power.gif",
+    "img/gif/static.gif",
+    "img/gif/szosta.gif",
+    "img/gif/wiatrak.gif",
+    "img/gif/kameryUp.gif",
+    "img/gif/kameryDown.gif",
+
+    "img/biuro/tlo.jpg",
+    "img/biuro/nikt.jpg",
+    "img/biuro/leweswiatlo.jpg",
+    "img/biuro/bonnie.jpg",
+    "img/biuro/praweswiatlo.jpg",
+    "img/biuro/chica.jpg",
+
+    "img/biuro/noprad1.jpg",
+    "img/biuro/noprad2.jpg",
+    "img/biuro/noprad3.jpg",
+
+    "img/biuro/przyciski/lewenic.png",
+    "img/biuro/przyciski/lewedrzwi.png",
+    "img/biuro/przyciski/leweswiatlo.png",
+    "img/biuro/przyciski/lewedrzwiswiatlo.png",
+
+    "img/biuro/przyciski/prawenic.png",
+    "img/biuro/przyciski/prawedrzwi.png",
+    "img/biuro/przyciski/praweswiatlo.png",
+    "img/biuro/przyciski/prawedrzwiswiatlo.png",
+
+    "img/biuro/drzwi/lewe/0.png",
+    "img/biuro/drzwi/lewe/1.png",
+    "img/biuro/drzwi/lewe/2.png",
+    "img/biuro/drzwi/lewe/3.png",
+    "img/biuro/drzwi/lewe/4.png",
+    "img/biuro/drzwi/lewe/5.png",
+    "img/biuro/drzwi/lewe/6.png",
+    "img/biuro/drzwi/lewe/7.png",
+    "img/biuro/drzwi/lewe/8.png",
+    "img/biuro/drzwi/lewe/9.png",
+    "img/biuro/drzwi/lewe/10.png",
+    "img/biuro/drzwi/lewe/11.png",
+    "img/biuro/drzwi/lewe/12.png",
+    "img/biuro/drzwi/lewe/13.png",
+    "img/biuro/drzwi/lewe/14.png",
+
+    "img/biuro/drzwi/prawe/0.png",
+    "img/biuro/drzwi/prawe/1.png",
+    "img/biuro/drzwi/prawe/2.png",
+    "img/biuro/drzwi/prawe/3.png",
+    "img/biuro/drzwi/prawe/4.png",
+    "img/biuro/drzwi/prawe/5.png",
+    "img/biuro/drzwi/prawe/6.png",
+    "img/biuro/drzwi/prawe/7.png",
+    "img/biuro/drzwi/prawe/8.png",
+    "img/biuro/drzwi/prawe/9.png",
+    "img/biuro/drzwi/prawe/10.png",
+    "img/biuro/drzwi/prawe/11.png",
+    "img/biuro/drzwi/prawe/12.png",
+    "img/biuro/drzwi/prawe/13.png",
+    "img/biuro/drzwi/prawe/14.png",
+
+    "img/interfejs/zuzycie1.png",
+    "img/interfejs/zuzycie2.png",
+    "img/interfejs/zuzycie3.png",
+    "img/interfejs/zuzycie4.png",
+    "img/interfejs/zuzycie5.png"
+];
+
+images.forEach((src) => {
+    const img = new Image();
+    img.src = src;
+});
+
 //"ai" od 0 do 20
 let noc;
 let aiFreddy;
@@ -32,6 +172,12 @@ setTimeout(function(){
     jumpscare.style.display = "none";
     zapasowy.style.display = "none";
     graDziala = true;
+    setInterval(function(){FoxyFreddyTimer()}, 100);
+    setInterval(function(){CzasSekunda()}, 1000);
+    setInterval(function(){SzansaRuchu(0)}, 3000);
+    setInterval(function(){SzansaRuchu(1)}, 4800);
+    setInterval(function(){SzansaRuchu(2)}, 5200);
+    setInterval(function(){SzansaRuchu(3)}, 5100);
 }, 3000);
 
 let czas = 0;
@@ -80,9 +226,14 @@ let energiaFoxy = 10;
 let foxyJumpscareTimer;
 let foxybiegnie = false;
 
+let intervalLinie;
+let coolLinie = 100;
+let kameryAnimacja = false;
+
 const main = document.querySelector('main');
+const panelAnimacja = document.getElementById('panelAnimacja');
 const panel = document.getElementById('panelKamer');
-const wylaczone = document.getElementById('wylaczone');
+const linie = document.getElementById('linie');
 const kamery = document.getElementById('widokKamera');
 const przyciskiLewo = document.getElementById('przyciskiLewo');
 const przyciskiPrawo = document.getElementById('przyciskiPrawo');
@@ -115,13 +266,6 @@ function rozmiar(){
         element.style.height = heightSet+"px";
     });
 }
-
-setInterval(function(){FoxyFreddyTimer()}, 100);
-setInterval(function(){CzasSekunda()}, 1000);
-setInterval(function(){SzansaRuchu(0)}, 3000);
-setInterval(function(){SzansaRuchu(1)}, 4800);
-setInterval(function(){SzansaRuchu(2)}, 5200);
-setInterval(function(){SzansaRuchu(3)}, 5100);
 
 //co sekundę
 function CzasSekunda(){
@@ -392,7 +536,7 @@ function RuchBonnie(){
                 gdzieBonnie = 4;
             }else{
                 gdzieBonnie = 11;
-                ZmienPrawde(0);
+                ZmienPrawde();
             }
             break;
         case 4:
@@ -400,7 +544,7 @@ function RuchBonnie(){
                 gdzieBonnie = 2;
             }else{
                 gdzieBonnie = 11;
-                ZmienPrawde(0);
+                ZmienPrawde();
             }
             break;
         case 7:
@@ -414,7 +558,7 @@ function RuchBonnie(){
             if(stanDrzwiLewo == 1){
                 random = LosowyInt(0,1);
                 gdzieBonnie=bonniePowrot[random];
-                ZmienPrawde(0);
+                ZmienPrawde();
             }else Przegrana(1);
             break;
     }
@@ -449,7 +593,7 @@ function RuchChica(){
                 gdzieChica = 5;
             }else{
                 gdzieChica = 12;
-                ZmienPrawde(1);
+                ZmienPrawde();
             }
             break;
         case 8:
@@ -470,7 +614,7 @@ function RuchChica(){
             if(stanDrzwiPrawo == 1){
                 random = LosowyInt(0,1);
                 gdzieChica=chicaPowrot[random];
-                ZmienPrawde(1);
+                ZmienPrawde();
             }else Przegrana(2);
             break;
     }
@@ -809,10 +953,10 @@ function PokazPrawde(strona, pokaz){
         }
     }
 }
-function ZmienPrawde(strona){
+function ZmienPrawde(){
     if(graDziala){
-        console.log("zmien "+strona);
-        if(strona == 0){
+        console.log("zmien");
+        if(stanSwiatloLewo == 1){
             if(gdzieBonnie == 11 && stanSwiatloLewo == 1){
                 main.style.backgroundImage = 'url("img/biuro/bonnie.jpg")';
             }else if(stanSwiatloLewo == 1){
@@ -820,7 +964,7 @@ function ZmienPrawde(strona){
             }else{
                 main.style.backgroundImage = 'url("img/biuro/nikt.jpg")';
             }
-        }else{
+        }else if(stanSwiatloPrawo == 1){
             if(gdzieChica == 12 && stanSwiatloPrawo == 1){
                 main.style.backgroundImage = 'url("img/biuro/chica.jpg")';
             }else if(stanSwiatloPrawo == 1){
@@ -832,37 +976,73 @@ function ZmienPrawde(strona){
     }
 }
 
+intervalLinie = 40;
+setInterval(function(){
+    if(coolLinie > 0){
+        linie.style.backgroundImage = 'url("img/linie/'+LosowyInt(1,16)+'.png")';
+        coolLinie -= intervalLinie;
+    }else{
+        linie.style.backgroundImage = 'url("img/linie/0.png")';
+    }
+}, intervalLinie);
+
+
 function KameraOtworz(){
     if(graDziala){
-        if(czyKamery){
-            czyKamery = false;
-            zuzycie--;
-            panel.style.display = "none";
-            foxyTimer = Math.random()*142 + 8;
-        }else{
-            czyKamery = true;
-            if(kamera == 6){
-                if(Math.random()<0.03){
-                    nowosci = LosowyInt(1,4);
-                    console.log("nowosci "+nowosci);
-                }else{
-                    nowosci = 0;
-                }
+        if(kameryAnimacja == false){
+            if(czyKamery){
+                panelAnimacja.style.backgroundImage = 'url("img/gif/kameryDown.gif")';
+                panelAnimacja.style.display = "block";
+                panel.style.display = "none";
+                kameryAnimacja = true;
+                zuzycie--;
+                ZuzycieObrazek(); 
+                setTimeout(function(){
+                    if(kameryAnimacja == true){
+                        panelAnimacja.style.display = "none";
+                        kameryAnimacja = false;
+                        czyKamery = false;
+                        foxyTimer = Math.random()*142 + 8;
+                        czyFoxyMoze = false;
+                    }
+                }, 200);
+            }else{
+                panelAnimacja.style.backgroundImage = 'url("img/gif/kameryUp.gif")';
+                panelAnimacja.style.display = "block";
+                kameryAnimacja = true;
+                setTimeout(function(){
+                    if(kameryAnimacja == true){
+                        zuzycie++;
+                        ZuzycieObrazek(); 
+                        coolLinie = 200;
+                        panelAnimacja.style.display = "none";
+                        kameryAnimacja = false;
+                        czyKamery = true;
+                        if(kamera == 6){
+                            if(Math.random()<0.03){
+                                nowosci = LosowyInt(1,4);
+                                console.log("nowosci "+nowosci);
+                            }else{
+                                nowosci = 0;
+                            }
+                        }
+                        panel.style.display = "block";
+                        foxyTimer = Math.random()*142 + 8;
+                        czyFoxyMoze = false;
+                        KameraZmien(kamera);
+                    }
+                }, 200);
             }
-            zuzycie++;
-            panel.style.display = "block";
-            KameraZmien(kamera);
-            czyFoxyMoze = false;
-            foxyTimer = Math.random()*142 + 8;
         }
-        ZuzycieObrazek();
     }
 }
+
 function KameraZmien(ktora){
     if(graDziala){
         let PrzyciskKam = document.getElementById("przyciskKam"+kamera);
         PrzyciskKam.style.backgroundImage = 'url("img/kameraPrzyciski/kam'+kamera+'off.jpg")';
         if(kamera != ktora){
+            coolLinie = 200;
             if(Math.random()<0.1){
                 nowosci = LosowyInt(1,4);
             }else{
@@ -875,10 +1055,13 @@ function KameraZmien(ktora){
         PokazKamAnim();
     }   
 }
+
+
 //'url("img/kamery/'+ktora+'/'+co+'nikt.png")'
 function PokazKamAnim(){
     let sciezka = 'url("img/kamery/'+kamera+'/';
     if(kamera != wylaczonaBonnie1 && kamera != wylaczonaBonnie2 && kamera != wylaczonaChica1 && kamera != wylaczonaChica2 && kamera != wylaczonaBonnie3 && kamera != wylaczonaChica3){
+        document.getElementById("audioonly").style.display = "none";
         switch(kamera){
             case 0:
                 if(gdzieBonnie==0 && gdzieChica == 0){
@@ -962,6 +1145,7 @@ function PokazKamAnim(){
                 }
                 break;
             case 8:
+                document.getElementById("audioonly").style.display = "block";
                 sciezka += 'audio.jpg';
                 break;
             case 9:

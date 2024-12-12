@@ -92,6 +92,14 @@ main{
     right: 25%;
 }
 /*Kamery*/
+#panelAnimacja{
+    position: absolute;
+    display: none;
+    background-image: url("img/gif/kameryUp.gif");
+    top: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
 #kameryPrzycisk{
     position: absolute;
     bottom: 0%;
@@ -104,9 +112,22 @@ main{
     background-repeat: no-repeat;
     border: 0;
 }
-#panelKamer, #wylaczone{
+#panelKamer{
     position: absolute;
     display: none;
+}
+#linie{
+    position: absolute;
+    background-image: url("img/kamery/przycisk.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+#audioonly{
+    position: absolute;
+    display: none;
+    background-image: url("img/kamery/8/audio.png");
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 #szum{
     position: absolute;
@@ -126,7 +147,7 @@ main{
 }
 #mapa{
     position: absolute;
-    background-image: url("img/kamery/overlay.png");
+    background-image: url("img/gif/mapa.gif");
     background-size: contain;
 }
 #nagrywanie{
