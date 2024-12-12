@@ -144,12 +144,14 @@ let aiFreddy;
 let aiBonnie;
 let aiChica;
 let aiFoxy;
+let rizz = false;
 if(sessionStorage.getItem('Noc')){
     noc = sessionStorage.getItem('Noc');
     aiFreddy = sessionStorage.getItem('FreddyAI');
     aiBonnie = sessionStorage.getItem('BonnieAI');
     aiChica = sessionStorage.getItem('ChicaAI');
     aiFoxy = sessionStorage.getItem('FoxyAI');
+    rizz = sessionStorage.getItem('rizz');
 }else{
     noc = 7;
     aiFreddy = 20;
@@ -217,7 +219,7 @@ let wylaczonaBonnie3 = -1;
 let wylaczonaChica1 = -1;
 let wylaczonaChica2 = -1;
 let wylaczonaChica3 = -1;
-let nowosci = 0;
+let wBiurze = [false, false, false]; //fred, boni, chia
 //Foxy
 let gdzieFoxy = 0;
 let czyFoxyMoze = true;
@@ -225,6 +227,7 @@ let foxyTimer = 150;
 let energiaFoxy = 10;
 let foxyJumpscareTimer;
 let foxybiegnie = false;
+let foxypuka = false;
 
 let strasznySound = [false, false];
 let czyJumpscared = false;
@@ -232,6 +235,8 @@ let czyJumpscared = false;
 let intervalLinie;
 let coolLinie = 100;
 let kameryAnimacja = false;
+
+let nowosci = 0;
 
 const main = document.querySelector('main');
 const panelAnimacja = document.getElementById('panelAnimacja');
@@ -285,6 +290,11 @@ function CzasSekunda(){
         }
         nagrywanie.style.opacity = nagrywanie.style.opacity == 1 ? 0 : 1;
         rozmiar();
+        if(wBiurze[0] && !czyKamery){
+            if(Math.random()<0.25){
+                Przegrana(0);
+            }
+        }
     }
 }
 
@@ -304,11 +314,17 @@ function FoxyFreddyTimer(){
     }
     if(foxyJumpscareTimer <= 0 && gdzieFoxy == 3 && graDziala){
         if(stanDrzwiLewo == 1){
+            let pukanie = new Audio('audio/FoxysBanging.wav');
+            pukanie.play();
+            foxypuka = true;
+            pukanie.addEventListener('ended', () => {
+                foxypuka = false;
+            });
+            foxybiegnie = false
             console.log("foxy puka :)");
             bateria-=energiaFoxy;
             energiaFoxy+=50;
             gdzieFoxy=0;
-            foxybiegnie = false
             PokazKamAnim();
         }else Przegrana(3); 
 
@@ -491,6 +507,7 @@ function RuchFreddy(){
 function FreddyPoruszenie(){
     if(gdzieFreddy != 6 && freddyCooldown <= 0 && czyKamery == false && FredRollUdany == true){
         new Audio('audio/FreddysLaugh'+LosowyInt(1,3)+'.wav').play();
+        console.log("freddy smieje sie");
         switch(gdzieFreddy){ //0,1,9,8,5,6
             case 0:
                 if(gdzieBonnie != 0 && gdzieChica != 0)
@@ -512,11 +529,11 @@ function FreddyPoruszenie(){
         FredRollUdany = false;
     }
     if(gdzieFreddy == 6 && FredRollUdany == true && czyKamery == true && kamera != 6 && stanDrzwiPrawo == 0){
-        Przegrana(0);
+        wBiurze[0] = true;
+        gdzieFreddy = 13;
     }
 }
 
-let bonniePowrot = [1,7];
 function RuchBonnie(){
     strasznySound[0] = false;
     wylaczonaBonnie1 = gdzieBonnie;
@@ -568,9 +585,12 @@ function RuchBonnie(){
         case 11:
             if(stanDrzwiLewo == 1){
                 random = LosowyInt(0,1);
-                gdzieBonnie=bonniePowrot[random];
-                ZmienPrawde();
-            }else Przegrana(1);
+                gdzieBonnie=1;
+            }else{
+                wBiurze[1] = true;
+                gdzieBonnie = 13;
+            }
+            ZmienPrawde();
             break;
     }
     wylaczonaBonnie2 = gdzieBonnie;
@@ -578,7 +598,6 @@ function RuchBonnie(){
     //console.log("Boni "+gdzieBonnie);
     PokazKamAnim();
 }
-let chicaPowrot = [8,9];
 function RuchChica(){
     strasznySound[1] = false;
     wylaczonaChica1 = gdzieChica;
@@ -625,9 +644,12 @@ function RuchChica(){
         case 12:
             if(stanDrzwiPrawo == 1){
                 random = LosowyInt(0,1);
-                gdzieChica=chicaPowrot[random];
-                ZmienPrawde();
-            }else Przegrana(2);
+                gdzieChica=1;
+            }else{
+                wBiurze[2] = true;
+                gdzieChica = 13;
+            }
+            ZmienPrawde();
             break;
     }
     wylaczonaChica2 = gdzieChica;
@@ -674,6 +696,7 @@ function wlaczKamery(kto){ //0bonnie 1chica
     }
 }
 
+
 function RuchFoxy(){
     switch(gdzieFoxy){ //0,1,5,6,8,9,12
         case 0: //kurtyna
@@ -706,12 +729,17 @@ function FoxyBieg(){
         foxyJumpscareTimer = 999999;
         setTimeout(function(){
             if(stanDrzwiLewo == 1){
-                new Audio('audio/FoxysBanging.wav').play();
+                let pukanie = new Audio('audio/FoxysBanging.wav');
+                pukanie.play();
+                foxypuka = true;
+                pukanie.addEventListener('ended', () => {
+                    foxypuka = false;
+                });
+                foxybiegnie = false
                 console.log("foxy puka :)");
                 bateria-=energiaFoxy;
                 energiaFoxy+=50;
                 gdzieFoxy=0;
-                foxybiegnie = false
                 PokazKamAnim();
             }else Przegrana(3); 
         }, 3000 - aiFoxy*30);
@@ -726,9 +754,16 @@ function Przegrana(kto){
     zapasowy.style.display = "block";
     panel.style.display = "none";
     graDziala = false;
+    let czasJumpscare;
     switch(kto){
         case 0:
-            jumpscare.style.backgroundImage = 'url("img/gif/freddy.gif")';
+            if(rizz == 'false'){
+                jumpscare.style.backgroundImage = 'url("img/gif/freddy.gif")';
+                czasJumpscare = 1200;
+            }else{
+                jumpscare.style.backgroundImage = 'url("img/easterEgg/freddy-rizz.gif")';
+                czasJumpscare = 3000;
+            }
             setTimeout(function(){
                 document.getElementById("AUDnoise").pause();
                 document.getElementById("AUDjumpscare").pause();
@@ -737,10 +772,16 @@ function Przegrana(kto){
                 setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
                     setTimeout(function(){window.location.assign("index.html");},5000);
                 },3000);
-            }, 1200);
+            }, czasJumpscare);
             break;
         case 1:
-            jumpscare.style.backgroundImage = 'url("img/gif/bonnie.gif")';
+            if(rizz == 'false'){
+                jumpscare.style.backgroundImage = 'url("img/gif/bonnie.gif")';
+                czasJumpscare = 850;
+            }else{
+                jumpscare.style.backgroundImage = 'url("img/easterEgg/bonnie-rizz.gif")';
+                czasJumpscare = 3000;
+            }
             setTimeout(function(){
                 document.getElementById("AUDnoise").pause();
                 document.getElementById("AUDjumpscare").pause();
@@ -749,10 +790,16 @@ function Przegrana(kto){
                 setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
                     setTimeout(function(){window.location.assign("index.html");},5000);
                 },3000);
-            }, 850);
+            }, czasJumpscare);
             break;
         case 2:
-            jumpscare.style.backgroundImage = 'url("img/gif/chica.gif")';
+            if(rizz == 'false'){
+                jumpscare.style.backgroundImage = 'url("img/gif/chica.gif")';
+                czasJumpscare = 850;
+            }else{
+                jumpscare.style.backgroundImage = 'url("img/easterEgg/chica-rizz.gif")';
+                czasJumpscare = 3000;
+            }
             setTimeout(function(){
                 document.getElementById("AUDnoise").pause();
                 document.getElementById("AUDjumpscare").pause();
@@ -761,10 +808,16 @@ function Przegrana(kto){
                 setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
                     setTimeout(function(){window.location.assign("index.html");},5000);
                 },3000);
-            }, 850);
+            }, czasJumpscare);
             break;
         case 3:
-            jumpscare.style.backgroundImage = 'url("img/gif/foxy.gif")';
+            if(rizz == 'false'){
+                jumpscare.style.backgroundImage = 'url("img/gif/foxy.gif")';
+                czasJumpscare = 800;
+            }else{
+                jumpscare.style.backgroundImage = 'url("img/easterEgg/foxy-rizz.gif")';
+                czasJumpscare = 3000;
+            }
             setTimeout(function(){
                 document.getElementById("AUDnoise").pause();
                 document.getElementById("AUDjumpscare").pause();
@@ -773,10 +826,16 @@ function Przegrana(kto){
                 setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
                     setTimeout(function(){window.location.assign("index.html");},5000);
                 },3000);
-            }, 850);
+            }, czasJumpscare);
             break;
         case 4:
-            jumpscare.style.backgroundImage = 'url("img/gif/power.gif")';
+            if(rizz == 'false'){
+                jumpscare.style.backgroundImage = 'url("img/gif/freddy.gif")';
+                czasJumpscare = 850;
+            }else{
+                jumpscare.style.backgroundImage = 'url("img/easterEgg/power-rizz.gif")';
+                czasJumpscare = 5000;
+            }
             setTimeout(function(){
                 document.getElementById("AUDnoise").pause();
                 document.getElementById("AUDjumpscare").pause();
@@ -785,7 +844,7 @@ function Przegrana(kto){
                 setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
                     setTimeout(function(){window.location.assign("index.html");},5000);
                 },3000);
-            }, 850);
+            }, czasJumpscare);
             break;
     }
 }
@@ -824,31 +883,43 @@ let drzwiDostepne = [true, true];
 function ObslugaDrzwi(strona){
     if(graDziala){
         if(strona == 0){
-            if(stanDrzwiLewo == 0 && drzwiDostepne[0]){
-                new Audio('audio/DoorCloseOpen.wav').play();
-                console.log("Zamknięcie Lewych Drzwi");
-                stanDrzwiLewo = 1;
-                DrzwiAnimacja(strona, true);
-                zuzycie++;
-            }else if(drzwiDostepne[0]){
-                new Audio('audio/DoorCloseOpen.wav').play();
-                console.log("Otworzenie Lewych Drzwi");
-                stanDrzwiLewo = 0;
-                DrzwiAnimacja(strona, false);
-            }else console.log("trwa animacja - przycisk nie zadziała");
+            if(!wBiurze[1]){
+                if(stanDrzwiLewo == 0 && drzwiDostepne[0]){
+                    new Audio('audio/DoorCloseOpen.wav').play();
+                    console.log("Zamknięcie Lewych Drzwi");
+                    stanDrzwiLewo = 1;
+                    DrzwiAnimacja(strona, true);
+                    zuzycie++;
+                }else if(drzwiDostepne[0]){
+                    new Audio('audio/DoorCloseOpen.wav').play();
+                    console.log("Otworzenie Lewych Drzwi");
+                    if(foxypuka == true){
+                        Przegrana(3);
+                    }
+                    stanDrzwiLewo = 0;
+                    DrzwiAnimacja(strona, false);
+                }else console.log("trwa animacja - przycisk nie zadziała");
+            }else{
+                new Audio('audio/DoorError.wav').play();
+            }
         }else{
-            if(stanDrzwiPrawo == 0 && drzwiDostepne[1]){
-                new Audio('audio/DoorCloseOpen.wav').play();
-                console.log("Zamknięcie Prawych Drzwi");
-                stanDrzwiPrawo = 1;
-                DrzwiAnimacja(strona, true);
-                zuzycie++;
-            }else if(drzwiDostepne[1]){
-                new Audio('audio/DoorCloseOpen.wav').play();
-                console.log("Otworzenie Prawych Drzwi");
-                stanDrzwiPrawo = 0;
-                DrzwiAnimacja(strona, false);
-            }else console.log("trwa animacja - przycisk nie zadziała");
+            if(!wBiurze[2]){
+                if(stanDrzwiPrawo == 0 && drzwiDostepne[1]){
+                    new Audio('audio/DoorCloseOpen.wav').play();
+                    console.log("Zamknięcie Prawych Drzwi");
+                    stanDrzwiPrawo = 1;
+                    DrzwiAnimacja(strona, true);
+                    zuzycie++;
+                }else if(drzwiDostepne[1]){
+                    new Audio('audio/DoorCloseOpen.wav').play();
+                    console.log("Otworzenie Prawych Drzwi");
+                    stanDrzwiPrawo = 0;
+                    DrzwiAnimacja(strona, false);
+                }else console.log("trwa animacja - przycisk nie zadziała");
+            }else{
+                new Audio('audio/DoorError.wav').play();
+            }
+           
         }
         TeksturaPrzyciskow();
         ZuzycieObrazek();
@@ -1071,6 +1142,11 @@ function KameraOtworz(){
                         czyFoxyMoze = false;
                     }
                 }, 200);
+                if(wBiurze[1]){
+                    Przegrana(1);
+                }else if(wBiurze[2]){
+                    Przegrana(2);
+                }
             }else{
                 document.getElementById("AUDpaneldown").pause();
                 document.getElementById("AUDpanelup").load();
@@ -1098,6 +1174,13 @@ function KameraOtworz(){
                         foxyTimer = Math.random()*142 + 8;
                         czyFoxyMoze = false;
                         KameraZmien(kamera);
+                        if(wBiurze[1] || wBiurze[2]){
+                            setInterval(function(){
+                                if(graDziala && !czyJumpscared){
+                                    KameraOtworz();
+                                }
+                            }, 30000);
+                        }
                     }
                 }, 200);
             }

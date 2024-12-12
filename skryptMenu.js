@@ -8,7 +8,7 @@ const images = [
     "img/gif/static.gif",
 
     "img/menu/zlotyfryderyk.jpg",
-    "img/easterEgg/MenuBern.png",
+    "img/easterEgg/MenuBern.jpg",
     "img/easterEgg/TytulBern.png",
 
     "img/menu/reklamajedzenie.png",
@@ -75,6 +75,7 @@ function zmienObrazek(){
 function UstawNoc(x){
     if(wybieranie) return;
     numerNocy = x;
+    sessionStorage.setItem('rizz', false);
     sessionStorage.setItem('Noc', numerNocy);
     switch(numerNocy){
         case 1:
@@ -180,8 +181,18 @@ function CustomStart(){
         setTimeout(function(){
             window.location.replace("about:blank");
         }, 1000);
+    }else if(FreddyAI == 6 && BonnieAI == 9 && ChicaAI == 6 && FoxyAI == 9){
+        console.log("rizzter egg");
+        sessionStorage.setItem('rizz', true);
+        sessionStorage.setItem('FreddyAI', FreddyAI);
+        sessionStorage.setItem('BonnieAI', BonnieAI);
+        sessionStorage.setItem('ChicaAI', ChicaAI);
+        sessionStorage.setItem('FoxyAI', FoxyAI);
+        sessionStorage.setItem('Noc', 7);
+        window.location.assign("gra.html");
     }else{
         console.log("bez easter egga");
+        sessionStorage.setItem('rizz', false);
         sessionStorage.setItem('FreddyAI', FreddyAI);
         sessionStorage.setItem('BonnieAI', BonnieAI);
         sessionStorage.setItem('ChicaAI', ChicaAI);
