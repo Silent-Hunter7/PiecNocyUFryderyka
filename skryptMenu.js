@@ -165,13 +165,15 @@ function CustomStart(){
 }
 let czyreklama = true;
 function Zamknij(){
-    czyreklama = false;
-    let Reklama = document.getElementById("reklama");
-    Reklama.style.display = "none";
-    setTimeout(function(){
-        Reklama.style.display = "block";
-        czyreklama = true;
-    },15000+(Math.random()*15000));
+    if(Math.random() < 0.66){
+        czyreklama = false;
+        let Reklama = document.getElementById("reklama");
+        Reklama.style.display = "none";
+        setTimeout(function(){
+            Reklama.style.display = "block";
+            czyreklama = true;
+        },15000+(Math.random()*15000));
+    }
 }
 function Reklama(){
     if(czyreklama){

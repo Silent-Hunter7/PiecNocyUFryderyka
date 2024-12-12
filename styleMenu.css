@@ -34,15 +34,21 @@ main{
     background-size: contain;
     opacity: 0.4;
 }
+
+
 .wskazniki{
     position: absolute;
     left: 5%;
-    width: 13%;
+    width: 19.3%;
     height: 5%;
     background-image: none;
+    background-size: cover;
     background-repeat: no-repeat;
-    background-position:    left;
-    background-size: 20%;
+    background-position: left;
+    background-color: transparent;
+    border: 0;
+    z-index: 1;
+    background-size: 17%;
 }
 .wskazniki:hover{
     background-image: url('img/menu/strzalka.png');
@@ -65,43 +71,55 @@ main{
 #w6{
     top: 70%;
 }
+#w7{
+    top: 77%;
+    width: 24.4%;
+    background-size: 13%;
+}
+
+
 .Noce{
-    width: 70%;
-    height: 100%;
-    background-color: transparent;
+    position: absolute;
+    left: 9%;
+    width: 15%;
+    height: 5%;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: left;
-    margin-left: 30%;
+    background-color: transparent;
     border: 0;
 }
 #Noc1{
     background-image: url('img/menu/noc1.png');
+    top: 35%;
 }
 #Noc2{
     background-image: url('img/menu/noc2.png');
+    top: 42%;
 }
 #Noc3{
     background-image: url('img/menu/noc3.png');
+    top: 49%;
 }
 #Noc4{
     background-image: url('img/menu/noc4.png');
+    top: 56%;
 }
 #Noc5{
     background-image: url('img/menu/noc5.png');
+    top: 63%;
 }
 #Noc6{
     background-image: url('img/menu/noc6.png');
+    top: 70%;
 }
-#w7{
-    top: 77%;
-    width: 30%;
-    background-size: 10%;
-}
-#dodatkoweButton{
-    margin-left: 12%;
+#Noc7{
     background-image: url('img/menu/cn.png');
+    top: 77%;
+    width: 25%;
 }
+
+
 #customNight{
     display: none;
 }
@@ -319,4 +337,14 @@ main{
     background-size: contain;
     background-repeat: no-repeat;
     background-image: url("img/menu/zlotyfryderyk.jpg");
+}
+#original{
+    width: 25%;
+    height: 3%;
+    bottom: 1%; 
+    right: 1%;
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url("img/menu/original.png");
 }
