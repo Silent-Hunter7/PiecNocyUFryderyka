@@ -1,3 +1,29 @@
+const images = [
+    "img/menu/menu0.jpg",
+    "img/menu/menu1.jpg",
+    "img/menu/menu2.jpg",
+    "img/menu/menu3.jpg",
+    "img/menu/tytul.png",
+
+    "img/gif/static.gif",
+
+    "img/menu/zlotyfryderyk.jpg",
+    "img/easterEgg/MenuBern.png",
+    "img/easterEgg/TytulBern.png",
+
+    "img/menu/reklamajedzenie.png",
+
+    "img/menu/cnfreddy.jpg",
+    "img/menu/cnbonnie.jpg",
+    "img/menu/cnchica.jpg",
+    "img/menu/cnfoxy.jpg"
+];
+
+images.forEach((src) => {
+    const img = new Image();
+    img.src = src;
+});
+
 let numerNocy = 1;
 let wybieranie = false;
 const obrazek = document.getElementById('obrazek');
