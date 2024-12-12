@@ -37,6 +37,7 @@ setInterval(function(){
     if (Math.random() < 0.03 && easteregg == 0) {
         zmienObrazek();
     }
+    rozmiar();
 }, 100);
 
 function zmienObrazek(){

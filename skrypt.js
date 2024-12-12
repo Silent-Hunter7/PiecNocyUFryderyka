@@ -37,12 +37,15 @@ setTimeout(function(){
 let czas = 0;
 let godzina = 0;
 let dlugoscGodzina = 90;
-let bateria = 999;
+let bateria = 1000;
 let zuzycie = 0;
 let nocneZuzycie = [10,6,5,4];
-if(noc < 5){
+if(noc == 1){
+    zuzycie = 0;
+}else if(noc < 5){
     zuzycie+=(1/nocneZuzycie[noc-1]);
 }else zuzycie+=(1/3);
+zuzycie+=1;
 //ich lokalizacja: 0 - scena, 11 - lewe drzwi, 12 - prawe drzwi
 let gdzieFreddy = 0;
 let FredRollUdany = false;
@@ -122,6 +125,8 @@ setInterval(function(){SzansaRuchu(3)}, 5100);
 
 //co sekundę
 function CzasSekunda(){
+    //console.log("sekunda, bateria "+bateria+", zuzycie "+zuzycie);
+    //console.log("sekunda, czas "+czas+", godzina "+godzina);
     czas+=1;
     bateria-=zuzycie;
     bateria1.style.backgroundImage = 'url("img/interfejs/'+Math.floor((bateria/10)/10)+'.png")';
@@ -131,6 +136,7 @@ function CzasSekunda(){
         NoBateria(0);
     }
     nagrywanie.style.opacity = nagrywanie.style.opacity == 1 ? 0 : 1;
+    rozmiar();
 }
 
 function FoxyFreddyTimer(){
@@ -249,6 +255,7 @@ function NoBateriaF3(){
 
 
 function CzasGodzina(){
+    console.log("godzina "+godzina+", czasG "+dlugoscGodzina+", czas "+czas);
     let Zegar = document.getElementById("czas");
     console.log("-----Godzina")
     godzina++
@@ -834,13 +841,12 @@ function KameraOtworz(){
             foxyTimer = Math.random()*142 + 8;
         }else{
             czyKamery = true;
-            if(kamera = 6){
+            if(kamera == 6){
                 if(Math.random()<0.03){
                     nowosci = LosowyInt(1,4);
                     console.log("nowosci "+nowosci);
                 }else{
                     nowosci = 0;
-                    console.log("bez nowosci");
                 }
             }
             zuzycie++;
@@ -944,7 +950,6 @@ function PokazKamAnim(){
                         console.log("nowosci ");
                         sciezka += 'nowosci'+nowosci+'.jpg';
                     }else{
-                        console.log("bez nowosci");
                         sciezka += 'nikt.jpg';
                     }
                 }
@@ -990,7 +995,7 @@ function PokazKamAnim(){
 
 function ZuzycieObrazek(){
     let zuzycieObrazek = document.getElementById('zuzycie');
-    zuzycieObrazek.style.backgroundImage = 'url("img/interfejs/zuzycie'+Math.ceil(zuzycie)+'.png")';
+    zuzycieObrazek.style.backgroundImage = 'url("img/interfejs/zuzycie'+Math.floor(zuzycie)+'.png")';
 }
 
 

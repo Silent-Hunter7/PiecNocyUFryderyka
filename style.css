@@ -144,72 +144,63 @@ main{
     position: absolute;
     width: 4.4%;
     height: 5%;
+    background-size: contain;
+    border: none;
 }
 #przyciskKam0{
     bottom: 48%;
     right: 21%;
     background-image: url("img/kameraPrzyciski/kam0off.jpg");
-    background-size: contain;
 }
 #przyciskKam1{
     bottom: 40.75%;
     right: 22%;
     background-image: url("img/kameraPrzyciski/kam1off.jpg");
-    background-size: contain;
 }
 #przyciskKam2{
     bottom: 13.5%;
     right: 21%;
     background-image: url("img/kameraPrzyciski/kam2off.jpg");
-    background-size: contain;
 }
 #przyciskKam3{
     bottom: 8%;
     right: 21%;
     background-image: url("img/kameraPrzyciski/kam3off.jpg");
-    background-size: contain;
 }
 #przyciskKam4{
     bottom: 16%;
     right: 27%;
     background-image: url("img/kameraPrzyciski/kam4off.jpg");
-    background-size: contain;
 }
 #przyciskKam5{
     bottom: 13.5%;
     right: 12.7%;
     background-image: url("img/kameraPrzyciski/kam5off.jpg");
-    background-size: contain;
 }
 #przyciskKam6{
     bottom: 8%;
     right: 12.7%;
     background-image: url("img/kameraPrzyciski/kam6off.jpg");
-    background-size: contain;
 }
 #przyciskKam7{
     bottom: 36.5%;
     right: 31%;
     background-image: url("img/kameraPrzyciski/kam7off.jpg");
-    background-size: contain;
 }
 #przyciskKam8{
     bottom: 18%;
     right: 6%;
     background-image: url("img/kameraPrzyciski/kam8off.jpg");
-    background-size: contain;
 }
 #przyciskKam9{
     bottom: 36.5%;
     right: 5%;
     background-image: url("img/kameraPrzyciski/kam9off.jpg");
-    background-size: contain;
 }
 #przyciskKam10{
     bottom: 29%;
     right: 25%;
     background-image: url("img/kameraPrzyciski/kam10off.jpg");
-    background-size: contain;
 }   
 
 .niewidzialne{
