@@ -236,6 +236,11 @@ let intervalLinie;
 let coolLinie = 100;
 let kameryAnimacja = false;
 
+let Ralph = new Audio('audio/Ralph1.wav');
+if(noc <= 5){
+    Ralph = new Audio('audio/Ralph'+noc+'.wav');
+}
+
 let nowosci = 0;
 
 const main = document.querySelector('main');
@@ -253,7 +258,13 @@ const szum = document.getElementById('szum');
 const bateria1 = document.getElementById('bateria1');
 const bateria2 = document.getElementById('bateria2');
 
-
+let oddech = document.getElementById("AUDoddech");
+oddech = new Audio('audio/Breathing'+LosowyInt(1,4)+'.wav');
+let patelnie = document.getElementById("AUDkitchen");
+patelnie = new Audio('audio/CKitchen'+LosowyInt(1,4)+'.wav');
+let patelnieFreddy = document.getElementById("AUDkitchenFred");
+patelnieFreddy = new Audio('audio/ToreadorMarch.wav');
+patelnieFreddy.loop = true;
 
 document.addEventListener("DOMContentLoaded", rozmiar);
 window.addEventListener("resize", rozmiar);
@@ -282,8 +293,13 @@ function CzasSekunda(){
     if(!czyJumpscared){
         czas+=1;
         bateria-=zuzycie;
-        bateria1.style.backgroundImage = 'url("img/interfejs/'+Math.floor((bateria/10)/10)+'.png")';
-        bateria2.style.backgroundImage = 'url("img/interfejs/'+Math.floor((bateria/10)%10)+'.png")';
+        if(bateria > 0){
+            bateria1.style.backgroundImage = 'url("img/interfejs/'+Math.round((bateria/10)/10)+'.png")';
+            bateria2.style.backgroundImage = 'url("img/interfejs/'+Math.round((bateria/10)%10)+'.png")';
+        }else{
+            bateria1.style.backgroundImage = 'url("img/interfejs/0.png")';
+            bateria2.style.backgroundImage = 'url("img/interfejs/0.png")';
+        }
         if(czas%dlugoscGodzina==0) CzasGodzina();
         if(bateria <= 0 && ciemnoscFaza == 0){
             NoBateria(0);
@@ -351,6 +367,13 @@ function NoBateria(){
     DrzwiAnimacja(1, false);
     if(ciemnoscFaza == 0){
         new Audio('audio/PowerOutage.wav').play();
+        document.getElementById("AUDkitchenFred").pause();
+        document.getElementById("AUDkitchen").pause();
+        document.getElementById("AUDoddech").pause();
+        document.getElementById("AUDswiatlo").pause();
+        document.getElementById("AUDglitch").pause();
+        document.getElementById("AUDkamery").pause();
+        Ralph.pause();
         console.log("Zgaszenie światła");
         ciemnoscFaza = 1;
         ilosc = 0;
@@ -462,8 +485,7 @@ function SzansaRuchu(kto){
             case 1:
                 if(random2){
                     warBonnie = warBonnie == 1 ? 0 : 1;
-                    wylaczonaBonnie3;
-                    wylaczonaBonnie3;
+                    wylaczonaBonnie3 = gdzieBonnie;
                     wlaczKamery(2);
                 }
                 if(random <= aiBonnie){
@@ -506,29 +528,42 @@ function RuchFreddy(){
 }
 function FreddyPoruszenie(){
     if(gdzieFreddy != 6 && freddyCooldown <= 0 && czyKamery == false && FredRollUdany == true){
-        new Audio('audio/FreddysLaugh'+LosowyInt(1,3)+'.wav').play();
         console.log("freddy smieje sie");
         switch(gdzieFreddy){ //0,1,9,8,5,6
             case 0:
-                if(gdzieBonnie != 0 && gdzieChica != 0)
+                if(gdzieBonnie != 0 && gdzieChica != 0){
                 gdzieFreddy = 1;
+                new Audio('audio/FreddysLaugh'+LosowyInt(1,3)+'.wav').play();
+                }
                 break;
             case 1:
                 gdzieFreddy = 9;
+                new Audio('audio/FreddysLaugh'+LosowyInt(1,3)+'.wav').play();
                 break;
             case 9:
                 gdzieFreddy = 8;
+                new Audio('audio/FreddysLaugh'+LosowyInt(1,3)+'.wav').play();
+                if(kamery == 8 && czyKamery){
+                    patelnieFreddy.volume = 0.5;
+                }else{
+                    patelnieFreddy.volume = 0.1;
+                }
+                patelnieFreddy.play();
                 break;
             case 8:
                 gdzieFreddy = 5;
+                new Audio('audio/FreddysLaugh'+LosowyInt(1,3)+'.wav').play();
+                patelnieFreddy.pause();
                 break;
             case 5:
                 gdzieFreddy = 6;
+                new Audio('audio/FreddysLaugh'+LosowyInt(1,3)+'.wav').play();
                 break;
         }
         FredRollUdany = false;
     }
     if(gdzieFreddy == 6 && FredRollUdany == true && czyKamery == true && kamera != 6 && stanDrzwiPrawo == 0){
+        new Audio('audio/FreddysLaugh'+LosowyInt(1,3)+'.wav').play();
         wBiurze[0] = true;
         gdzieFreddy = 13;
     }
@@ -589,6 +624,9 @@ function RuchBonnie(){
             }else{
                 wBiurze[1] = true;
                 gdzieBonnie = 13;
+                if(czyKamery==1){
+                    Oddychanie();
+                }
             }
             ZmienPrawde();
             break;
@@ -601,6 +639,7 @@ function RuchBonnie(){
 function RuchChica(){
     strasznySound[1] = false;
     wylaczonaChica1 = gdzieChica;
+    patelnie.pause();
     switch(gdzieChica){ //0,1,5,6,8,9,12
         case 0:
             gdzieChica = 1;
@@ -639,6 +678,7 @@ function RuchChica(){
                 gdzieChica = 5;
             }else{
                 gdzieChica = 8;
+                Patelnie();
             }
             break;
         case 12:
@@ -648,51 +688,54 @@ function RuchChica(){
             }else{
                 wBiurze[2] = true;
                 gdzieChica = 13;
+                if(czyKamery==1){
+                    Oddychanie();
+                }
             }
             ZmienPrawde();
             break;
     }
     wylaczonaChica2 = gdzieChica;
     wlaczKamery(1);
-    //console.log("Chia "+gdzieChica);
+    console.log("Chia "+gdzieChica);
     PokazKamAnim();
 }
 
 function wlaczKamery(kto){ //0bonnie 1chica
     if(kto == 0){
         //console.log("wlaczenie kamer chica ruch");
-        setInterval(function(){
+        setTimeout(function(){
             wylaczonaBonnie1 = -1;
             wylaczonaBonnie2 = -1;
             if(foxybiegnie == false || (foxybiegnie == true && kamera != 2)){
                 PokazKamAnim();
             }
-        }, 1000);
+        }, 1500);
     }else if(kto == 1){
         //console.log("wlaczenie kamer bonnie ruch");
-        setInterval(function(){
+        setTimeout(function(){
             wylaczonaChica1 = -1;
             wylaczonaChica2 = -1;
             if(foxybiegnie == false || (foxybiegnie == true && kamera != 2)){
                 PokazKamAnim();
             }
-        }, 1000);
+        }, 1500);
     }else if(kto == 2){
         //console.log("wlaczenie kamer bonnie wariant");
-        setInterval(function(){
+        setTimeout(function(){
             wylaczonaBonnie3 = -1;
             if(foxybiegnie == false || (foxybiegnie == true && kamera != 2)){
                 PokazKamAnim();
             }
-        }, 1000);
+        }, 1500);
     }else if(kto == 3){
         //console.log("wlaczenie kamer bonnie wariant");
-        setInterval(function(){
+        setTimeout(function(){
             wylaczonaChica3 = -1;
             if(foxybiegnie == false || (foxybiegnie == true && kamera != 2)){
                 PokazKamAnim();
             }
-        }, 1000);
+        }, 1500);
     }
 }
 
@@ -830,7 +873,7 @@ function Przegrana(kto){
             break;
         case 4:
             if(rizz == 'false'){
-                jumpscare.style.backgroundImage = 'url("img/gif/freddy.gif")';
+                jumpscare.style.backgroundImage = 'url("img/gif/power.gif")';
                 czasJumpscare = 850;
             }else{
                 jumpscare.style.backgroundImage = 'url("img/easterEgg/power-rizz.gif")';
@@ -1124,6 +1167,8 @@ function KameraOtworz(){
     if(graDziala){
         if(kameryAnimacja == false){
             if(czyKamery){
+                document.getElementById("AUDkamery").pause();
+                document.getElementById("AUDglitch").pause();
                 document.getElementById("AUDpanelup").pause();
                 document.getElementById("AUDpaneldown").load();
                 document.getElementById("AUDpaneldown").play();
@@ -1133,6 +1178,7 @@ function KameraOtworz(){
                 kameryAnimacja = true;
                 zuzycie--;
                 ZuzycieObrazek(); 
+                oddech.pause();
                 setTimeout(function(){
                     if(kameryAnimacja == true){
                         panelAnimacja.style.display = "none";
@@ -1147,10 +1193,14 @@ function KameraOtworz(){
                 }else if(wBiurze[2]){
                     Przegrana(2);
                 }
+                patelnie.volume = 0.2;
+                patelnieFreddy.volume = 0.1;
             }else{
                 document.getElementById("AUDpaneldown").pause();
                 document.getElementById("AUDpanelup").load();
                 document.getElementById("AUDpanelup").play();
+                document.getElementById("AUDkamery").load();
+                document.getElementById("AUDkamery").play();
                 panelAnimacja.style.backgroundImage = 'url("img/gif/kameryUp.gif")';
                 panelAnimacja.style.display = "block";
                 kameryAnimacja = true;
@@ -1169,12 +1219,16 @@ function KameraOtworz(){
                             }else{
                                 nowosci = 0;
                             }
+                        }else if(kamera == 8){
+                            patelnie.volume = 1;
+                            patelnieFreddy.volume = 0.5;
                         }
                         panel.style.display = "block";
                         foxyTimer = Math.random()*142 + 8;
                         czyFoxyMoze = false;
                         KameraZmien(kamera);
                         if(wBiurze[1] || wBiurze[2]){
+                            Oddychanie();
                             setInterval(function(){
                                 if(graDziala && !czyJumpscared){
                                     KameraOtworz();
@@ -1214,6 +1268,9 @@ function PokazKamAnim(){
     let sciezka = 'url("img/kamery/'+kamera+'/';
     if(kamera != wylaczonaBonnie1 && kamera != wylaczonaBonnie2 && kamera != wylaczonaChica1 && kamera != wylaczonaChica2 && kamera != wylaczonaBonnie3 && kamera != wylaczonaChica3){
         document.getElementById("audioonly").style.display = "none";
+        document.getElementById("AUDglitch").pause();
+        patelnie.volume = 0.2;
+        patelnieFreddy.volume = 0.1;
         switch(kamera){
             case 0:
                 if(gdzieBonnie==0 && gdzieChica == 0){
@@ -1298,6 +1355,10 @@ function PokazKamAnim(){
                 break;
             case 8:
                 document.getElementById("audioonly").style.display = "block";
+                if(czyKamery){
+                    patelnie.volume = 1;
+                    patelnieFreddy.volume = 0.5;
+                }
                 sciezka += 'audio.jpg';
                 break;
             case 9:
@@ -1319,8 +1380,19 @@ function PokazKamAnim(){
         if(kamera == 2 && foxybiegnie == true){
 
         }else{
+            if(kamera == 8){
+                document.getElementById("audioonly").style.display = "block";
+                patelnie.volume = 1;
+                patelnieFreddy.volume = 0.5;
+                sciezka += 'audio.jpg")';
+            }else{
+                if(czyKamery){
+                    document.getElementById("AUDglitch").pause();
+                    document.getElementById("AUDglitch").play();
+                }
+                sciezka = 'url("img/gif/static.gif")';
+            }
             //console.log("wylaczona kamera");
-            sciezka = 'url("img/gif/static.gif")';
         }
     }
     //console.log("pokazkamanim");
@@ -1351,7 +1423,6 @@ function LosowyInt(odIlu, doIlu){
     }
 }
 
-let Ralph = new Audio('audio/Ralph'+noc+'.wav');
 function gluchy(){
     document.getElementById("gluchy").style.display = "none";
     document.getElementById("AUDnoise").volume = 0.2;
@@ -1370,4 +1441,38 @@ function muteRalph(){
 }
 function nosek(){
     new Audio('audio/Honk.wav').play();
+}
+
+function Oddychanie(){
+    if(!czyJumpscared && graDziala && czyKamery){
+        console.log("oddech");
+        oddech = new Audio('audio/Breathing'+LosowyInt(1,4)+'.wav');
+        oddech.volume = 0.3;
+        oddech.addEventListener('ended', () => {
+            setTimeout(function(){
+                Oddychanie();
+                console.log("oddech event");
+            }, LosowyInt(1000, 10000));
+        });
+        oddech.play();
+    }
+}
+
+function Patelnie(){
+    if(!czyJumpscared && graDziala && gdzieChica == 8){
+        console.log("patelnie");
+        patelnie = new Audio('audio/CKitchen'+LosowyInt(1,4)+'.wav');
+        if(czyKamery && kamera == 8){
+            patelnie.volume = 1;
+        }else{
+            patelnie.volume = 0.2;
+        }
+        patelnie.addEventListener('ended', () => {
+            setTimeout(function(){
+                Patelnie();
+                console.log("patelnie event");
+            }, LosowyInt(100, 300));
+        });
+        patelnie.play();
+    }
 }
