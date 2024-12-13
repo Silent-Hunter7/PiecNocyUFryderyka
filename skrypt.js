@@ -294,8 +294,8 @@ function CzasSekunda(){
         czas+=1;
         bateria-=zuzycie;
         if(bateria > 0){
-            bateria1.style.backgroundImage = 'url("img/interfejs/'+Math.round((bateria/10)/10)+'.png")';
-            bateria2.style.backgroundImage = 'url("img/interfejs/'+Math.round((bateria/10)%10)+'.png")';
+            bateria1.style.backgroundImage = 'url("img/interfejs/'+Math.floor((bateria/10)/10)+'.png")';
+            bateria2.style.backgroundImage = 'url("img/interfejs/'+Math.floor((bateria/10)%10)+'.png")';
         }else{
             bateria1.style.backgroundImage = 'url("img/interfejs/0.png")';
             bateria2.style.backgroundImage = 'url("img/interfejs/0.png")';
