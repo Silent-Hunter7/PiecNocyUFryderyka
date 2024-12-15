@@ -292,7 +292,9 @@ function CzasSekunda(){
     //console.log("sekunda, czas "+czas+", godzina "+godzina);
     if(!czyJumpscared){
         czas+=1;
-        bateria-=zuzycie;
+        if(bateria > 0){
+            bateria-=zuzycie;
+        }
         if(bateria > 0){
             bateria1.style.backgroundImage = 'url("img/interfejs/'+Math.floor((bateria/10)/10)+'.png")';
             bateria2.style.backgroundImage = 'url("img/interfejs/'+Math.floor((bateria/10)%10)+'.png")';
@@ -528,21 +530,23 @@ function RuchFreddy(){
 }
 function FreddyPoruszenie(){
     if(gdzieFreddy != 6 && freddyCooldown <= 0 && czyKamery == false && FredRollUdany == true){
-        console.log("freddy smieje sie");
         switch(gdzieFreddy){ //0,1,9,8,5,6
             case 0:
                 if(gdzieBonnie != 0 && gdzieChica != 0){
                 gdzieFreddy = 1;
                 new Audio('audio/FreddysLaugh'+LosowyInt(1,3)+'.wav').play();
-                }
+                console.log("freddy smieje sie");
+            }
                 break;
             case 1:
                 gdzieFreddy = 9;
                 new Audio('audio/FreddysLaugh'+LosowyInt(1,3)+'.wav').play();
+                console.log("freddy smieje sie");
                 break;
             case 9:
                 gdzieFreddy = 8;
                 new Audio('audio/FreddysLaugh'+LosowyInt(1,3)+'.wav').play();
+                console.log("freddy smieje sie");
                 if(kamery == 8 && czyKamery){
                     patelnieFreddy.volume = 0.5;
                 }else{
@@ -553,17 +557,20 @@ function FreddyPoruszenie(){
             case 8:
                 gdzieFreddy = 5;
                 new Audio('audio/FreddysLaugh'+LosowyInt(1,3)+'.wav').play();
+                console.log("freddy smieje sie");
                 patelnieFreddy.pause();
                 break;
             case 5:
                 gdzieFreddy = 6;
                 new Audio('audio/FreddysLaugh'+LosowyInt(1,3)+'.wav').play();
+                console.log("freddy smieje sie");
                 break;
         }
         FredRollUdany = false;
     }
     if(gdzieFreddy == 6 && FredRollUdany == true && czyKamery == true && kamera != 6 && stanDrzwiPrawo == 0){
         new Audio('audio/FreddysLaugh'+LosowyInt(1,3)+'.wav').play();
+        console.log("freddy smieje sie");
         wBiurze[0] = true;
         gdzieFreddy = 13;
     }
@@ -778,7 +785,7 @@ function FoxyBieg(){
                 pukanie.addEventListener('ended', () => {
                     foxypuka = false;
                 });
-                foxybiegnie = false
+                foxybiegnie = false;
                 console.log("foxy puka :)");
                 bateria-=energiaFoxy;
                 energiaFoxy+=50;
@@ -790,136 +797,164 @@ function FoxyBieg(){
 }
 //przefrywanie i wygrywanie
 function Przegrana(kto){
-    document.getElementById("AUDjumpscare").play();
-    czyJumpscared = true;
-    console.log("-----Przegrana");
-    jumpscare.style.display = "block";
-    zapasowy.style.display = "block";
-    panel.style.display = "none";
-    graDziala = false;
-    let czasJumpscare;
-    switch(kto){
-        case 0:
-            if(rizz == 'false'){
-                jumpscare.style.backgroundImage = 'url("img/gif/freddy.gif")';
-                czasJumpscare = 1200;
-            }else{
-                jumpscare.style.backgroundImage = 'url("img/easterEgg/freddy-rizz.gif")';
-                czasJumpscare = 3000;
-            }
-            setTimeout(function(){
-                document.getElementById("AUDnoise").pause();
-                document.getElementById("AUDjumpscare").pause();
-                document.getElementById("AUDdeadszum").play();
-                jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';
-                setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
-                    setTimeout(function(){window.location.assign("index.html");},5000);
-                },3000);
-            }, czasJumpscare);
-            break;
-        case 1:
-            if(rizz == 'false'){
-                jumpscare.style.backgroundImage = 'url("img/gif/bonnie.gif")';
-                czasJumpscare = 850;
-            }else{
-                jumpscare.style.backgroundImage = 'url("img/easterEgg/bonnie-rizz.gif")';
-                czasJumpscare = 3000;
-            }
-            setTimeout(function(){
-                document.getElementById("AUDnoise").pause();
-                document.getElementById("AUDjumpscare").pause();
-                document.getElementById("AUDdeadszum").play();
-                jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';
-                setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
-                    setTimeout(function(){window.location.assign("index.html");},5000);
-                },3000);
-            }, czasJumpscare);
-            break;
-        case 2:
-            if(rizz == 'false'){
-                jumpscare.style.backgroundImage = 'url("img/gif/chica.gif")';
-                czasJumpscare = 850;
-            }else{
-                jumpscare.style.backgroundImage = 'url("img/easterEgg/chica-rizz.gif")';
-                czasJumpscare = 3000;
-            }
-            setTimeout(function(){
-                document.getElementById("AUDnoise").pause();
-                document.getElementById("AUDjumpscare").pause();
-                document.getElementById("AUDdeadszum").play();
-                jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';
-                setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
-                    setTimeout(function(){window.location.assign("index.html");},5000);
-                },3000);
-            }, czasJumpscare);
-            break;
-        case 3:
-            if(rizz == 'false'){
-                jumpscare.style.backgroundImage = 'url("img/gif/foxy.gif")';
-                czasJumpscare = 800;
-            }else{
-                jumpscare.style.backgroundImage = 'url("img/easterEgg/foxy-rizz.gif")';
-                czasJumpscare = 3000;
-            }
-            setTimeout(function(){
-                document.getElementById("AUDnoise").pause();
-                document.getElementById("AUDjumpscare").pause();
-                document.getElementById("AUDdeadszum").play();
-                jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';
-                setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
-                    setTimeout(function(){window.location.assign("index.html");},5000);
-                },3000);
-            }, czasJumpscare);
-            break;
-        case 4:
-            if(rizz == 'false'){
-                jumpscare.style.backgroundImage = 'url("img/gif/power.gif")';
-                czasJumpscare = 850;
-            }else{
-                jumpscare.style.backgroundImage = 'url("img/easterEgg/power-rizz.gif")';
-                czasJumpscare = 5000;
-            }
-            setTimeout(function(){
-                document.getElementById("AUDnoise").pause();
-                document.getElementById("AUDjumpscare").pause();
-                document.getElementById("AUDdeadszum").play();
-                jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';
-                setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
-                    setTimeout(function(){window.location.assign("index.html");},5000);
-                },3000);
-            }, czasJumpscare);
-            break;
+    if(czyJumpscared == false){
+        console.log("-----Przegrana");
+        jumpscare.style.display = "block";
+        zapasowy.style.display = "block";
+        panel.style.display = "none";
+        Ralph.pause();
+        let czasJumpscare;
+        switch(kto){
+            case 0:
+                if(bateria > 1){
+                    czyJumpscared = true;
+                    graDziala = false;
+                    if(rizz == 'false'){
+                        jumpscare.style.backgroundImage = 'url("img/gif/freddy.gif")';
+                        czasJumpscare = 1200;
+                    }else{
+                        jumpscare.style.backgroundImage = 'url("img/easterEgg/freddy-rizz.gif")';
+                        czasJumpscare = 3000;
+                    }
+                    document.getElementById("AUDjumpscare").play();
+                    setTimeout(function(){
+                        document.getElementById("AUDnoise").pause();
+                        document.getElementById("AUDjumpscare").pause();
+                        document.getElementById("AUDdeadszum").play();
+                        jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';
+                        setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
+                            setTimeout(function(){window.location.assign("index.html");},5000);
+                        },3000);
+                    }, czasJumpscare);
+                }
+                break;
+            case 1:
+                if(bateria > 0){
+                    czyJumpscared = true;
+                    graDziala = false;
+                    if(rizz == 'false'){
+                        jumpscare.style.backgroundImage = 'url("img/gif/bonnie.gif")';
+                        czasJumpscare = 850;
+                    }else{
+                        jumpscare.style.backgroundImage = 'url("img/easterEgg/bonnie-rizz.gif")';
+                        czasJumpscare = 3000;
+                    }
+                    document.getElementById("AUDjumpscare").play();
+                    setTimeout(function(){
+                        document.getElementById("AUDnoise").pause();
+                        document.getElementById("AUDjumpscare").pause();
+                        document.getElementById("AUDdeadszum").play();
+                        jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';
+                        setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
+                            setTimeout(function(){window.location.assign("index.html");},5000);
+                        },3000);
+                    }, czasJumpscare);
+                }
+                break;
+            case 2:
+                if(bateria > 0){
+                    czyJumpscared = true;
+                    graDziala = false;
+                    if(rizz == 'false'){
+                        jumpscare.style.backgroundImage = 'url("img/gif/chica.gif")';
+                        czasJumpscare = 850;
+                    }else{
+                        jumpscare.style.backgroundImage = 'url("img/easterEgg/chica-rizz.gif")';
+                        czasJumpscare = 3000;
+                    }
+                    document.getElementById("AUDjumpscare").play();
+                    setTimeout(function(){
+                        document.getElementById("AUDnoise").pause();
+                        document.getElementById("AUDjumpscare").pause();
+                        document.getElementById("AUDdeadszum").play();
+                        jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';
+                        setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
+                            setTimeout(function(){window.location.assign("index.html");},5000);
+                        },3000);
+                    }, czasJumpscare);
+                }
+                break;
+            case 3:
+                if(bateria > 0){
+                    czyJumpscared = true;
+                    graDziala = false;
+                    if(rizz == 'false'){
+                        jumpscare.style.backgroundImage = 'url("img/gif/foxy.gif")';
+                        czasJumpscare = 800;
+                    }else{
+                        jumpscare.style.backgroundImage = 'url("img/easterEgg/foxy-rizz.gif")';
+                        czasJumpscare = 3000;
+                    }
+                    document.getElementById("AUDjumpscare").play();
+                    setTimeout(function(){
+                        document.getElementById("AUDnoise").pause();
+                        document.getElementById("AUDjumpscare").pause();
+                        document.getElementById("AUDdeadszum").play();
+                        jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';
+                        setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
+                            setTimeout(function(){window.location.assign("index.html");},5000);
+                        },3000);
+                    }, czasJumpscare);
+                }
+                break;
+            case 4:
+                czyJumpscared = true;
+                graDziala = false;
+                if(rizz == 'false'){
+                    jumpscare.style.backgroundImage = 'url("img/gif/power.gif")';
+                    czasJumpscare = 850;
+                }else{
+                    jumpscare.style.backgroundImage = 'url("img/easterEgg/power-rizz.gif")';
+                    czasJumpscare = 5000;
+                }
+                document.getElementById("AUDjumpscare").play();
+                setTimeout(function(){
+                    document.getElementById("AUDnoise").pause();
+                    document.getElementById("AUDjumpscare").pause();
+                    document.getElementById("AUDdeadszum").play();
+                    jumpscare.style.backgroundImage = 'url("img/gif/static.gif")';
+                    setTimeout(function(){jumpscare.style.backgroundImage = 'url("img/zakonczenia/przegrana.jpg")';
+                        setTimeout(function(){window.location.assign("index.html");},5000);
+                    },3000);
+                }, czasJumpscare);
+                break;
+        }
     }
 }
 function Wygrana(){
-    console.log("-----Wygrałeś");
-    jumpscare.style.display = "block";
-    zapasowy.style.display = "block";
-    panel.style.display = "none";
-    graDziala = false;
-    jumpscare.style.backgroundImage = 'url("img/gif/szosta.gif")';
-    console.log("-----szosta");
-    setTimeout(function(){
-        console.log("-----czarno");
-        jumpscare.style.display = "none";
+    if(czyJumpscared == false){
+        console.log("-----Wygrałeś");
+        jumpscare.style.display = "block";
+        zapasowy.style.display = "block";
+        panel.style.display = "none";
+        graDziala = false;
+        czyJumpscared = true;
+        document.getElementById("AUDmarch").pause();
+        Ralph.pause();
+        jumpscare.style.backgroundImage = 'url("img/gif/szosta.gif")';
+        console.log("-----szosta");
         setTimeout(function(){
-            console.log("-----list");
-            jumpscare.style.display = "block";
-            if(noc == 5){
-                jumpscare.style.backgroundImage = 'url("img/zakonczenia/wygrana5.jpg")';
-                setTimeout(function(){window.location.assign("index.html");},7500);
-            }else if(noc == 6){
-                jumpscare.style.backgroundImage = 'url("img/zakonczenia/wygrana6.jpg")';
-                setTimeout(function(){window.location.assign("index.html");},7500);
-            }else if(noc == 7){
-                jumpscare.style.backgroundImage = 'url("img/zakonczenia/wygrana7.jpg")';
-                setTimeout(function(){window.location.assign("index.html");},7500);
-            }else{
-                jumpscare.style.display = "none";
-                window.location.assign("index.html");
-            }
-        }, 2000);
-    }, 2500);
+            console.log("-----czarno");
+            jumpscare.style.display = "none";
+            setTimeout(function(){
+                console.log("-----list");
+                jumpscare.style.display = "block";
+                if(noc == 5){
+                    jumpscare.style.backgroundImage = 'url("img/zakonczenia/wygrana5.jpg")';
+                    setTimeout(function(){window.location.assign("index.html");},7500);
+                }else if(noc == 6){
+                    jumpscare.style.backgroundImage = 'url("img/zakonczenia/wygrana6.jpg")';
+                    setTimeout(function(){window.location.assign("index.html");},7500);
+                }else if(noc == 7){
+                    jumpscare.style.backgroundImage = 'url("img/zakonczenia/wygrana7.jpg")';
+                    setTimeout(function(){window.location.assign("index.html");},7500);
+                }else{
+                    jumpscare.style.display = "none";
+                    window.location.assign("index.html");
+                }
+            }, 2000);
+        }, 2500);
+    }
 }
 
 let drzwiDostepne = [true, true];
@@ -1300,7 +1335,7 @@ function PokazKamAnim(){
                 if(foxybiegnie == false){
                 if(gdzieFoxy == 3 && foxyJumpscareTimer > 0 && czyKamery){
                     sciezka += 'foxySprint.gif';
-                    console.log("wykryty, zaczyna bieg")
+                    console.log("wykryty, zaczyna bieg");
                     FoxyBieg();
                     foxybiegnie = true;
                 }else if(gdzieBonnie==2){

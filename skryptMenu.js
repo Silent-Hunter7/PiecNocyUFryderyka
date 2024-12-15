@@ -16,7 +16,18 @@ const images = [
     "img/menu/cnfreddy.jpg",
     "img/menu/cnbonnie.jpg",
     "img/menu/cnchica.jpg",
-    "img/menu/cnfoxy.jpg"
+    "img/menu/cnfoxy.jpg",
+
+    "img/menu/0.jpg",
+    "img/menu/1.jpg",
+    "img/menu/2.jpg",
+    "img/menu/3.jpg",
+    "img/menu/4.jpg",
+    "img/menu/5.jpg",
+    "img/menu/6.jpg",
+    "img/menu/7.jpg",
+    "img/menu/8.jpg",
+    "img/menu/9.jpg"
 ];
 
 images.forEach((src) => {
@@ -124,6 +135,10 @@ function Dodatkowe(bool){
     }else{
         menuDodatkowe.style.display = "none";
     }
+    CustomChange(0,0)
+    CustomChange(1,0)
+    CustomChange(2,0)
+    CustomChange(3,0)
 }
 function CustomChange(kto, jak){
     let input;
@@ -153,7 +168,7 @@ function CustomChange(kto, jak){
     }
     if(jak > 0){
         input.value = Number(input.value)+1;
-    }else{
+    }else if(jak < 0){
         input.value = Number(input.value)-1;
     }
     if(input.value > 20) input.value = 20;
