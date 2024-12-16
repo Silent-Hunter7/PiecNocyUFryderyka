@@ -142,7 +142,6 @@ function zmienObrazek(){
 function UstawNoc(x){
     if(wybieranie) return;
     numerNocy = x;
-    sessionStorage.setItem('rizz', false);
     sessionStorage.setItem('Noc', numerNocy);
     switch(numerNocy){
         case 1:
@@ -261,9 +260,17 @@ function CustomStart(){
         sessionStorage.setItem('FoxyAI', FoxyAI);
         sessionStorage.setItem('Noc', 7);
         window.location.assign("gra.html");
+    }else if(FreddyAI == 2 && BonnieAI == 1 && ChicaAI == 3 && FoxyAI == 7){
+        console.log("2137");
+        sessionStorage.setItem('2137', true);
+        sessionStorage.setItem('FreddyAI', FreddyAI);
+        sessionStorage.setItem('BonnieAI', BonnieAI);
+        sessionStorage.setItem('ChicaAI', ChicaAI);
+        sessionStorage.setItem('FoxyAI', FoxyAI);
+        sessionStorage.setItem('Noc', 7);
+        window.location.assign("gra.html");
     }else{
         console.log("bez easter egga");
-        sessionStorage.setItem('rizz', false);
         sessionStorage.setItem('FreddyAI', FreddyAI);
         sessionStorage.setItem('BonnieAI', BonnieAI);
         sessionStorage.setItem('ChicaAI', ChicaAI);

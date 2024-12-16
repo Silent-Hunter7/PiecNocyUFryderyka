@@ -145,19 +145,25 @@ let aiBonnie;
 let aiChica;
 let aiFoxy;
 let rizz = false;
+let e2137 = false;
 if(sessionStorage.getItem('Noc')){
     noc = sessionStorage.getItem('Noc');
     aiFreddy = sessionStorage.getItem('FreddyAI');
     aiBonnie = sessionStorage.getItem('BonnieAI');
     aiChica = sessionStorage.getItem('ChicaAI');
     aiFoxy = sessionStorage.getItem('FoxyAI');
-    rizz = sessionStorage.getItem('rizz');
 }else{
     noc = 7;
     aiFreddy = 20;
     aiBonnie = 20;
     aiChica = 20;
     aiFoxy = 20;
+}
+if(sessionStorage.getItem('rizz')){
+    rizz = sessionStorage.getItem('rizz');
+}
+if(sessionStorage.getItem('2137')){
+    e2137 = sessionStorage.getItem('2137');
 }
 console.log("Noc "+noc+", Fred "+aiFreddy+", Boni "+aiBonnie+", Chia "+aiChica+", Foxy "+aiFoxy);
 document.getElementById("noc").style.backgroundImage = 'url("img/interfejs/noc'+noc+'.png")';
@@ -199,6 +205,7 @@ if(sessionStorage.getItem('Bern') == 'true'){
     bateria = 300;
     bern = true;
     document.getElementById("beato").style.display = "block";
+    document.getElementById("nosek").style.display = "none";
 }
 //ich lokalizacja: 0 - scena, 11 - lewe drzwi, 12 - prawe drzwi
 let gdzieFreddy = 0;
@@ -364,6 +371,9 @@ function FoxyFreddyTimer(){
 
 //fazy 0-prad   1-brakpradu 2-oczy 3-ciemnosc 4-smierc
 function NoBateria(){
+    if(e2137 == 'true'){
+        return;
+    }
     document.getElementById("AUDnoise").pause();
     document.getElementById('obrazek').style.backgroundImage = 'url("img/kamery/panelKamer.jpg")';
     main.style.backgroundImage = 'url("img/kamery/panelKamer.jpg")';
@@ -469,21 +479,33 @@ function CzasGodzina(){
             break;
         case 3:
             aiBonnie++;
-            aiChica++
-            aiFoxy++
+            aiChica++;
+            aiFoxy++;
             break;
         case 4:
             aiBonnie++;
-            aiChica++
-            aiFoxy++
+            aiChica++;
+            aiFoxy++;
             break;
         case 6:
+            if(e2137 == 'true'){
+                jumpscare.style.display = "block";
+                zapasowy.style.display = "block";
+                panel.style.display = "none";
+                Ralph.pause();
+                jumpscare.style.backgroundImage = 'url("img/easterEgg/2137.jpg")';
+                setTimeout(function(){window.location.assign("index.html");},5000);
+                return;
+            }
             Wygrana();
     }
 }
 
 //Funkcja do szansy na ruch
 function SzansaRuchu(kto){
+    if(e2137 == 'true'){
+        return;
+    }
     if(graDziala){
         random = Math.random()*19 + 1
         random2 = SzansaBool(0.3);
@@ -806,6 +828,9 @@ function FoxyBieg(){
 }
 //przefrywanie i wygrywanie
 function Przegrana(kto){
+    if(e2137 == 'true'){
+        return;
+    }
     if(czyJumpscared == false){
         console.log("-----Przegrana");
         jumpscare.style.display = "block";
@@ -931,6 +956,9 @@ function Przegrana(kto){
     }
 }
 function Wygrana(){
+    if(e2137 == 'true'){
+        return;
+    }
     if(czyJumpscared == false){
         sessionStorage.setItem('Noc'+noc, true);
         console.log("-----Wygrałeś");
@@ -1228,12 +1256,14 @@ function KameraOtworz(){
                 setTimeout(function(){
                     if(kameryAnimacja == true){
                         panelAnimacja.style.display = "none";
-                        kameryAnimacja = false;
                         czyKamery = false;
                         foxyTimer = Math.random()*142 + 8;
                         czyFoxyMoze = false;
+                        setTimeout(function(){
+                            kameryAnimacja = false;
+                        }, 20)
                     }
-                }, 200);
+                }, 180);
                 if(wBiurze[1]){
                     Przegrana(1);
                 }else if(wBiurze[2]){
@@ -1256,7 +1286,6 @@ function KameraOtworz(){
                         ZuzycieObrazek(); 
                         coolLinie = 200;
                         panelAnimacja.style.display = "none";
-                        kameryAnimacja = false;
                         czyKamery = true;
                         if(Math.random()<0.1){
                             document.getElementById('plakat').style.display = "block";
@@ -1286,8 +1315,11 @@ function KameraOtworz(){
                                 }
                             }, 30000);
                         }
+                        setTimeout(function(){
+                            kameryAnimacja = false;
+                        }, 20)
                     }
-                }, 175);
+                }, 180);
             }
         }
     }
@@ -1316,6 +1348,10 @@ function KameraZmien(ktora){
 
 //'url("img/kamery/'+ktora+'/'+co+'nikt.png")'
 function PokazKamAnim(){
+    if(e2137 == 'true'){
+        kamery.style.backgroundImage = 'url("img/easterEgg/2137.jpg")';
+        return;
+    }
     let sciezka = 'url("img/kamery/'+kamera+'/';
     if(kamera != wylaczonaBonnie1 && kamera != wylaczonaBonnie2 && kamera != wylaczonaChica1 && kamera != wylaczonaChica2 && kamera != wylaczonaBonnie3 && kamera != wylaczonaChica3){
         document.getElementById("audioonly").style.display = "none";
