@@ -109,6 +109,13 @@ function rozmiar(){
     });
 }
 
+if(Math.random()<0.008){
+    easteregg = 6;
+    obrazek.style.backgroundImage = 'url("img/easterEgg/MenuDiddy.jpg")';
+    document.getElementById('tytul').style.backgroundImage = 'url("img/easterEgg/TytulDiddy.png")';
+}
+
+
 sessionStorage.setItem('Bern', false);
 if(Math.random()<0.01){
     easteregg = 1;

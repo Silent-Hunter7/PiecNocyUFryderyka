@@ -312,7 +312,7 @@ function CzasSekunda(){
         if(bateria <= 0 && bern){
             window.location.reload();
         }
-        if(bateria <= 0 && ciemnoscFaza == 0){
+        if(bateria <= 0 && ciemnoscFaza == 0 && !bern){
             NoBateria(0);
         }
         nagrywanie.style.opacity = nagrywanie.style.opacity == 1 ? 0 : 1;
