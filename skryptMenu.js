@@ -35,6 +35,53 @@ images.forEach((src) => {
     img.src = src;
 });
 
+function resetProgress(){
+    sessionStorage.setItem('Noc1', false);
+    sessionStorage.setItem('Noc2', false);
+    sessionStorage.setItem('Noc3', false);
+    sessionStorage.setItem('Noc4', false);
+    sessionStorage.setItem('Noc5', false);
+    sessionStorage.setItem('Noc6', false);
+    sessionStorage.setItem('Noc7', false);
+    window.location.reload();
+}
+
+if(sessionStorage.getItem('Noc1')){
+    if(sessionStorage.getItem('Noc1') == 'true'){
+        document.getElementById('Star1').style.display = "block";
+    }
+}
+if(sessionStorage.getItem('Noc2')){
+    if(sessionStorage.getItem('Noc2') == 'true'){
+        document.getElementById('Star2').style.display = "block";
+    }
+}
+if(sessionStorage.getItem('Noc3')){
+    if(sessionStorage.getItem('Noc3') == 'true'){
+        document.getElementById('Star3').style.display = "block";
+    }
+}
+if(sessionStorage.getItem('Noc4')){
+    if(sessionStorage.getItem('Noc4') == 'true'){
+        document.getElementById('Star4').style.display = "block";
+    }
+}
+if(sessionStorage.getItem('Noc5')){
+    if(sessionStorage.getItem('Noc5') == 'true'){
+        document.getElementById('Star5').style.display = "block";
+    }
+}
+if(sessionStorage.getItem('Noc6')){
+    if(sessionStorage.getItem('Noc6') == 'true'){
+        document.getElementById('Star6').style.display = "block";
+    }
+}
+if(sessionStorage.getItem('Noc7')){
+    if(sessionStorage.getItem('Noc7') == 'true'){
+        document.getElementById('Star7').style.display = "block";
+    }
+}
+
 let numerNocy = 1;
 let wybieranie = false;
 const obrazek = document.getElementById('obrazek');
@@ -62,8 +109,10 @@ function rozmiar(){
     });
 }
 
+sessionStorage.setItem('Bern', false);
 if(Math.random()<0.01){
     easteregg = 1;
+    sessionStorage.setItem('Bern', true);
     obrazek.style.backgroundImage = 'url("img/easterEgg/MenuBern.jpg")';
     document.getElementById('tytul').style.backgroundImage = 'url("img/easterEgg/TytulBern.png")';
 }
@@ -194,8 +243,8 @@ function CustomStart(){
         console.log("1987");
         document.getElementById("goldenfreddy").style.display = "block";
         setTimeout(function(){
-            window.location.replace("about:blank");
-        }, 1000);
+            window.location.assign("about:blank");
+        }, 1500);
     }else if(FreddyAI == 6 && BonnieAI == 9 && ChicaAI == 6 && FoxyAI == 9){
         console.log("rizzter egg");
         sessionStorage.setItem('rizz', true);

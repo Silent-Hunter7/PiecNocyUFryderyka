@@ -194,6 +194,12 @@ if(noc == 1){
     zuzycie+=(1/nocneZuzycie[noc-1]);
 }else zuzycie+=(1/3);
 zuzycie+=1;
+let bern = false;
+if(sessionStorage.getItem('Bern') == 'true'){
+    bateria = 300;
+    bern = true;
+    document.getElementById("beato").style.display = "block";
+}
 //ich lokalizacja: 0 - scena, 11 - lewe drzwi, 12 - prawe drzwi
 let gdzieFreddy = 0;
 let FredRollUdany = false;
@@ -295,14 +301,17 @@ function CzasSekunda(){
         if(bateria > 0){
             bateria-=zuzycie;
         }
-        if(bateria > 0){
+        if(bateria > 0 && !bern){
             bateria1.style.backgroundImage = 'url("img/interfejs/'+Math.floor((bateria/10)/10)+'.png")';
             bateria2.style.backgroundImage = 'url("img/interfejs/'+Math.floor((bateria/10)%10)+'.png")';
-        }else{
+        }else if(!bern){
             bateria1.style.backgroundImage = 'url("img/interfejs/0.png")';
             bateria2.style.backgroundImage = 'url("img/interfejs/0.png")';
         }
         if(czas%dlugoscGodzina==0) CzasGodzina();
+        if(bateria <= 0 && bern){
+            window.location.reload();
+        }
         if(bateria <= 0 && ciemnoscFaza == 0){
             NoBateria(0);
         }
@@ -923,6 +932,7 @@ function Przegrana(kto){
 }
 function Wygrana(){
     if(czyJumpscared == false){
+        sessionStorage.setItem('Noc'+noc, true);
         console.log("-----Wygrałeś");
         jumpscare.style.display = "block";
         zapasowy.style.display = "block";
@@ -933,6 +943,7 @@ function Wygrana(){
         Ralph.pause();
         jumpscare.style.backgroundImage = 'url("img/gif/szosta.gif")';
         console.log("-----szosta");
+        new Audio('audio/Clock.wav').play();
         setTimeout(function(){
             console.log("-----czarno");
             jumpscare.style.display = "none";
@@ -1247,6 +1258,11 @@ function KameraOtworz(){
                         panelAnimacja.style.display = "none";
                         kameryAnimacja = false;
                         czyKamery = true;
+                        if(Math.random()<0.1){
+                            document.getElementById('plakat').style.display = "block";
+                        }else{
+                            document.getElementById('plakat').style.display = "none";
+                        }
                         if(kamera == 6){
                             if(Math.random()<0.03){
                                 nowosci = LosowyInt(1,4);
@@ -1271,7 +1287,7 @@ function KameraOtworz(){
                             }, 30000);
                         }
                     }
-                }, 200);
+                }, 175);
             }
         }
     }

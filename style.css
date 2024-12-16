@@ -150,6 +150,18 @@ main{
     background-image: url("img/gif/mapa.gif");
     background-size: contain;
 }
+#plakat{
+    position: absolute;
+    background-image: url("img/easterEgg/celebratuj.png");
+    background-size: contain;
+    display: none;
+}
+#beato{
+    position: absolute;
+    background-image: url("img/easterEgg/beato.png");
+    background-size: contain;
+    display: none;
+}
 #nagrywanie{
     position: absolute;
     width: 4%;

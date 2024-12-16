@@ -119,6 +119,45 @@ main{
     width: 25%;
 }
 
+.Gwiazda{
+    position: absolute;
+    left: 24%;
+    width: 4%;
+    height: 5%;
+    background-image: none;
+    background-size: contain;
+    background-image: url('img/menu/Star.png');
+    background-repeat: no-repeat;
+    background-position: top;
+    background-color: transparent;
+    border: 0;
+    z-index: 1;
+    background-size: 70%;
+    display: none;
+}
+#Star1{
+    top: 34.5%;
+}
+#Star2{
+    top: 41.5%;
+}
+#Star3{
+    top: 48.5%;
+}
+#Star4{
+    top: 55.5%;
+}
+#Star5{
+    top: 62.5%;
+}
+#Star6{
+    top: 69.5%;
+}
+#Star7{
+    top: 76.5%;
+    left: 29%;
+}
+
 
 #customNight{
     display: none;
