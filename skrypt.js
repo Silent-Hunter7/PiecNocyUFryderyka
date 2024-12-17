@@ -371,7 +371,7 @@ function FoxyFreddyTimer(){
 
 //fazy 0-prad   1-brakpradu 2-oczy 3-ciemnosc 4-smierc
 function NoBateria(){
-    if(e2137 == 'true'){
+    if(e2137 == 'true' || czyJumpscared){
         return;
     }
     document.getElementById("AUDnoise").pause();
@@ -619,7 +619,7 @@ function RuchBonnie(){
             }
             break;
         case 1:
-            if(SzansaBool(0.5)){
+            if(SzansaBool(0.7)){
                 gdzieBonnie = 2;
             }else{
                 gdzieBonnie = 7;
@@ -633,7 +633,7 @@ function RuchBonnie(){
             }
             break;
         case 3:
-            if(SzansaBool(0.5)){
+            if(SzansaBool(0.4)){
                 gdzieBonnie = 4;
             }else{
                 gdzieBonnie = 11;
@@ -641,7 +641,7 @@ function RuchBonnie(){
             }
             break;
         case 4:
-            if(SzansaBool(0.5)){
+            if(SzansaBool(0.3)){
                 gdzieBonnie = 2;
             }else{
                 gdzieBonnie = 11;
@@ -660,8 +660,11 @@ function RuchBonnie(){
                 random = LosowyInt(0,1);
                 gdzieBonnie=1;
             }else{
-                wBiurze[1] = true;
                 gdzieBonnie = 13;
+                if(stanSwiatloLewo == 1){
+                    ObslugaSwiatla(0);
+                }
+                wBiurze[1] = true;
                 if(czyKamery==1){
                     Oddychanie();
                 }
@@ -683,21 +686,21 @@ function RuchChica(){
             gdzieChica = 1;
             break;
         case 1:
-            if(SzansaBool(0.5)){
+            if(SzansaBool(0.4)){
                 gdzieChica = 5;
             }else{
                 gdzieChica = 9;
             }
             break;
         case 5:
-            if(SzansaBool(0.5)){
+            if(SzansaBool(0.3)){
                 gdzieChica = 1;
             }else{
                 gdzieChica = 6;
             }
             break;
         case 6:
-            if(SzansaBool(0.5)){
+            if(SzansaBool(0.3)){
                 gdzieChica = 5;
             }else{
                 gdzieChica = 12;
@@ -705,14 +708,14 @@ function RuchChica(){
             }
             break;
         case 8:
-            if(SzansaBool(0.5)){
+            if(SzansaBool(0.7)){
                 gdzieChica = 5;
             }else{
                 gdzieChica = 9;
             }
             break;
         case 9:
-            if(SzansaBool(0.5)){
+            if(SzansaBool(0.6)){
                 gdzieChica = 5;
             }else{
                 gdzieChica = 8;
@@ -724,8 +727,11 @@ function RuchChica(){
                 random = LosowyInt(0,1);
                 gdzieChica=1;
             }else{
-                wBiurze[2] = true;
                 gdzieChica = 13;
+                if(stanSwiatloPrawo == 1){
+                    ObslugaSwiatla(1);
+                }
+                wBiurze[2] = true;
                 if(czyKamery==1){
                     Oddychanie();
                 }
@@ -735,7 +741,7 @@ function RuchChica(){
     }
     wylaczonaChica2 = gdzieChica;
     wlaczKamery(1);
-    console.log("Chia "+gdzieChica);
+    //console.log("Chia "+gdzieChica);
     PokazKamAnim();
 }
 
@@ -1098,36 +1104,44 @@ function ObslugaSwiatla(strona){
     if(graDziala){
         document.getElementById("AUDswiatlo").pause();
         if(strona == 0){
-            if(stanSwiatloPrawo == 1){
-                stanSwiatloPrawo = 0;
-                zuzycie--;
-            }
-            if(stanSwiatloLewo == 0){
-                //console.log("Zapalenie Lewego Światła");
-                stanSwiatloLewo = 1;
-                zuzycie++;
-                PokazPrawde(0, true);
+            if(!wBiurze[1]){
+                if(stanSwiatloPrawo == 1){
+                    stanSwiatloPrawo = 0;
+                    zuzycie--;
+                }
+                if(stanSwiatloLewo == 0){
+                    //console.log("Zapalenie Lewego Światła");
+                    stanSwiatloLewo = 1;
+                    zuzycie++;
+                    PokazPrawde(0, true);
+                }else{
+                    //console.log("Zgaszenie Lewego Światła");
+                    stanSwiatloLewo = 0;
+                    zuzycie--;
+                    PokazPrawde(0, false);
+                }
             }else{
-                //console.log("Zgaszenie Lewego Światła");
-                stanSwiatloLewo = 0;
-                zuzycie--;
-                PokazPrawde(0, false);
+                new Audio('audio/DoorError.wav').play();
             }
         }else{
-            if(stanSwiatloLewo == 1){
-                stanSwiatloLewo = 0;
-                zuzycie--;
-            }
-            if(stanSwiatloPrawo == 0){
-                //console.log("Zapalenie Prawego Światła");
-                stanSwiatloPrawo = 1;
-                zuzycie++;
-                PokazPrawde(1, true);
+            if(!wBiurze[2]){
+                if(stanSwiatloLewo == 1){
+                    stanSwiatloLewo = 0;
+                    zuzycie--;
+                }
+                if(stanSwiatloPrawo == 0){
+                    //console.log("Zapalenie Prawego Światła");
+                    stanSwiatloPrawo = 1;
+                    zuzycie++;
+                    PokazPrawde(1, true);
+                }else{
+                    //console.log("Zgaszenie Prawego Światła");
+                    stanSwiatloPrawo = 0;
+                    zuzycie--;
+                    PokazPrawde(1, false);
+                }
             }else{
-                //console.log("Zgaszenie Prawego Światła");
-                stanSwiatloPrawo = 0;
-                zuzycie--;
-                PokazPrawde(1, false);
+                new Audio('audio/DoorError.wav').play();
             }
         }
         TeksturaPrzyciskow();

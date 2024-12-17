@@ -411,3 +411,17 @@ main{
     background-size: contain;
     background-repeat: no-repeat;
 }
+
+.achiev{
+    display: none;
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+#AChonk{
+    background-image: url("img/interfejs/muteRalph.png");
+    top: 10%;
+    right: 10%;
+    height: 10%;
+    width: 10%;
+}

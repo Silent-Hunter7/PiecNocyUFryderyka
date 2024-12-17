@@ -110,7 +110,7 @@ function rozmiar(){
 }
 
 if(Math.random()<0.008){
-    easteregg = 6;
+    easteregg = 1;
     obrazek.style.backgroundImage = 'url("img/easterEgg/MenuDiddy.jpg")';
     document.getElementById('tytul').style.backgroundImage = 'url("img/easterEgg/TytulDiddy.png")';
 }
@@ -118,12 +118,15 @@ if(Math.random()<0.008){
 
 sessionStorage.setItem('Bern', false);
 if(Math.random()<0.01){
+    SetBern();
+}
+
+function SetBern(){
     easteregg = 1;
     sessionStorage.setItem('Bern', true);
     obrazek.style.backgroundImage = 'url("img/easterEgg/MenuBern.jpg")';
     document.getElementById('tytul').style.backgroundImage = 'url("img/easterEgg/TytulBern.png")';
 }
-
 
 setInterval(function(){
     szum.style.opacity = Math.random()/5+0.4
