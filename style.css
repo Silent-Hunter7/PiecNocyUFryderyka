@@ -390,4 +390,5 @@ main{
     background-size: contain;
     background-repeat: no-repeat;
     pointer-events: auto;
+    display: none;
 }
