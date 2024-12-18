@@ -121,6 +121,7 @@ main{
     background-image: url("img/kamery/przycisk.png");
     background-size: contain;
     background-repeat: no-repeat;
+    pointer-events: none;
 }
 #audioonly{
     position: absolute;
@@ -134,6 +135,7 @@ main{
     background-image: url("img/gif/static.gif");
     background-size: contain;
     opacity: 0.2;
+    pointer-events: none;
 }
 #panelImg{
     position: absolute;
@@ -149,6 +151,7 @@ main{
     position: absolute;
     background-image: url("img/gif/mapa.gif");
     background-size: contain;
+    pointer-events: none;
 }
 #plakat{
     position: absolute;
@@ -369,4 +372,22 @@ main{
     background-size: contain;
     background-repeat: no-repeat;
     display: none;
+}
+#nowosci{
+    position: absolute;
+    width: 25%;
+    height: 40%;
+    top: 5%;
+    left: 60%;
+}
+#afton{
+    position: absolute;
+    width: 35%;
+    height: 50%;
+    top: 30%;
+    right: 20%;
+    background-image: url("img/easterEgg/afton.gif");
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: auto;
 }

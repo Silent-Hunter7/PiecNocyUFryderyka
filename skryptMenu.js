@@ -226,10 +226,10 @@ function CustomStart(){
         console.log("rizzter egg");
         sessionStorage.setItem('rizz', true);
         sessionStorage.setItem('2137', false);
-        sessionStorage.setItem('FreddyAI', FreddyAI);
-        sessionStorage.setItem('BonnieAI', BonnieAI);
-        sessionStorage.setItem('ChicaAI', ChicaAI);
-        sessionStorage.setItem('FoxyAI', FoxyAI);
+        sessionStorage.setItem('FreddyAI', 10);
+        sessionStorage.setItem('BonnieAI', 10);
+        sessionStorage.setItem('ChicaAI', 10);
+        sessionStorage.setItem('FoxyAI', 10);
         sessionStorage.setItem('Noc', 7);
         window.location.assign("gra.html");
     }else if(FreddyAI == 2 && BonnieAI == 1 && ChicaAI == 3 && FoxyAI == 7){
@@ -456,6 +456,17 @@ function OdswiezAchievements(){
             badge.style.backgroundImage = 'url("img/achievements/bern1.png")';
         }
     }
+    badge = document.getElementById("ACnowosci");
+    if(getCookie("news1") != '' && getCookie("news2") != '' && getCookie("news3") != '' && getCookie("news4") != 0){
+        badge.style.display = "block";
+        badge.style.backgroundImage = 'url("img/achievements/nowosci.png")';
+    }
+    badge = document.getElementById("ACafton");
+    achiev = getCookie("afton");
+    if(achiev != ''){
+        badge.style.display = "block";
+        badge.style.backgroundImage = 'url("img/achievements/afton.png")';
+    }
 }
 
 function ClearAchievements(){
@@ -476,6 +487,11 @@ function ClearAchievements(){
     setCookie("papiez",false,-100);
     setCookie("bern1",false,-100);
     setCookie("bern2",false,-100);
+    setCookie("news1",false,-100);
+    setCookie("news2",false,-100);
+    setCookie("news3",false,-100);
+    setCookie("news4",false,-100);
+    setCookie("afton",false,-100);
 }
 
 

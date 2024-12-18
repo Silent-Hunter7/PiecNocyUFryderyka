@@ -217,6 +217,7 @@ zuzycie+=1;
 temp = false;
 if(sessionStorage.getItem('Bern') == 'true'){
     temp = true;
+    bateria+=200;
     document.getElementById("beato").style.display = "block";
     document.getElementById("nosek").style.display = "none";
     setCookie("bern1", true, 9999999999);
@@ -274,6 +275,7 @@ if(noc <= 5){
 }
 
 let nowosci = 0;
+let afton = 0;
 
 const main = document.querySelector('main');
 const panelAnimacja = document.getElementById('panelAnimacja');
@@ -550,7 +552,11 @@ function CzasGodzina(){
                 if(SzansaBool(0.9)){
                     window.location.reload();
                 }else{
-                    setCookie("bern2", true, 9999999999);
+                    if(e2137 == 'true'){
+                        window.location.reload();
+                    }else{
+                        setCookie("bern2", true, 9999999999);
+                    }
                     window.location.reload();
                 }
                 break;
@@ -1421,7 +1427,7 @@ function KameraZmien(ktora){
         if(kamera != ktora){
             new Audio('audio/CameraChange.wav').play();
             coolLinie = 200;
-            if(Math.random()<0.1){
+            if(Math.random()<0.03){
                 nowosci = LosowyInt(1,4);
             }else{
                 nowosci = 0;
@@ -1445,6 +1451,8 @@ function PokazKamAnim(){
     if(kamera != wylaczonaBonnie1 && kamera != wylaczonaBonnie2 && kamera != wylaczonaChica1 && kamera != wylaczonaChica2 && kamera != wylaczonaBonnie3 && kamera != wylaczonaChica3){
         document.getElementById("audioonly").style.display = "none";
         document.getElementById("AUDglitch").pause();
+        document.getElementById("afton").style.display = "none";
+    
         patelnie.volume = 0.2;
         patelnieFreddy.volume = 0.1;
         switch(kamera){
@@ -1517,14 +1525,19 @@ function PokazKamAnim(){
                     if(nowosci > 0){
                         console.log("nowosci ");
                         sciezka += 'nowosci'+nowosci+'.jpg';
+                        document.getElementById("nowosci").style.display = "block";
                     }else{
                         sciezka += 'nikt.jpg';
+                        document.getElementById("nowosci").style.display = "none";
                     }
                 }
                 break;
             case 7:
                 if(gdzieBonnie==7){
                     sciezka += 'bonnie.jpg';
+                }else if(afton == 0 && wBiurze[0] == true){
+                    sciezka += 'nikt.jpg';
+                    document.getElementById("afton").style.display = "block";
                 }else{
                     sciezka += 'nikt.jpg';
                 }
@@ -1659,4 +1672,20 @@ function setCookie(cname, cvalue, exdays) {
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
     let expires = "expires="+ d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function nowosciCookie(){
+    if(nowosci != 0){
+        setCookie("news"+nowosci, true, 9999999999);
+    }else{
+        document.getElementById("nowosci").style.display = "none";
+    }
+}
+
+function Afton(){
+    console.log("afton");
+    afton = 1;
+    setCookie("afton", true, 9999999999);
+    document.getElementById("afton").style.display = "none";
+    document.getElementById("widokKamera").style.display = "none";
 }
