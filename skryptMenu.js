@@ -46,42 +46,6 @@ function resetProgress(){
     window.location.reload();
 }
 
-if(sessionStorage.getItem('Noc1')){
-    if(sessionStorage.getItem('Noc1') == 'true'){
-        document.getElementById('Star1').style.display = "block";
-    }
-}
-if(sessionStorage.getItem('Noc2')){
-    if(sessionStorage.getItem('Noc2') == 'true'){
-        document.getElementById('Star2').style.display = "block";
-    }
-}
-if(sessionStorage.getItem('Noc3')){
-    if(sessionStorage.getItem('Noc3') == 'true'){
-        document.getElementById('Star3').style.display = "block";
-    }
-}
-if(sessionStorage.getItem('Noc4')){
-    if(sessionStorage.getItem('Noc4') == 'true'){
-        document.getElementById('Star4').style.display = "block";
-    }
-}
-if(sessionStorage.getItem('Noc5')){
-    if(sessionStorage.getItem('Noc5') == 'true'){
-        document.getElementById('Star5').style.display = "block";
-    }
-}
-if(sessionStorage.getItem('Noc6')){
-    if(sessionStorage.getItem('Noc6') == 'true'){
-        document.getElementById('Star6').style.display = "block";
-    }
-}
-if(sessionStorage.getItem('Noc7')){
-    if(sessionStorage.getItem('Noc7') == 'true'){
-        document.getElementById('Star7').style.display = "block";
-    }
-}
-
 let numerNocy = 1;
 let wybieranie = false;
 const obrazek = document.getElementById('obrazek');
@@ -117,15 +81,16 @@ if(Math.random()<0.008){
 
 
 sessionStorage.setItem('Bern', false);
-if(Math.random()<0.01){
-    SetBern();
-}
-
-function SetBern(){
+if(Math.random()<0.01){ 
     easteregg = 1;
     sessionStorage.setItem('Bern', true);
     obrazek.style.backgroundImage = 'url("img/easterEgg/MenuBern.jpg")';
     document.getElementById('tytul').style.backgroundImage = 'url("img/easterEgg/TytulBern.png")';
+    SetBern();
+}
+
+function SetBern(){
+    
 }
 
 setInterval(function(){
@@ -249,12 +214,13 @@ function CustomStart(){
     let ChicaAI = document.getElementById('ChicaAI').value;
     let FoxyAI = document.getElementById('FoxyAI').value;
     if(FreddyAI == 1 && BonnieAI == 9 && ChicaAI == 8 && FoxyAI == 7){
+        setCookie("golden", true, 9999999999);
         new Audio('audio/ITSME.wav').play();
         easteregg = 1;
         console.log("1987");
         document.getElementById("goldenfreddy").style.display = "block";
         setTimeout(function(){
-            window.location.assign("about:blank");
+            window.location.reload();
         }, 1500);
     }else if(FreddyAI == 6 && BonnieAI == 9 && ChicaAI == 6 && FoxyAI == 9){
         console.log("rizzter egg");
@@ -308,3 +274,213 @@ function Reklama(){
 function gluchy(){
     document.getElementById("gluchy").style.display = "none";
 }
+
+function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+}
+
+
+
+function PokazAchivements(bool){
+    let menuDodatkowe = document.getElementById("achievements");
+    if(bool){
+        menuDodatkowe.style.display = "block";
+    }else{
+        menuDodatkowe.style.display = "none";
+    }
+    OdswiezAchievements();
+}
+
+/*if(sessionStorage.getItem('Noc1')){
+    if(sessionStorage.getItem('Noc1') == 'true'){
+        document.getElementById('Star1').style.display = "block";
+    }
+}
+if(sessionStorage.getItem('Noc2')){
+    if(sessionStorage.getItem('Noc2') == 'true'){
+        document.getElementById('Star2').style.display = "block";
+    }
+}
+if(sessionStorage.getItem('Noc3')){
+    if(sessionStorage.getItem('Noc3') == 'true'){
+        document.getElementById('Star3').style.display = "block";
+    }
+}
+if(sessionStorage.getItem('Noc4')){
+    if(sessionStorage.getItem('Noc4') == 'true'){
+        document.getElementById('Star4').style.display = "block";
+    }
+}
+if(sessionStorage.getItem('Noc5')){
+    if(sessionStorage.getItem('Noc5') == 'true'){
+        document.getElementById('Star5').style.display = "block";
+    }
+}
+if(sessionStorage.getItem('Noc6')){
+    if(sessionStorage.getItem('Noc6') == 'true'){
+        document.getElementById('Star6').style.display = "block";
+    }
+}
+if(sessionStorage.getItem('Noc7')){
+    if(sessionStorage.getItem('Noc7') == 'true'){
+        document.getElementById('Star7').style.display = "block";
+    }
+}*/
+
+
+OdswiezAchievements();
+function OdswiezAchievements(){
+    let achiev;
+    let badge;
+
+    badge = document.getElementById("ACnoce");
+    achiev = getCookie("noc5");
+    if(achiev != ''){
+        badge.style.display = "block";
+        badge.style.backgroundImage = 'url("img/achievements/noc5.png")';
+    }else{
+        achiev = getCookie("noc4");
+        if(achiev != ''){
+            badge.style.display = "block";
+            badge.style.backgroundImage = 'url("img/achievements/noc4.png")';
+        }else{
+            achiev = getCookie("noc3");
+            if(achiev != ''){
+                badge.style.display = "block";
+                badge.style.backgroundImage = 'url("img/achievements/noc3.png")';
+            }else{
+                achiev = getCookie("noc2");
+                if(achiev != ''){
+                    badge.style.display = "block";
+                    badge.style.backgroundImage = 'url("img/achievements/noc2.png")';
+                }else{
+                    achiev = getCookie("noc1");
+                    if(achiev != ''){
+                        badge.style.display = "block";
+                        badge.style.backgroundImage = 'url("img/achievements/noc1.png")';
+                    }
+                }
+            }
+        }
+    }
+
+    achiev = getCookie("noc6");
+    badge = document.getElementById("ACnoc6");
+    if(achiev != ''){
+        badge.style.display = "block";
+        badge.style.backgroundImage = 'url("img/achievements/noc6.png")';
+    }
+
+    badge = document.getElementById("ACcustom");
+    achiev = getCookie("4na20");
+    if(achiev != ''){
+        badge.style.display = "block";
+        badge.style.backgroundImage = 'url("img/achievements/4na20.png")';
+    }else{
+        achiev = getCookie("4na15");
+        if(achiev != ''){
+            badge.style.display = "block";
+            badge.style.backgroundImage = 'url("img/achievements/4na15.png")';
+        }else{
+            achiev = getCookie("4na10");
+            if(achiev != ''){
+                badge.style.display = "block";
+                badge.style.backgroundImage = 'url("img/achievements/4na10.png")';
+            }else{
+                achiev = getCookie("4na5");
+                if(achiev != ''){
+                    badge.style.display = "block";
+                    badge.style.backgroundImage = 'url("img/achievements/4na5.png")';
+                }else{
+                    achiev = getCookie("4na0");
+                    if(achiev != ''){
+                        badge.style.display = "block";
+                        badge.style.backgroundImage = 'url("img/achievements/4na0.png")';
+                    }
+                }
+            }
+        }
+    }
+
+    badge = document.getElementById("ACgolden");
+    achiev = getCookie("golden");
+    if(achiev != ''){
+        badge.style.display = "block";
+        badge.style.backgroundImage = 'url("img/achievements/golden.png")';
+    }
+    badge = document.getElementById("AChonk");
+    achiev = getCookie("honk");
+    if(achiev != ''){
+        badge.style.display = "block";
+        badge.style.backgroundImage = 'url("img/achievements/honk.png")';
+    }
+    badge = document.getElementById("ACfreaky");
+    achiev = getCookie("freaky");
+    if(achiev != ''){
+        badge.style.display = "block";
+        badge.style.backgroundImage = 'url("img/achievements/freaky.png")';
+    }
+    badge = document.getElementById("ACpapiez");
+    achiev = getCookie("papiez");
+    if(achiev != ''){
+        badge.style.display = "block";
+        badge.style.backgroundImage = 'url("img/achievements/papiez.png")';
+    }
+    badge = document.getElementById("ACbern");
+    achiev = getCookie("bern2");
+    if(achiev != ''){
+        badge.style.display = "block";
+        badge.style.backgroundImage = 'url("img/achievements/bern2.png")';
+    }else{
+        achiev = getCookie("bern1");
+        if(achiev != ''){
+            badge.style.display = "block";
+            badge.style.backgroundImage = 'url("img/achievements/bern1.png")';
+        }
+    }
+}
+
+function ClearAchievements(){
+    setCookie("noc1",false,-100);
+    setCookie("noc2",false,-100);
+    setCookie("noc3",false,-100);
+    setCookie("noc4",false,-100);
+    setCookie("noc5",false,-100);
+    setCookie("noc6",false,-100);
+    setCookie("4na0",false,-100);
+    setCookie("4na5",false,-100);
+    setCookie("4na10",false,-100);
+    setCookie("4na15",false,-100);
+    setCookie("4na20",false,-100);
+    setCookie("golden",false,-100);
+    setCookie("honk",false,-100);
+    setCookie("freaky",false,-100);
+    setCookie("papiez",false,-100);
+    setCookie("bern1",false,-100);
+    setCookie("bern2",false,-100);
+}
+
+
+//true,1
+
+
+
+

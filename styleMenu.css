@@ -412,16 +412,82 @@ main{
     background-repeat: no-repeat;
 }
 
-.achiev{
+
+#achievementsButton{
+    position: absolute;
+    bottom: 3%;
+    right: 2%;
+    width: 3%;
+    height: 6%;
+    background-image: url("img/menu/trophy.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: 0;
+}
+#achievements{
+    position: absolute;
+    top: 0;
+    height: 70%;
     display: none;
+    background-color: black;
+    z-index: 2;
+}
+#powrotac{
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    width: 4%;
+    height: 4%;
+    background-image: url("img/menu/powrot.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: 0;
+}
+
+.achiev{
     position: absolute;
     background-size: contain;
     background-repeat: no-repeat;
+    width: 8%;
+    height: 20%;
+    background-image: url("img/achievements/pusty.png");
+}
+#ACnoce{
+    top: 15%;
+    left: 33%;
+}
+#ACnoc6{
+    top: 15%;
+    left: 46%;
+}
+#ACcustom{
+    top: 15%;
+    left: 59%;
+}
+
+.achievPlus{
+    width: 6%;
+    height: 15%;
 }
 #AChonk{
-    background-image: url("img/interfejs/muteRalph.png");
-    top: 10%;
-    right: 10%;
-    height: 10%;
-    width: 10%;
+    top: 45%;
+    left: 27%;
+}
+#ACgolden{
+    top: 45%;
+    left: 37%;
+}
+#ACbern{
+    top: 45%;
+    left: 47%;
+}
+#ACfreaky{
+    top: 45%;
+    left: 57%;
+}
+#ACpapiez{
+    top: 45%;
+    left: 67%;
 }

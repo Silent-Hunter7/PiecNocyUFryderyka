@@ -138,33 +138,47 @@ images.forEach((src) => {
     img.src = src;
 });
 
+let temp;
 //"ai" od 0 do 20
 let noc;
 let aiFreddy;
 let aiBonnie;
 let aiChica;
 let aiFoxy;
-let rizz = false;
-let e2137 = false;
+temp = 0;
 if(sessionStorage.getItem('Noc')){
     noc = sessionStorage.getItem('Noc');
     aiFreddy = sessionStorage.getItem('FreddyAI');
     aiBonnie = sessionStorage.getItem('BonnieAI');
     aiChica = sessionStorage.getItem('ChicaAI');
     aiFoxy = sessionStorage.getItem('FoxyAI');
+    if(aiFreddy == 20 && aiBonnie == 20 && aiChica == 20 && aiFoxy == 20){
+        temp = 20;
+    }else if(aiFreddy >= 15 && aiBonnie >= 15 && aiChica >= 15 && aiFoxy >= 15){
+        temp = 15;
+    }else if(aiFreddy >= 10 && aiBonnie >= 101 && aiChica >= 10 && aiFoxy >= 10){
+        temp = 10;
+    }else if(aiFreddy >= 5 && aiBonnie >= 5 && aiChica >= 5 && aiFoxy >= 5){
+        temp = 5;
+    }
 }else{
-    noc = 7;
+    noc = 5;
     aiFreddy = 20;
     aiBonnie = 20;
     aiChica = 20;
     aiFoxy = 20;
 }
+const level = temp;
+temp = 'false';
 if(sessionStorage.getItem('rizz')){
-    rizz = sessionStorage.getItem('rizz');
+    temp = sessionStorage.getItem('rizz');
 }
+const rizz = temp;
+temp = 'false';
 if(sessionStorage.getItem('2137')){
-    e2137 = sessionStorage.getItem('2137');
+    temp = sessionStorage.getItem('2137');
 }
+const e2137 = temp;
 console.log("Noc "+noc+", Fred "+aiFreddy+", Boni "+aiBonnie+", Chia "+aiChica+", Foxy "+aiFoxy);
 document.getElementById("noc").style.backgroundImage = 'url("img/interfejs/noc'+noc+'.png")';
 
@@ -200,13 +214,18 @@ if(noc == 1){
     zuzycie+=(1/nocneZuzycie[noc-1]);
 }else zuzycie+=(1/3);
 zuzycie+=1;
-let bern = false;
+temp = false;
 if(sessionStorage.getItem('Bern') == 'true'){
-    bateria = 300;
-    bern = true;
+    temp = true;
     document.getElementById("beato").style.display = "block";
     document.getElementById("nosek").style.display = "none";
+    setCookie("bern1", true, 9999999999);
+    aiFreddy = 20;
+    aiBonnie = 20;
+    aiChica = 20;
+    aiFoxy = 20;
 }
+const bern = temp;
 //ich lokalizacja: 0 - scena, 11 - lewe drzwi, 12 - prawe drzwi
 let gdzieFreddy = 0;
 let FredRollUdany = false;
@@ -316,10 +335,10 @@ function CzasSekunda(){
             bateria2.style.backgroundImage = 'url("img/interfejs/0.png")';
         }
         if(czas%dlugoscGodzina==0) CzasGodzina();
-        if(bateria <= 0 && bern){
-            window.location.reload();
-        }
-        if(bateria <= 0 && ciemnoscFaza == 0 && !bern){
+        //if(bateria <= 0 && bern){
+        //    window.location.reload();
+        //}
+        if(bateria <= 0 && ciemnoscFaza == 0){
             NoBateria(0);
         }
         nagrywanie.style.opacity = nagrywanie.style.opacity == 1 ? 0 : 1;
@@ -472,32 +491,75 @@ function CzasGodzina(){
     let Zegar = document.getElementById("czas");
     console.log("-----Godzina")
     godzina++
-    Zegar.style.backgroundImage = 'url("img/interfejs/'+godzina+'am.png")';
-    switch(godzina){
-        case 2:
-            aiBonnie++;
-            break;
-        case 3:
-            aiBonnie++;
-            aiChica++;
-            aiFoxy++;
-            break;
-        case 4:
-            aiBonnie++;
-            aiChica++;
-            aiFoxy++;
-            break;
-        case 6:
-            if(e2137 == 'true'){
-                jumpscare.style.display = "block";
-                zapasowy.style.display = "block";
-                panel.style.display = "none";
-                Ralph.pause();
-                jumpscare.style.backgroundImage = 'url("img/easterEgg/2137.jpg")';
-                setTimeout(function(){window.location.assign("index.html");},5000);
-                return;
-            }
-            Wygrana();
+    if(!bern){
+        switch(godzina){
+            case 2:
+                aiBonnie++;
+                break;
+            case 3:
+                aiBonnie++;
+                aiChica++;
+                aiFoxy++;
+                break;
+            case 4:
+                aiBonnie++;
+                aiChica++;
+                aiFoxy++;
+                break;
+            case 6:
+                if(e2137 == 'true'){
+                    setCookie("papiez", true, 9999999999);
+                    jumpscare.style.display = "block";
+                    zapasowy.style.display = "block";
+                    panel.style.display = "none";
+                    Ralph.pause();
+                    jumpscare.style.backgroundImage = 'url("img/easterEgg/2137.jpg")';
+                    setTimeout(function(){window.location.assign("index.html");},5000);
+                    return;
+                }
+                Wygrana();
+        }
+    }else{
+        switch(godzina){
+            case 1:
+                if(SzansaBool(0.25)){
+                    window.location.reload();
+                }
+                break;
+            case 2:
+                if(SzansaBool(0.25)){
+                    window.location.reload();
+                }
+                break;
+            case 3:
+                if(SzansaBool(0.75)){
+                    bateria = 0;
+                }
+                break;
+            case 4:
+                if(SzansaBool(0.5)){
+                    godzina = 2;
+                }
+                break;
+            case 5:
+                if(SzansaBool(0.75)){
+                    godzina = 0;
+                }
+                break;
+            case 6:
+                if(SzansaBool(0.9)){
+                    window.location.reload();
+                }else{
+                    setCookie("bern2", true, 9999999999);
+                    window.location.reload();
+                }
+                break;
+        }
+    }
+    if(godzina == 0){
+        Zegar.style.backgroundImage = 'url("img/interfejs/12am.png")';
+    }else{
+        Zegar.style.backgroundImage = 'url("img/interfejs/'+godzina+'am.png")';
     }
 }
 
@@ -854,6 +916,7 @@ function Przegrana(kto){
                         czasJumpscare = 1200;
                     }else{
                         jumpscare.style.backgroundImage = 'url("img/easterEgg/freddy-rizz.gif")';
+                        setCookie("freaky", true, 9999999999);
                         czasJumpscare = 3000;
                     }
                     document.getElementById("AUDjumpscare").play();
@@ -877,6 +940,7 @@ function Przegrana(kto){
                         czasJumpscare = 850;
                     }else{
                         jumpscare.style.backgroundImage = 'url("img/easterEgg/bonnie-rizz.gif")';
+                        setCookie("freaky", true, 9999999999);
                         czasJumpscare = 3000;
                     }
                     document.getElementById("AUDjumpscare").play();
@@ -900,6 +964,7 @@ function Przegrana(kto){
                         czasJumpscare = 850;
                     }else{
                         jumpscare.style.backgroundImage = 'url("img/easterEgg/chica-rizz.gif")';
+                        setCookie("freaky", true, 9999999999);
                         czasJumpscare = 3000;
                     }
                     document.getElementById("AUDjumpscare").play();
@@ -923,6 +988,7 @@ function Przegrana(kto){
                         czasJumpscare = 800;
                     }else{
                         jumpscare.style.backgroundImage = 'url("img/easterEgg/foxy-rizz.gif")';
+                        setCookie("freaky", true, 9999999999);
                         czasJumpscare = 3000;
                     }
                     document.getElementById("AUDjumpscare").play();
@@ -945,6 +1011,7 @@ function Przegrana(kto){
                     czasJumpscare = 850;
                 }else{
                     jumpscare.style.backgroundImage = 'url("img/easterEgg/power-rizz.gif")';
+                    setCookie("freaky", true, 9999999999);
                     czasJumpscare = 5000;
                 }
                 document.getElementById("AUDjumpscare").play();
@@ -966,7 +1033,15 @@ function Wygrana(){
         return;
     }
     if(czyJumpscared == false){
-        sessionStorage.setItem('Noc'+noc, true);
+        if(noc < 7){
+            setCookie("noc"+noc, true, 9999999999);
+        }else{
+            if(level >= 0) setCookie("4na0", true, 9999999999);
+            if(level >= 5) setCookie("4na5", true, 9999999999);
+            if(level >= 10) setCookie("4na10", true, 9999999999);
+            if(level >= 15) setCookie("4na15", true, 9999999999);
+            if(level >= 20) setCookie("4na20", true, 9999999999);
+        } 
         console.log("-----Wygrałeś");
         jumpscare.style.display = "block";
         zapasowy.style.display = "block";
@@ -1542,6 +1617,7 @@ function muteRalph(){
 }
 function nosek(){
     new Audio('audio/Honk.wav').play();
+    setCookie("honk", true, 9999999999);
 }
 
 function Oddychanie(){
@@ -1576,4 +1652,11 @@ function Patelnie(){
         });
         patelnie.play();
     }
+}
+
+function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
